@@ -1,4 +1,4 @@
-package domain;
+package com.codehub.acme.eshop.domain;
 
 import java.math.BigDecimal;
 

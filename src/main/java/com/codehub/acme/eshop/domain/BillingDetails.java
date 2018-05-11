@@ -1,4 +1,8 @@
-package domain;
+package com.codehub.acme.eshop.domain;
+
+import com.codehub.acme.eshop.enumerator.PaymentMethods;
+import com.codehub.acme.eshop.enumerator.ReceiptMethods;
+import com.codehub.acme.eshop.enumerator.ShippingMethods;
 
 public class BillingDetails {
 
@@ -7,14 +11,15 @@ public class BillingDetails {
     private String adress;
     private String postCode;
     //TA PARAKATW ATTRIBUTES EINAI ENUM //
-    private String shippingMethods;
-    private String receiptMethods;
-    private String paymentMethods;
+    private ShippingMethods shippingMethods;
+    private ReceiptMethods receiptMethods;
+    private PaymentMethods paymentMethods;
 
     public BillingDetails(){}
 
-    public BillingDetails(Long id, String adress, String postCode,
-                          String shippingMethods, String receiptMethods, String paymentMethods) {
+    public BillingDetails(Long id, String adress,
+                          String postCode, ShippingMethods shippingMethods,
+                          ReceiptMethods receiptMethods, PaymentMethods paymentMethods) {
         Id = id;
         this.adress = adress;
         this.postCode = postCode;
@@ -47,27 +52,27 @@ public class BillingDetails {
         this.postCode = postCode;
     }
 
-    public String getShippingMethods() {
+    public ShippingMethods getShippingMethods() {
         return shippingMethods;
     }
 
-    public void setShippingMethods(String shippingMethods) {
+    public void setShippingMethods(ShippingMethods shippingMethods) {
         this.shippingMethods = shippingMethods;
     }
 
-    public String getReceiptMethods() {
+    public ReceiptMethods getReceiptMethods() {
         return receiptMethods;
     }
 
-    public void setReceiptMethods(String receiptMethods) {
+    public void setReceiptMethods(ReceiptMethods receiptMethods) {
         this.receiptMethods = receiptMethods;
     }
 
-    public String getPaymentMethods() {
+    public PaymentMethods getPaymentMethods() {
         return paymentMethods;
     }
 
-    public void setPaymentMethods(String paymentMethods) {
+    public void setPaymentMethods(PaymentMethods paymentMethods) {
         this.paymentMethods = paymentMethods;
     }
 }

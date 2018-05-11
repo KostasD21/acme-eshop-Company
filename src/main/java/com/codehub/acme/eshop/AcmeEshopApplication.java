@@ -1,6 +1,5 @@
 package com.codehub.acme.eshop;
 
-import enumerator.paymentMethods;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

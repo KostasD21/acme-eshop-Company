@@ -1,9 +1,11 @@
-package domain;
+package com.codehub.acme.eshop.domain;
 
 // ONE TO MANY RELATIONSHIP ME TO CATEGORY DOMAIN //
 //MANY TO ONE RELATIONSHIP ME TON SHOPPING_BASKET DOMAIN//
 //MANY TO ONE RELATIONSHIP ME TO ORDER DOMAIN //
 
+
+import com.codehub.acme.eshop.enumerator.Availability;
 
 public class Product {
     // UNIQUE ID TOU DOMAIN GIA THN DATABASE //
@@ -13,9 +15,11 @@ public class Product {
     private String shortDescription;
     private String longDescription;
     private String productCode;
+    private Long quantity;
+    private Long stock;
 
     // OPTIONAL PREPEI NA SYZHTHSOUME PWS THA TO XRHSIMOPOIHSOYME //
-    private String availability;
+    private Availability availability;
     /**
      * {@link Category}
      */
@@ -24,17 +28,22 @@ public class Product {
 
     public Product(){}
 
-    public Product(Long id, String title, String shortDescription, String longDescription, String productCode,
-                   String availability, Category category, Double price) {
+    public Product(Long id, String title, String shortDescription, String longDescription,
+                   String productCode, Long quantity,
+                   Availability availability, Category category, Double price,Long stock) {
         Id = id;
         this.title = title;
         this.shortDescription = shortDescription;
         this.longDescription = longDescription;
         this.productCode = productCode;
+        this.quantity = quantity;
         this.availability = availability;
         this.category = category;
         this.price = price;
+        this.stock = stock;
     }
+
+
 
     public Long getId() {
         return Id;
@@ -76,11 +85,11 @@ public class Product {
         this.productCode = productCode;
     }
 
-    public String getAvailability() {
+    public Availability getAvailability() {
         return availability;
     }
 
-    public void setAvailability(String availability) {
+    public void setAvailability(Availability availability) {
         this.availability = availability;
     }
 
@@ -98,5 +107,21 @@ public class Product {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public Long getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Long quantity) {
+        this.quantity = quantity;
+    }
+
+    public Long getStock() {
+        return stock;
+    }
+
+    public void setStock(Long stock) {
+        this.stock = stock;
     }
 }
