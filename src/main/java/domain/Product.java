@@ -16,6 +16,9 @@ public class Product {
 
     // OPTIONAL PREPEI NA SYZHTHSOUME PWS THA TO XRHSIMOPOIHSOYME //
     private String availability;
+    /**
+     * {@link Category}
+     */
     private Category category;
     private Double price;
 

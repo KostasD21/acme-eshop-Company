@@ -1,12 +1,16 @@
 package domain;
 
-
+/**
+ * This domain class represents a user
+ */
 public class User {
 
-    //Unique id for each domain (DATABASE) //
     // private Long Id;
-   private Long userId;
-   private String userName;
+   /**
+    * the user id
+    */
+   private Long id;
+   private String username;
    private String password;
    private String name;
    private String surname;
@@ -20,11 +24,24 @@ public class User {
 
    public User (){}
 
-   public User(Long userId, String userName, String password,
+   /**
+    *
+    * @param id
+    * @param username
+    * @param password
+    * @param name
+    * @param surname
+    * @param email
+    * @param phoneNumber
+    * @param adress
+    * @param postCode
+    * @param role
+    */
+   public User(Long id, String username, String password,
                String name, String surname, String email, String phoneNumber,
                String adress, String postCode, String role) {
-      this.userId = userId;
-      this.userName = userName;
+      this.id = id;
+      this.username = username;
       this.password = password;
       this.name = name;
       this.surname = surname;
@@ -35,20 +52,28 @@ public class User {
       this.role = role;
    }
 
-   public Long getUserId() {
-      return userId;
+   /**
+    * this method gets the user id
+    *
+    * @return the unique id
+    */
+   public Long getId() {
+      return id;
    }
 
-   public void setUserId(Long userId) {
-      this.userId = userId;
+   public void setId(Long id) {
+      this.id = id;
    }
 
-   public String getUserName() {
-      return userName;
+   /**
+    * {@link Order}
+    */
+   public String getusername() {
+      return username;
    }
 
-   public void setUserName(String userName) {
-      this.userName = userName;
+   public void setusername(String username) {
+      this.username = username;
    }
 
    public String getPassword() {
