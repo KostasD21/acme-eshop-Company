@@ -21,8 +21,9 @@ public class Product {
 
     public Product(){}
 
-    public Product(String title, String shortDescription, String longDescription, String productCode,
+    public Product(Long id, String title, String shortDescription, String longDescription, String productCode,
                    String availability, Category category, Double price) {
+        Id = id;
         this.title = title;
         this.shortDescription = shortDescription;
         this.longDescription = longDescription;
@@ -30,6 +31,14 @@ public class Product {
         this.availability = availability;
         this.category = category;
         this.price = price;
+    }
+
+    public Long getId() {
+        return Id;
+    }
+
+    public void setId(Long id) {
+        Id = id;
     }
 
     public String getTitle() {

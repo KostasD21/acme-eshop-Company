@@ -13,12 +13,22 @@ public class BillingDetails {
 
     public BillingDetails(){}
 
-    public BillingDetails(String adress, String postCode, String shippingMethods, String receiptMethods, String paymentMethods) {
+    public BillingDetails(Long id, String adress, String postCode,
+                          String shippingMethods, String receiptMethods, String paymentMethods) {
+        Id = id;
         this.adress = adress;
         this.postCode = postCode;
         this.shippingMethods = shippingMethods;
         this.receiptMethods = receiptMethods;
         this.paymentMethods = paymentMethods;
+    }
+
+    public Long getId() {
+        return Id;
+    }
+
+    public void setId(Long id) {
+        Id = id;
     }
 
     public String getAdress() {

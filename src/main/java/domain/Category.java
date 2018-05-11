@@ -8,9 +8,18 @@ public class Category {
 
     public Category(){}
 
-    public Category(String categoryName, Product product) {
+    public Category(Long id, String categoryName, Product product) {
+        Id = id;
         this.categoryName = categoryName;
         this.product = product;
+    }
+
+    public Long getId() {
+        return Id;
+    }
+
+    public void setId(Long id) {
+        Id = id;
     }
 
     public String getCategoryName() {

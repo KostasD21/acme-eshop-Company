@@ -21,8 +21,8 @@ public class User {
    public User (){}
 
    public User(Long userId, String userName, String password,
-               String name, String surname, String email,
-               String phoneNumber, String adress, String postCode, String role) {
+               String name, String surname, String email, String phoneNumber,
+               String adress, String postCode, String role) {
       this.userId = userId;
       this.userName = userName;
       this.password = password;

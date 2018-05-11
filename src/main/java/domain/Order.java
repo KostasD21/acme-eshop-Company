@@ -18,10 +18,19 @@ public class Order {
 
     public Order(){}
 
-    public Order(Date orderDate, Long basketId, Long billingDetails) {
+    public Order(Long id, Date orderDate, Long basketId, Long billingDetails) {
+        this.id = id;
         this.orderDate = orderDate;
         this.basketId = basketId;
         this.billingDetails = billingDetails;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Date getOrderDate() {

@@ -18,12 +18,22 @@ public class ShoppingBasket {
 
     public ShoppingBasket(){}
 
-    public ShoppingBasket(Product productId, BigDecimal productPrice, int productQuantity, BigDecimal totalAmount, Long userId) {
+    public ShoppingBasket(Long id, Product productId,
+                          BigDecimal productPrice, int productQuantity, BigDecimal totalAmount, Long userId) {
+        Id = id;
         this.productId = productId;
         this.productPrice = productPrice;
         this.productQuantity = productQuantity;
         this.totalAmount = totalAmount;
         this.userId = userId;
+    }
+
+    public Long getId() {
+        return Id;
+    }
+
+    public void setId(Long id) {
+        Id = id;
     }
 
     public Product getProductId() {
