@@ -1,78 +1,42 @@
 package com.codehub.acme.eshop.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 
-// ONE TO ONE RELATIONSHIP WITH USER DOMAIN//
-// ONE TO MANY RELATIONSHIP WITH PRODUCT DOMAIN//
-// ONE TO ONE RELATIONSHIP WITH ORDER DOMAIN//
-
+/**
+ * This domain class represents a shopping basket
+ */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
 public class ShoppingBasket {
-    // // UNIQUE ID OF SHOPPING_BASKET DOMAIN FOR THE DATABASE//
+    /**
+     * The shopping id
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "SHOPPING_BASKET_ID", nullable = false)
     private Long Id;
-
-    private Product productId;
-    private BigDecimal productPrice;
-    private int productQuantity;
+    /**
+     * a {@link List} of {@link Product}
+     */
+    @ManyToMany
+    @JoinColumn(name="PRODUCT_ID", referencedColumnName="PRODUCT_ID")
+    private List<Product> products;
+    /**
+     * the total amount
+     */
     private BigDecimal totalAmount;
+    /**
+     * the user id
+     */
+    @OneToOne(optional=false)
+    @JoinColumn(name = "USER_ID")
     private Long userId;
-
-    public ShoppingBasket(){}
-
-    public ShoppingBasket(Long id, Product productId,
-                          BigDecimal productPrice, int productQuantity, BigDecimal totalAmount, Long userId) {
-        Id = id;
-        this.productId = productId;
-        this.productPrice = productPrice;
-        this.productQuantity = productQuantity;
-        this.totalAmount = totalAmount;
-        this.userId = userId;
-    }
-
-    public Long getId() {
-        return Id;
-    }
-
-    public void setId(Long id) {
-        Id = id;
-    }
-
-    public Product getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Product productId) {
-        this.productId = productId;
-    }
-
-    public BigDecimal getProductPrice() {
-        return productPrice;
-    }
-
-    public void setProductPrice(BigDecimal productPrice) {
-        this.productPrice = productPrice;
-    }
-
-    public int getProductQuantity() {
-        return productQuantity;
-    }
-
-    public void setProductQuantity(int productQuantity) {
-        this.productQuantity = productQuantity;
-    }
-
-    public BigDecimal getTotalAmount() {
-        return totalAmount;
-    }
-
-    public void setTotalAmount(BigDecimal totalAmount) {
-        this.totalAmount = totalAmount;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
 }
