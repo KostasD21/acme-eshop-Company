@@ -1,59 +1,36 @@
 package com.codehub.acme.eshop.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 import java.util.Date;
-//MANY TO ONE RELATIONSHIP WITH USER DOMAIN //
 
-// ONE TO MANY RELATIONSHIP WITH PRODUCT_ORDER //
-
-//ONE TO ONE RELATIONSHIP WITH SHOPPING _BASKET //
-
-// ONE TO ONE RELATIONSHIP WITH BILLING_DETAILS DOMAIN //
-public class Order {
-    // UNIQUE ID OF ORDER FOR THE DATABASE//
+/**
+ * This domain class represents a order
+ */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Inheritance(strategy = InheritanceType.JOINED)
+@Entity
+public class Order extends ShoppingBasket {
+    /**
+     * the order id
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ORDER_ID", nullable = false)
     private Long id;
-
+    /**
+     * the order date
+     */
     private Date orderDate;
-    private Long basketId;
-    private Long billingDetails;
-
-    public Order(){}
-
-    public Order(Long id, Date orderDate, Long basketId, Long billingDetails) {
-        this.id = id;
-        this.orderDate = orderDate;
-        this.basketId = basketId;
-        this.billingDetails = billingDetails;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Date getOrderDate() {
-        return orderDate;
-    }
-
-    public void setOrderDate(Date orderDate) {
-        this.orderDate = orderDate;
-    }
-
-    public Long getBasketId() {
-        return basketId;
-    }
-
-    public void setBasketId(Long basketId) {
-        this.basketId = basketId;
-    }
-
-    public Long getBillingDetails() {
-        return billingDetails;
-    }
-
-    public void setBillingDetails(Long billingDetails) {
-        this.billingDetails = billingDetails;
-    }
+    /**
+     * the {@link BillingDetails}
+     */
+    @OneToOne(optional=false)
+    @JoinColumn(name = "BILLING_DETAILS_ID")
+    private BillingDetails billingDetails;
 }

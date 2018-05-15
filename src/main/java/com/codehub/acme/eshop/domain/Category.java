@@ -1,26 +1,17 @@
 package com.codehub.acme.eshop.domain;
-
-import jdk.Exported;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.stereotype.Component;
-
-import java.util.List;
-
 //MANY TO ONE RELATIONSHIP WITH PRODUCTS //
-@Component
 public class Category {
     // UNIQUE ID TOU DOMAIN GIA THN DATABASE //
     private Long Id;
     private String categoryName;
-    private List<Product> products;
+    private Product product;
 
+    public Category(){}
 
-    public Category() {}
-
-    public Category(Long id, String categoryName, List<Product> products) {
+    public Category(Long id, String categoryName, Product product) {
         Id = id;
         this.categoryName = categoryName;
-        this.products = products;
+        this.product = product;
     }
 
     public Long getId() {
@@ -39,11 +30,11 @@ public class Category {
         this.categoryName = categoryName;
     }
 
-    public List<Product> getProducts() {
-        return products;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 }
