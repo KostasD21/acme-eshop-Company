@@ -1,127 +1,69 @@
 package com.codehub.acme.eshop.domain;
 
-// ONE TO MANY RELATIONSHIP ME TO CATEGORY DOMAIN //
-//MANY TO ONE RELATIONSHIP ME TON SHOPPING_BASKET DOMAIN//
-//MANY TO ONE RELATIONSHIP ME TO ORDER DOMAIN //
-
-
 import com.codehub.acme.eshop.enumerator.Availability;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
+import java.util.List;
+
+/**
+ * This domain class represents a shopping basket
+ */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
 public class Product {
-    // UNIQUE ID TOU DOMAIN GIA THN DATABASE //
+    /**
+     * the product id
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "PRODUCT_ID", nullable = false)
     private Long Id;
-
+    /**
+     * the title
+     */
     private String title;
+    /**
+     * the short description
+     */
     private String shortDescription;
+    /**
+     * the long description
+     */
     private String longDescription;
+    /**
+     * the product description
+     */
     private String productCode;
+    /**
+     * the quantity of product
+     */
     private Long quantity;
+    /**
+     * the stock available
+     */
     private Long stock;
-
-    // OPTIONAL PREPEI NA SYZHTHSOUME PWS THA TO XRHSIMOPOIHSOYME //
+    /**
+     * the {@link Availability}
+     */
     private Availability availability;
     /**
-     * {@link Category}
+     * the {@link Category}
      */
+    @OneToMany
+    @JoinColumn(name="CATEGORY_ID", referencedColumnName="CATEGORY_ID")
     private Category category;
+    /**
+     * the price
+     */
     private Double price;
-
-    public Product(){}
-
-    public Product(Long id, String title, String shortDescription, String longDescription,
-                   String productCode, Long quantity,
-                   Availability availability, Category category, Double price,Long stock) {
-        Id = id;
-        this.title = title;
-        this.shortDescription = shortDescription;
-        this.longDescription = longDescription;
-        this.productCode = productCode;
-        this.quantity = quantity;
-        this.availability = availability;
-        this.category = category;
-        this.price = price;
-        this.stock = stock;
-    }
-
-
-
-    public Long getId() {
-        return Id;
-    }
-
-    public void setId(Long id) {
-        Id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getShortDescription() {
-        return shortDescription;
-    }
-
-    public void setShortDescription(String shortDescription) {
-        this.shortDescription = shortDescription;
-    }
-
-    public String getLongDescription() {
-        return longDescription;
-    }
-
-    public void setLongDescription(String longDescription) {
-        this.longDescription = longDescription;
-    }
-
-    public String getProductCode() {
-        return productCode;
-    }
-
-    public void setProductCode(String productCode) {
-        this.productCode = productCode;
-    }
-
-    public Availability getAvailability() {
-        return availability;
-    }
-
-    public void setAvailability(Availability availability) {
-        this.availability = availability;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    public Long getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Long quantity) {
-        this.quantity = quantity;
-    }
-
-    public Long getStock() {
-        return stock;
-    }
-
-    public void setStock(Long stock) {
-        this.stock = stock;
-    }
+    /**
+     * the {@link List} of {@link Order}
+     */
+    @ManyToMany(mappedBy="products",fetch=FetchType.LAZY)
+    private List<Order> orders;
 }

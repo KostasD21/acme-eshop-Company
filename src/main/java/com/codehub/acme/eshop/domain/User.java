@@ -1,142 +1,61 @@
 package com.codehub.acme.eshop.domain;
 
+import com.codehub.acme.eshop.enumerator.Role;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+
 /**
  * This domain class represents a user
  */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
 public class User {
-
-    // private Long Id;
    /**
     * the user id
     */
+   @Id
+   @GeneratedValue(strategy = GenerationType.AUTO)
+   @Column(name = "USER_ID", nullable = false)
    private Long id;
+   /**
+    * the username
+    */
    private String username;
+   /**
+    * the password
+    */
    private String password;
+   /**
+    * the name
+    */
    private String name;
+   /**
+    * the surname
+    */
    private String surname;
+   /**
+    * the email
+    */
    private String email;
+   /**
+    * the phone number
+    */
    private String phoneNumber;
-   private String adress;
+   /**
+    * the address
+    */
+   private String address;
+   /**
+    * the postal code
+    */
    private String postCode;
-   // AFTO TO ATTRIBUTE EINAI ENUM //
-   private String role;
-
-
-   public User (){}
-
    /**
-    *
-    * @param id         the id
-    * @param username   the username
-    * @param password   the password
-    * @param name       the name
-    * @param surname    the surname
-    * @param email      the email
-    * @param phoneNumber the phone number
-    * @param adress     the adress
-    * @param postCode   the post code
-    * @param role       the role (enum)
+    * {@link com.codehub.acme.eshop.enumerator.Role}
     */
-   public User(Long id, String username, String password,
-               String name, String surname, String email, String phoneNumber,
-               String adress, String postCode, String role) {
-      this.id = id;
-      this.username = username;
-      this.password = password;
-      this.name = name;
-      this.surname = surname;
-      this.email = email;
-      this.phoneNumber = phoneNumber;
-      this.adress = adress;
-      this.postCode = postCode;
-      this.role = role;
-   }
-
-   /**
-    * this method gets the user id
-    *
-    * @return the unique id
-    */
-   public Long getId() {
-      return id;
-   }
-
-   public void setId(Long id) {
-      this.id = id;
-   }
-
-   /**
-    * {@link Order}
-    */
-   public String getusername() {
-      return username;
-   }
-
-   public void setusername(String username) {
-      this.username = username;
-   }
-
-   public String getPassword() {
-      return password;
-   }
-
-   public void setPassword(String password) {
-      this.password = password;
-   }
-
-   public String getName() {
-      return name;
-   }
-
-   public void setName(String name) {
-      this.name = name;
-   }
-
-   public String getSurname() {
-      return surname;
-   }
-
-   public void setSurname(String surname) {
-      this.surname = surname;
-   }
-
-   public String getEmail() {
-      return email;
-   }
-
-   public void setEmail(String email) {
-      this.email = email;
-   }
-
-   public String getPhoneNumber() {
-      return phoneNumber;
-   }
-
-   public void setPhoneNumber(String phoneNumber) {
-      this.phoneNumber = phoneNumber;
-   }
-
-   public String getAdress() {
-      return adress;
-   }
-
-   public void setAdress(String adress) {
-      this.adress = adress;
-   }
-
-   public String getPostCode() {
-      return postCode;
-   }
-
-   public void setPostCode(String postCode) {
-      this.postCode = postCode;
-   }
-
-   public String getRole() {
-      return role;
-   }
-
-   public void setRole(String role) {
-      this.role = role;
-   }
+   private Role role;
 }
