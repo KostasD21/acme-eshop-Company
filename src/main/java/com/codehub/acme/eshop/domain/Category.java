@@ -1,40 +1,34 @@
 package com.codehub.acme.eshop.domain;
-//MANY TO ONE RELATIONSHIP WITH PRODUCTS //
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.Entity;
+
+/**
+ * This domain class represents a category of products
+ */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
 public class Category {
-    // UNIQUE ID TOU DOMAIN GIA THN DATABASE //
+    /**
+     * the category id
+     */
     private Long Id;
-    private String categoryName;
+    /**
+     * the name of the category
+     */
+    private String name;
+    /**
+     * the description of the category
+     */
+    private String description;
+    /**
+     * the {@link Product}
+     */
+
     private Product product;
-
-    public Category(){}
-
-    public Category(Long id, String categoryName, Product product) {
-        Id = id;
-        this.categoryName = categoryName;
-        this.product = product;
-    }
-
-    public Long getId() {
-        return Id;
-    }
-
-    public void setId(Long id) {
-        Id = id;
-    }
-
-    public String getCategoryName() {
-        return categoryName;
-    }
-
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
 }
