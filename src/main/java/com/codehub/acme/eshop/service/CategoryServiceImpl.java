@@ -7,37 +7,34 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * This service contains the implementation of methods regarding the Category functionality
+ */
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
-    public CategoryServiceImpl() {
-    }
-
-    @Autowired
-    private CategoryService categoryService;
-    @Autowired
-    private Category category;
-
-
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Category addCategory() {
+    public Category addCategory(Long id, String name, String description) {
         return null;
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Category removeCategory() {
+    public void removeCategory(String name) {}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<Product> getAllCategories() {
         return null;
     }
-
-    @Override
-    public List<Product> showCategories() {
-        return category.getProducts();
-
-
-
-    }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Product> productsPerGivenCategory(String categoryName) {
         //prepei edw na pairnw to onoma tis kathgorias kai apo afto thn lista ths kathgorias poy anoikoyn se aythn! //
