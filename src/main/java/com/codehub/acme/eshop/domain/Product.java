@@ -61,9 +61,5 @@ public class Product {
      * the price
      */
     private Double price;
-    /**
-     * the {@link List} of {@link Order}
-     */
-    @ManyToMany(mappedBy="products",fetch=FetchType.LAZY)
-    private List<Order> orders;
+    
 }

@@ -48,7 +48,12 @@
             <artifactId>spring-data-commons</artifactId>
             <version>1.13.4.RELEASE</version>
         </dependency>
-    </dependencies>
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>7.0</version>
+		</dependency>
+	</dependencies>
 
 	<build>
 		<plugins>
