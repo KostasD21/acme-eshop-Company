@@ -37,7 +37,6 @@ public class CategoryServiceImpl implements CategoryService {
      */
     @Override
     public List<Product> productsPerGivenCategory(String categoryName) {
-        //prepei edw na pairnw to onoma tis kathgorias kai apo afto thn lista ths kathgorias poy anoikoyn se aythn! //
-        return category.getProducts();
+        return null;
     }
 }
