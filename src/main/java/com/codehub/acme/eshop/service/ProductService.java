@@ -2,6 +2,9 @@ package com.codehub.acme.eshop.service;
 
 import com.codehub.acme.eshop.domain.Product;
 
+/**
+ * This interface contains all the signatures of methods regarding the {@link Product} functionality
+ */
 public interface ProductService {
 
     /**
@@ -11,7 +14,7 @@ public interface ProductService {
      * @param shortDescription a short description for the product
      * @param longDescription a long description for the product
      * @param productCode a unique code for each product
-     * @param quantity
+     * @param quantity quantiy of the product
      * @param stock the amount of stock
      */
     void addProduct(String title, String shortDescription, String longDescription, String productCode, Long quantity, Long stock);
@@ -30,7 +33,7 @@ public interface ProductService {
      * @param shortDescription a short description for the product
      * @param longDescription a long description for the product
      * @param productCode a unique code for each product
-     * @param quantity
+     * @param quantity of a producy
      * @param stock the amount of stock
      */
     void updateProductDetails(String title, String shortDescription, String longDescription, String productCode, Long quantity, Long stock);

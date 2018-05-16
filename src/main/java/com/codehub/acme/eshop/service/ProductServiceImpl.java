@@ -2,9 +2,14 @@ package com.codehub.acme.eshop.service;
 
 
 import com.codehub.acme.eshop.domain.Product;
+import org.springframework.stereotype.Service;
 
+/**
+ * This Service contains all the implementations of methods regarding the {@link Product} functionality
+ */
+
+@Service
 public class ProductServiceImpl implements ProductService  {
-
 
     /**
      *  {inheritDoc}
