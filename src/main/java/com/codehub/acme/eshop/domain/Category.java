@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
+import java.util.List;
 
 /**
  * This domain class represents a category of products
@@ -30,5 +31,5 @@ public class Category {
      * the {@link Product}
      */
 
-    private Product product;
+    private List<Product> products;
 }
