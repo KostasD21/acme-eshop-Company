@@ -7,7 +7,7 @@ import java.util.List;
 /**
  *
  *This interface contains the signature of methods regarding the functionality
- * {@link com.codehub.acme.eshop.domain.Category}
+ * {@link Category}
  *
  */
 public interface CategoryService {

@@ -8,7 +8,7 @@ import com.codehub.acme.eshop.enumerator.ShippingMethods;
 
 /**
  * This interface contains the signature of the methods regarding the functionality
- * {@link com.codehub.acme.eshop.domain.BillingDetails}
+ * {@link BillingDetails}
  *
  */
 public interface BillingDetailsService {

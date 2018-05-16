@@ -4,20 +4,20 @@ import com.codehub.acme.eshop.domain.BillingDetails;
 import com.codehub.acme.eshop.enumerator.PaymentMethods;
 import com.codehub.acme.eshop.enumerator.ReceiptMethods;
 import com.codehub.acme.eshop.enumerator.ShippingMethods;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 
 /**
- * This service contains the implementation of methods regarding the BillingDetails functionality
+ * This service contains the implementation of methods regarding the {@link BillingDetails} functionality
  *
  */
-
+@Service
 public class BillingDetailsServiceImpl implements BillingDetailsService {
 
     /**
      *{@inheritDoc}
      */
-
     @Override
     public BillingDetails getUserId(Long id) {
         return null;
@@ -26,7 +26,6 @@ public class BillingDetailsServiceImpl implements BillingDetailsService {
     /**
      *{@inheritDoc}
      */
-
     @Override
     public BillingDetails addBillingDetails(Long id, String address, String postCode, ShippingMethods shippingMethods, ReceiptMethods receiptMethods, PaymentMethods paymentMethods) {
         return null;

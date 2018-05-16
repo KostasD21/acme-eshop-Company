@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * This service contains the implementation of methods regarding the Category functionality
+ * This service contains the implementation of methods regarding the {@link Category} functionality
  */
 @Service
 public class CategoryServiceImpl implements CategoryService {
