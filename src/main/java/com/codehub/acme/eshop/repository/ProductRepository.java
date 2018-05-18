@@ -1,29 +1,33 @@
 package com.codehub.acme.eshop.repository;
 
+import com.codehub.acme.eshop.domain.Category;
 import com.codehub.acme.eshop.domain.Product;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
+/**
+ * This interface contains the signatures for the CRUD functionalities regarding {@link Product}
+ */
 public interface ProductRepository extends CrudRepository<Product, Long> {
 
 
     /**
-     *
-     * @param categoryName name of the category the product belongs
+     * Search {@link Product} by  id
+     * @param name name of the category the product belongs
      * @return the products of the category
      */
-    List<Product>  findProductByCategoryId (String categoryName);
+    List<Product>  findByname (String name);
 
     /**
-     *
+     * Search {@link Product} by title
      * @param title the product name
      * @return the product
      */
-    List<Product>  findProductByTitle (String title);
+    List<Product>  findProductTitle (String title);
 
     /**
-     *
+     * Search {@link Product} by id
      * @param id the product id
      * @return the id
      */
@@ -55,6 +59,7 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
     void updateProductDetails(String title, String shortDescription, String longDescription, String productCode, Long quantity, Long stock);
 
     /**
+     *This method deletes the product entry
      *
      * @param id product id
      * @param title product title
@@ -62,6 +67,7 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
     void deleteProduct(Long id,String title);
 
     /**
+     * This method return the product
      *
      * @param id product id
      * @return product
@@ -69,11 +75,12 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
     boolean getById(Long id);
 
     /**
+     * This method return the product
      *
      * @param title product title
      * @return product
      */
-    boolean getByTitle(Long title);
+    boolean getByTitle(String title);
 
 
 
