@@ -2,6 +2,7 @@ package com.codehub.acme.eshop.repository;
 
 import com.codehub.acme.eshop.domain.User;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import javax.jws.soap.SOAPBinding;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.Optional;
 /**
  * This interface contains the signatures for the CRUD functionalities regarding {@link User}
  */
+@Repository
 public interface UserRepository extends CrudRepository<User, Long> {
 
     /**
@@ -19,7 +21,7 @@ public interface UserRepository extends CrudRepository<User, Long> {
      * @param username of the {@link User} to be searched
      * @return {@link User}
      */
-    List<User> findByUserName(String username);
+    List<User> findByUsername(String username);
 
     /**
      * Search {@link User} by id
@@ -30,10 +32,10 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
     /**
      * Search {@link User} by mail
-     * @param mail of the {@link User} to be searched
+     * @param email of the {@link User} to be searched
      * @return {@link User}
      */
-    List<User> findByMail(String mail);
+    List<User> findByEmail(String email);
 
     /**
      * Delete {@link User} by id
@@ -45,13 +47,13 @@ public interface UserRepository extends CrudRepository<User, Long> {
      * Delete {@link User} by username
      * @param username of the {@link User} to be deleted
      */
-    void deleteByUserName(String username);
+    void deleteByUsername(String username);
 
     /**
      * Delete {@link User} by mail
-     * @param mail of the {@link User} to be deleted
+     * @param email of the {@link User} to be deleted
      */
-    void deleteByMail(String mail);
+    void deleteByEmail(String email);
 
     /**
      * Check if {@link User} exists by id
@@ -65,5 +67,5 @@ public interface UserRepository extends CrudRepository<User, Long> {
      * @param username of the {@link User} to be checked
      * @return true/false
      */
-    List<User> getByUserName(String username);
+    List<User> getByUsername(String username);
 }

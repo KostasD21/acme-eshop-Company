@@ -1,19 +1,27 @@
 package com.codehub.acme.eshop.service;
 
-import com.codehub.acme.eshop.domain.Order;
+import com.codehub.acme.eshop.domain.UserOrder;
+import com.codehub.acme.eshop.repository.OrderRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 /**
- * This service contains the implementation of methods regarding the {@link Order} functionality
+ * This service contains the implementation of methods regarding the {@link UserOrder} functionality
  */
 @Service
 public class OrderServiceImpl implements OrderService {
+
+    @Autowired
+    OrderRepository orderRepository;
+
     /**
      * {@inheritDoc}
      */
     @Override
     public void submitOrder() {
-
+    orderRepository.save(new UserOrder(1L, new Date(), null));
     }
     /**
      * {@inheritDoc}
@@ -26,14 +34,14 @@ public class OrderServiceImpl implements OrderService {
      * {@inheritDoc}
      */
     @Override
-    public Order findOrderById(Long orderId) {
+    public UserOrder findOrderById(Long orderId) {
         return null;
     }
     /**
      * {@inheritDoc}
      */
     @Override
-    public Order findOrderByUserId(Long userId) {
+    public UserOrder findOrderByUserId(Long userId) {
         return null;
     }
 }
