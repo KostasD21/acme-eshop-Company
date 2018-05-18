@@ -1,9 +1,11 @@
 package com.codehub.acme.eshop.repository;
 
-import java.util.List;
-import java.util.Optional;
+import com.codehub.acme.eshop.domain.Product;
+import org.springframework.data.repository.CrudRepository;
 
-public interface ProductRepository extends CrudRepository <Product, Long>{
+import java.util.List;
+
+public interface ProductRepository extends CrudRepository<Product, Long> {
 
 
     /**
