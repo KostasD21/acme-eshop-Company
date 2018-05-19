@@ -1,12 +1,14 @@
 package com.codehub.acme.eshop.service;
 
-import com.codehub.acme.eshop.domain.Order;
+import com.codehub.acme.eshop.domain.UserOrder;
 import com.codehub.acme.eshop.domain.Purchase;
 import com.codehub.acme.eshop.enumerator.Provider;
 import com.codehub.acme.eshop.enumerator.PurchaseStatus;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 
+@Service
 public class PurchaseServiceImpl implements PurchaseService {
 
     /**
@@ -38,7 +40,7 @@ public class PurchaseServiceImpl implements PurchaseService {
      * @param amount total amount of the order + provider fee
      */
     @Override
-    public void submitPurchase(Order orderId, Provider provider, String referenceId, PurchaseStatus purchaseStatus, BigDecimal amount) {
+    public void submitPurchase(UserOrder orderId, Provider provider, String referenceId, PurchaseStatus purchaseStatus, BigDecimal amount) {
 
     }
 

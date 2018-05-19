@@ -21,7 +21,7 @@ public class OrderServiceImpl implements OrderService {
      */
     @Override
     public void submitOrder() {
-    orderRepository.save(new UserOrder(1L, new Date(), null));
+        orderRepository.save(new UserOrder(1L, new Date(), null));
     }
     /**
      * {@inheritDoc}

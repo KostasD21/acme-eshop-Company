@@ -1,6 +1,6 @@
 package com.codehub.acme.eshop.service;
 
-import com.codehub.acme.eshop.domain.Order;
+import com.codehub.acme.eshop.domain.UserOrder;
 import com.codehub.acme.eshop.domain.Purchase;
 import com.codehub.acme.eshop.enumerator.Provider;
 import com.codehub.acme.eshop.enumerator.PurchaseStatus;
@@ -31,7 +31,7 @@ public interface PurchaseService {
      * @param purchaseStatus the status of the {@link Purchase}
      * @param amount total amount of the order + provider fee
      */
-    void submitPurchase(Order orderId, Provider provider, String referenceId, PurchaseStatus purchaseStatus, BigDecimal amount);
+    void submitPurchase(UserOrder orderId, Provider provider, String referenceId, PurchaseStatus purchaseStatus, BigDecimal amount);
 
     /**
      * Cancels a purchase

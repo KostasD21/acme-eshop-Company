@@ -7,8 +7,6 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
-
-@Inheritance(strategy = InheritanceType.JOINED)
 @Entity
 public class Purchase {
 
@@ -26,11 +24,11 @@ public class Purchase {
     private Date purchaseDate;
 
     /**
-     * the {@link Order}
+     * the {@link UserOrder}
      */
     @OneToOne(optional=false)
     @JoinColumn(name = "ORDER_DETAILS_ID")
-    private Order orderDetails;
+    private UserOrder orderDetails;
 
     /**
      * Reference id regarding the UID that we receive from the provider
@@ -63,7 +61,7 @@ public class Purchase {
     /**
      * With arguments Constructor of the class
      */
-    public Purchase(Date purchaseDate, Order orderDetails, String referenceId, Provider provider, BigDecimal amount, PurchaseStatus purchaseStatus) {
+    public Purchase(Date purchaseDate, UserOrder orderDetails, String referenceId, Provider provider, BigDecimal amount, PurchaseStatus purchaseStatus) {
         this.purchaseDate = purchaseDate;
         this.orderDetails = orderDetails;
         this.referenceId = referenceId;
@@ -88,11 +86,11 @@ public class Purchase {
         this.purchaseDate = purchaseDate;
     }
 
-    public Order getOrderDetails() {
+    public UserOrder getOrderDetails() {
         return orderDetails;
     }
 
-    public void setOrderDetails(Order orderDetails) {
+    public void setOrderDetails(UserOrder orderDetails) {
         this.orderDetails = orderDetails;
     }
 
