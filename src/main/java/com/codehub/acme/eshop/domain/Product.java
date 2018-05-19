@@ -12,6 +12,9 @@ import java.util.List;
 /**
  * This domain class represents a product
  */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Product {
     /**
@@ -19,8 +22,7 @@ public class Product {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//@Column(name = "PRODUCT_ID", nullable = false)
-    private Long Id;
+    private Long id;
     /**
      * the title
      */
@@ -49,7 +51,8 @@ public class Product {
     /**
      * the stock available
      */
-    private Long stock;
+    @OneToOne
+    private ProductStock stock;
     /**
      * the {@link Availability}
      */
@@ -64,110 +67,4 @@ public class Product {
      * the price
      */
     private Double price;
-
-    public Product(){}
-
-    public Product(Long id, String title, ShoppingBasket shoppingBasket, String shortDescription, String longDescription,
-                   String productCode, Long quantity, Long stock, Availability availability,
-                   List<Category> categories, Double price) {
-        Id = id;
-        this.title = title;
-        this.shoppingBasket = shoppingBasket;
-        this.shortDescription = shortDescription;
-        this.longDescription = longDescription;
-        this.productCode = productCode;
-        this.quantity = quantity;
-        this.stock = stock;
-        this.availability = availability;
-        this.categories = categories;
-        this.price = price;
-    }
-
-    public Long getId() {
-        return Id;
-    }
-
-    public void setId(Long id) {
-        Id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getShortDescription() {
-        return shortDescription;
-    }
-
-    public void setShortDescription(String shortDescription) {
-        this.shortDescription = shortDescription;
-    }
-
-    public String getLongDescription() {
-        return longDescription;
-    }
-
-    public void setLongDescription(String longDescription) {
-        this.longDescription = longDescription;
-    }
-
-    public String getProductCode() {
-        return productCode;
-    }
-
-    public void setProductCode(String productCode) {
-        this.productCode = productCode;
-    }
-
-    public Long getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Long quantity) {
-        this.quantity = quantity;
-    }
-
-    public Long getStock() {
-        return stock;
-    }
-
-    public void setStock(Long stock) {
-        this.stock = stock;
-    }
-
-    public Availability getAvailability() {
-        return availability;
-    }
-
-    public void setAvailability(Availability availability) {
-        this.availability = availability;
-    }
-
-    public List<Category> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(List<Category> categories) {
-        this.categories = categories;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    public ShoppingBasket getShoppingBasket() {
-        return shoppingBasket;
-    }
-
-    public void setShoppingBasket(ShoppingBasket shoppingBasket) {
-        this.shoppingBasket = shoppingBasket;
-    }
 }

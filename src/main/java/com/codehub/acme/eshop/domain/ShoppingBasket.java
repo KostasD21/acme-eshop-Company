@@ -12,15 +12,17 @@ import java.util.List;
 /**
  * This domain class represents a shopping basket
  */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class ShoppingBasket {
     /**
-     * The shopping id
+     * The shopping basket id
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //  @Column(name = "SHOPPING_BASKET_ID", nullable = false)
-    private Long Id;
+    private Long id;
     /**
      * a {@link List} of {@link Product}
      */
@@ -35,48 +37,5 @@ public class ShoppingBasket {
      * the user id
      */
     @OneToOne
-    //  @JoinColumn(name = "USER_ID")
     private User userId;
-
-
-    public ShoppingBasket(){}
-
-    public ShoppingBasket(Long id, List<Product> products, BigDecimal totalAmount, User userId) {
-        Id = id;
-        this.products = products;
-        this.totalAmount = totalAmount;
-        this.userId = userId;
-    }
-
-    public Long getId() {
-        return Id;
-    }
-
-    public void setId(Long id) {
-        Id = id;
-    }
-
-    public List<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<Product> products) {
-        this.products = products;
-    }
-
-    public BigDecimal getTotalAmount() {
-        return totalAmount;
-    }
-
-    public void setTotalAmount(BigDecimal totalAmount) {
-        this.totalAmount = totalAmount;
-    }
-
-    public User getUserId() {
-        return userId;
-    }
-
-    public void setUserId(User userId) {
-        this.userId = userId;
-    }
 }

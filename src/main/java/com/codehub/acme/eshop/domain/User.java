@@ -10,6 +10,9 @@ import javax.persistence.*;
 /**
  * This domain class represents a user
  */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class User {
    /**
@@ -17,7 +20,6 @@ public class User {
     */
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
-   // @Column(name = "USER_ID", nullable = false)
    private Long id;
    /**
     * the username
@@ -51,18 +53,12 @@ public class User {
     * the postal code
     */
    private String postCode;
-
    /**
     * the Shopping Basket
-
     */
    @OneToOne
    private ShoppingBasket shoppingBasket;
-
    /**
-    *
-    *
-    *
     * The role
     * {@link Role}
     */
