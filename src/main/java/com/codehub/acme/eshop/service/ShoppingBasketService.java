@@ -12,35 +12,38 @@ public interface ShoppingBasketService {
     /**
      * This method finds the shopping basket by ID
      *
-     * @param sBasketId        the ID of the shopping basket
+     * @param shoppingBasketId the ID of the shopping basket
      * @return                 the {@link ShoppingBasket}
      */
-    ShoppingBasket findSBasketById(Long sBasketId);
+    ShoppingBasket findById(Long shoppingBasketId);
     /**
      * This method finds the shopping basket by user ID
      *
      * @param userId           the user ID
      * @return                 the {@link ShoppingBasket}
      */
-    ShoppingBasket findSBasketByUserId(Long userId);
+    ShoppingBasket findByUserId(Long userId);
     /**
-     * This method finds the shopping basket by user ID
+     * This method adds a list of products to the shopping basket
      *
+     * @param shoppingBasketId the ID of the shopping basket
      * @param productList      the {@link List} of {@link Product}
-     * @return                 the {@link ShoppingBasket}
+     * @return                 the {@link List} of added {@link Product}
      */
-    void addProductsToSBasket(List<Product> productList);
+    List<Product> addProducts(Long shoppingBasketId, List<Product> productList);
     /**
-     * This method finds the shopping basket by user ID
+     * This method removes a list of products from shopping basket
      *
-     * @param userId           the user ID
-     * @return                 the {@link ShoppingBasket}
+     * @param shoppingBasketId the ID of the shopping basket
+     * @param productList      the {@link List} of {@link Product}
      */
-    void removeProductsFromSBasket(Long userId);
+    void removeProducts(Long shoppingBasketId, List<Product> productList);
     /**
      * This method updates the shopping basket
      *
-     * @param sBasketId the shopping basket ID
+     * @param shoppingBasketId the shopping basket ID
+     * @param productList      the {@link List} of {@link Product}
+     * @return                 the {@link List} of updated {@link Product}
      */
-    void updateSBasket(Long sBasketId);
+    ShoppingBasket updateShoppingBasket(Long shoppingBasketId, List<Product> productList);
 }
