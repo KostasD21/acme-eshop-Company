@@ -10,17 +10,14 @@ import javax.persistence.*;
 /**
  * This domain class represents a user
  */
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
 public class User {
    /**
     * the user id
     */
    @Id
-   @GeneratedValue(strategy = GenerationType.AUTO)
-   @Column(name = "USER_ID", nullable = false)
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
+   // @Column(name = "USER_ID", nullable = false)
    private Long id;
    /**
     * the username
@@ -54,8 +51,20 @@ public class User {
     * the postal code
     */
    private String postCode;
+
    /**
-    * {@link com.codehub.acme.eshop.enumerator.Role}
+    * the Shopping Basket
+
+    */
+   @OneToOne
+   private ShoppingBasket shoppingBasket;
+
+   /**
+    *
+    *
+    *
+    * The role
+    * {@link Role}
     */
    private Role role;
 }

@@ -1,9 +1,9 @@
 package com.codehub.acme.eshop.service;
 
-import com.codehub.acme.eshop.domain.Order;
+import com.codehub.acme.eshop.domain.UserOrder;
 
 /**
- * This interface contains the signatures of methods regarding the {@link com.codehub.acme.eshop.domain.Order} functionality
+ * This interface contains the signatures of methods regarding the {@link UserOrder} functionality
  */
 public interface OrderService {
     /**
@@ -20,14 +20,14 @@ public interface OrderService {
      * This method finds the order by order ID
      *
      * @param orderId the order ID
-     * @return        the {@link Order}
+     * @return        the {@link UserOrder}
      */
-    Order findOrderById(Long orderId);
+    UserOrder findOrderById(Long orderId);
     /**
      * This method finds the order by user ID
      *
      * @param userId  the user ID
-     * @return        the {@link Order}
+     * @return        the {@link UserOrder}
      */
-    Order findOrderByUserId(Long userId);
+    UserOrder findOrderByUserId(Long userId);
 }
