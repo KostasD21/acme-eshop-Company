@@ -7,6 +7,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * This repository contains the signature of the methods that interact with the DB regarding {@link Purchase}
+ */
 @Repository
 public interface PurchaseRepository extends CrudRepository<Purchase, Long> {
 
@@ -40,6 +43,6 @@ public interface PurchaseRepository extends CrudRepository<Purchase, Long> {
      * Saves a {@link Purchase}
      * @param id of the purchase
      */
-    void saveById(Long id);
+    void save(Long id);
 
 }
