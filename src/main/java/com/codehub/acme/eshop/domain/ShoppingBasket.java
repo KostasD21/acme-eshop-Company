@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,11 +23,11 @@ public class ShoppingBasket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     /**
-     * a {@link List} of {@link Product}
+     * a {@link List} of {@link ProductItem}
      */
     @OneToMany(mappedBy = "shoppingBasket")
     //  @JoinColumn(name="PRODUCT_ID", referencedColumnName="PRODUCT_ID")
-    private List<Product> products = new ArrayList<>();
+    private List<ProductItem> productsItems;// = new ArrayList<>();
     /**
      * the total amount
      */

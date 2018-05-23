@@ -1,11 +1,11 @@
 package com.codehub.acme.eshop.domain;
 
-import com.codehub.acme.eshop.enumerator.Availability;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,11 +28,6 @@ public class Product {
      */
     private String title;
     /**
-     * the shopping Basket
-     */
-    @ManyToOne
-    private ShoppingBasket shoppingBasket;
-    /**
      * the short description
      */
     private String shortDescription;
@@ -45,20 +40,10 @@ public class Product {
      */
     private String productCode;
     /**
-     * the quantity of product
-     */
-    private Long quantity;
-    /**
      * the stock available
      */
-
-    private int stock;
-      // @OneToOne
-     //  private ProductStock stock;
-    /**
-     * the {@link Availability}
-     */
-    private Availability availability;
+    @OneToOne
+    private ProductStock productStock;
     /**
      * the {@link Category}
      */
@@ -68,5 +53,5 @@ public class Product {
     /**
      * the price
      */
-    private Double price;
+    private BigDecimal price;
 }
