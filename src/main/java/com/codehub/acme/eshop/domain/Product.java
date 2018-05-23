@@ -54,4 +54,9 @@ public class Product {
      * the price
      */
     private BigDecimal price;
+    /**
+     * the {@link List} of {@link ProductItem}
+     */
+    @OneToMany(mappedBy = "products")
+    private List<ProductItem> productItems;
 }

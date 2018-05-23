@@ -37,7 +37,8 @@ public class ProductItem {
     /**
      * the shopping Basket that corresponds to the product item
      */
-    @ManyToOne
+    @ManyToOne//(optional=false)
+    @JoinColumn( name="SHOPPING_BASKET_ID")
     private ShoppingBasket shoppingBasket;
 
     /**
@@ -45,4 +46,10 @@ public class ProductItem {
      */
     @ManyToOne
     private UserOrder order;
+
+    /**
+     * the product that corresponds to the product item
+     */
+    @OneToOne
+    private Product products;
 }
