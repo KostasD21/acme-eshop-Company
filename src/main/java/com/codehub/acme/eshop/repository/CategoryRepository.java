@@ -19,28 +19,47 @@ public interface CategoryRepository extends CrudRepository<Category, Long> {
 
     /**
      * Search {@link Category} by id
-     * @param Id of the {@link Category} that we need to search
-     * @return a list with the Category, if found
+     *
+     * @param id of the {@link Category} that we need to search
+     * @return a Category, if found
      */
-    Optional<Category> findById(Long Id);
+    Category getCategoryById(Long id);
 
     /**
-     * Search {@link User} by name
+     * Search {@link Category} by name
+     *
      * @param name of the {@link Category} that we need to search
-     * @return a list with the Category, if found
+     * @return a Category, if found
      */
-    List<Category> findByName(String name);
+    Category findByName(String name);
 
     /**
      * Delete {@link Category} by it's id
+     *
      * @param id of {@link Category} to be deleted
      */
     void deleteById(Long id);
 
     /**
      * Delete {@link Category} by it's name
+     *
      * @param name of {@link Category} to be deleted
      */
     void deleteByName(String name);
 
+    /**
+     * Get the list of {@link Category}
+     *
+     */
+    List<Category> findAll();
+
+    /**
+     * Add a Category to the DB{@link Category}
+     */
+   Category save(Category category);
+
+
 }
+
+
+

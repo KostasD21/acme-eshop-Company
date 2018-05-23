@@ -51,8 +51,10 @@ public class Product {
     /**
      * the stock available
      */
-    @OneToOne
-    private ProductStock stock;
+
+    private int stock;
+      // @OneToOne
+     //  private ProductStock stock;
     /**
      * the {@link Availability}
      */

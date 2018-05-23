@@ -23,4 +23,6 @@ public class ProductStock {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private int product_stock;
 }
