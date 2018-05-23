@@ -1,6 +1,9 @@
 package com.codehub.acme.eshop.service;
 
 import com.codehub.acme.eshop.domain.Product;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * This interface contains all the signatures of methods regarding the {@link Product} functionality
@@ -41,10 +44,9 @@ public interface ProductService {
     /**
      * This method finds a Product by the Category that it belongs
      *
-     * @param name the name of the Category
+     * @param id the name of the Category
      * @return a Product object
      */
-    Product findProductByCategoryId(String name);
 
     /**
      * This method finds a Product by the ID
@@ -61,5 +63,13 @@ public interface ProductService {
      * @return a Product object
      */
     Product findProductByName(String name);
+
+
+    /**
+     * This methods finds the Products per Category Id
+     * @param categoryId
+     * @return
+     */
+    List<Product> getAllProductsByCategoryId(Long categoryId);
 }
 

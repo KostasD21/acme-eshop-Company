@@ -2,7 +2,12 @@ package com.codehub.acme.eshop.service;
 
 
 import com.codehub.acme.eshop.domain.Product;
+import com.codehub.acme.eshop.repository.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This Service contains all the implementations of methods regarding the {@link Product} functionality
@@ -10,6 +15,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ProductServiceImpl implements ProductService  {
+
+    @Autowired
+    ProductRepository productRepository;
 
     /**
      *  {inheritDoc}
@@ -36,12 +44,8 @@ public class ProductServiceImpl implements ProductService  {
     }
 
     /**
-     *  {inheritDoc}
+     *{inheritDoc}
      */
-    @Override
-    public Product findProductByCategoryId(String name) {
-        return null;
-    }
 
     /**
      *  {inheritDoc}
@@ -58,4 +62,16 @@ public class ProductServiceImpl implements ProductService  {
     public Product findProductByName(String name) {
         return null;
     }
+
+    /**
+     * {inheritDoc}
+     */
+    @Override
+    public List<Product> getAllProductsByCategoryId(Long categoryId) {
+         List<Product> productsPerCategoryId = new ArrayList<>();
+         productRepository.findByCategoryId(categoryId)
+                 .forEach(productsPerCategoryId::add);
+        return productsPerCategoryId;
+    }
+
 }

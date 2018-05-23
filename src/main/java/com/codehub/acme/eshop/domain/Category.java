@@ -22,10 +22,12 @@ public class Category{
      */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "CATEGORY_ID")
     private Long id;
     /**
      * the name of the category
      */
+    @Column(name = "CATEGORY_NAME")
     private String name;
     /**
      * the description of the category
@@ -34,8 +36,8 @@ public class Category{
     /**
      * a {@link List} of {@link Product}
      */
-    @OneToMany
-    @JoinTable(name = "category_products",joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name ="category_id"))
+    @OneToMany(mappedBy = "category", targetEntity = Product.class)
+   // @JoinTable(name = "category_products",joinColumns = @JoinColumn(name = "product_id"),
+      //      inverseJoinColumns = @JoinColumn(name ="category_id"))
     private List<Product> products = new ArrayList<>();
 }

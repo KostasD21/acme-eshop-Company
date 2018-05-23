@@ -62,9 +62,9 @@ public class Product {
     /**
      * the {@link Category}
      */
-//@JoinColumn(name="CATEGORY_ID", referencedColumnName="CATEGORY_ID")
-    @ManyToMany(mappedBy = "products")
-    private List<Category> categories= new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CATEGORY_ID",referencedColumnName = "CATEGORY_ID")
+    private Category category;
     /**
      * the price
      */
