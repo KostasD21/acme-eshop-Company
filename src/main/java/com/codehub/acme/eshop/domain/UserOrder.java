@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -38,6 +39,5 @@ public class UserOrder {
      * the {@link List} of {@link ProductItem}
      */
     @OneToMany(mappedBy = "order")
-    //  @JoinColumn(name="PRODUCT_ID", referencedColumnName="PRODUCT_ID")
-    private List<ProductItem> productsItems; //= new ArrayList<>();
+    private List<ProductItem> productItems= new ArrayList<>();
 }

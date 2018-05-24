@@ -63,5 +63,6 @@ public class User {
     * The role
     * {@link Role}
     */
+   @Enumerated(EnumType.STRING)
    private Role role;
 }

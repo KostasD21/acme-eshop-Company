@@ -20,8 +20,8 @@ public class ProductServiceImpl implements ProductService  {
     private ProductItemRepository productItemRepository;
 
     public void save() {
-        ProductItem productItem = new ProductItem(1L,1,new BigDecimal(20), null, null, null);
-        productItemRepository.save(productItem);
+        //ProductItem productItem = new ProductItem(1L,1,new BigDecimal(20), null, null, null);
+        //productItemRepository.save(productItem);
     }
 
     /**

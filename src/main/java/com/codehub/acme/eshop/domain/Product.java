@@ -57,6 +57,6 @@ public class Product {
     /**
      * the {@link List} of {@link ProductItem}
      */
-    @OneToMany(mappedBy = "products")
+    @OneToMany(mappedBy = "product")
     private List<ProductItem> productItems;
 }
