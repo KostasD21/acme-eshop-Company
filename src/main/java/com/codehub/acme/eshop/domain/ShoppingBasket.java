@@ -22,6 +22,7 @@ public class ShoppingBasket {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "SHOPPING_BASKET_ID",nullable = false)
     private Long id;
     /**
      * a {@link List} of {@link ProductItem}
@@ -36,5 +37,5 @@ public class ShoppingBasket {
      * the user id
      */
     @OneToOne
-    private User userId;
+    private User user;
 }

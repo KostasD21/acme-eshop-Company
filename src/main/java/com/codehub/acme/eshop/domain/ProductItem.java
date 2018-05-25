@@ -22,6 +22,7 @@ public class ProductItem {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "PRODUCT_ITEM_ID",nullable = false)
     private Long id;
 
     /**
@@ -32,7 +33,7 @@ public class ProductItem {
     /**
      * the amount to be paid for the product item
      */
-    private BigDecimal productItemAmount;
+    private BigDecimal amount;
 
     /**
      * the shopping Basket that corresponds to the product item

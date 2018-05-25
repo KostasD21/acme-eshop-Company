@@ -23,6 +23,7 @@ public class BillingDetails {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "BILLING_DETAILS_ID",nullable = false)
     private Long id;
     /**
      * the order

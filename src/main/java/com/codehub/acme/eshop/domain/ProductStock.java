@@ -5,10 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * This domain refers to the product's stock
@@ -23,6 +20,7 @@ public class ProductStock {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@Column(name = "PRODUCT_STOCK_ID",nullable = false)
     private Long id;
 
     /**
@@ -33,5 +31,6 @@ public class ProductStock {
     /**
      * the {@link Availability} of product
      */
+    @Enumerated(EnumType.STRING)
     private Availability availability;
 }
