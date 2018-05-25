@@ -39,14 +39,7 @@ public interface CategoryService {
      */
      List<Category> getAllCategories();
 
-    /**
-     * This method returns the list of products regarding on the give Category
-     *
-     * @param name the Category name
-     * @return a {@link List} of {@link Product}
-     *
-     */
-     List<Product> productsPerGivenCategory(String name);
+
     /**
      * This methods returns a Category from the DB regarding on the ginen Id
      * @param id the id of the Category
