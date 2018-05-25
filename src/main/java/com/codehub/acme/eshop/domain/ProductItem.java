@@ -1,6 +1,7 @@
 package com.codehub.acme.eshop.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -54,5 +55,6 @@ public class ProductItem {
      */
     @ManyToOne
     @JoinColumn(name="PRODUCT_ID")
+    @JsonManagedReference
     private Product product;
 }
