@@ -64,5 +64,6 @@ public class Product {
      * the {@link List} of {@link ProductItem}
      */
     @OneToMany(mappedBy = "product")
+    @JsonBackReference
     private List<ProductItem> productItems;
 }
