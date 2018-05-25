@@ -1,6 +1,7 @@
 package com.codehub.acme.eshop.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -41,6 +42,7 @@ public class ProductItem {
      */
     @ManyToOne
     @JoinColumn(name="SHOPPING_BASKET_ID")
+    @JsonBackReference
     private ShoppingBasket shoppingBasket;
 
     /**

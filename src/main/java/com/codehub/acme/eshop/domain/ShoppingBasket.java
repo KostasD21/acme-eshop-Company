@@ -1,5 +1,7 @@
 package com.codehub.acme.eshop.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,6 +30,7 @@ public class ShoppingBasket {
      * a {@link List} of {@link ProductItem}
      */
     @OneToMany(mappedBy = "shoppingBasket")
+    @JsonManagedReference
     private List<ProductItem> productItems = new ArrayList<>();
     /**
      * the total amount
@@ -37,5 +40,6 @@ public class ShoppingBasket {
      * the user id
      */
     @OneToOne
+    @JsonManagedReference
     private User user;
 }
