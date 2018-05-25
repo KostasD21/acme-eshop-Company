@@ -1,11 +1,14 @@
 package com.codehub.acme.eshop.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,16 +19,18 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Category{
+public class Category {
     /**
      * the category id
      */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "CATEGORY_ID",nullable = false)
     private Long id;
     /**
      * the name of the category
      */
+    @Column(name = "CATEGORY_NAME")
     private String name;
     /**
      * the description of the category
@@ -34,8 +39,8 @@ public class Category{
     /**
      * a {@link List} of {@link Product}
      */
-    @OneToMany
-    @JoinTable(name = "category_products",joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name ="category_id"))
+    @OneToMany(mappedBy = "category",targetEntity = Product.class)
+    @JsonBackReference
     private List<Product> products = new ArrayList<>();
+
 }

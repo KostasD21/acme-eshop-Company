@@ -1,10 +1,14 @@
 package com.codehub.acme.eshop.domain;
 
+import com.codehub.acme.eshop.enumerator.Availability;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +26,7 @@ public class Product {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "PRODUCT_ID", nullable = false)
     private Long id;
     /**
      * the title
@@ -47,9 +52,10 @@ public class Product {
     /**
      * the {@link Category}
      */
-//@JoinColumn(name="CATEGORY_ID", referencedColumnName="CATEGORY_ID")
-    @ManyToMany(mappedBy = "products")
-    private List<Category> categories= new ArrayList<>();
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "CATEGORY_ID", referencedColumnName = "CATEGORY_ID")
+    @JsonManagedReference
+    private Category category;
     /**
      * the price
      */

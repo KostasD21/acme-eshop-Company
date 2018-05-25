@@ -5,9 +5,14 @@ import com.codehub.acme.eshop.domain.Product;
 import com.codehub.acme.eshop.domain.ProductItem;
 import com.codehub.acme.eshop.repository.ProductItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import com.codehub.acme.eshop.repository.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This Service contains all the implementations of methods regarding the {@link Product} functionality
@@ -15,6 +20,12 @@ import java.math.BigDecimal;
 
 @Service
 public class ProductServiceImpl implements ProductService  {
+
+    /**
+     * {@link ProductRepository}
+     */
+    @Autowired
+    private ProductRepository productRepository;
 
     @Autowired
     private ProductItemRepository productItemRepository;
@@ -52,14 +63,6 @@ public class ProductServiceImpl implements ProductService  {
      *  {inheritDoc}
      */
     @Override
-    public Product findProductByCategoryId(String name) {
-        return null;
-    }
-
-    /**
-     *  {inheritDoc}
-     */
-    @Override
     public Product findProductById(Long id) {
         return null;
     }
@@ -70,5 +73,18 @@ public class ProductServiceImpl implements ProductService  {
     @Override
     public Product findProductByName(String name) {
         return null;
+    }
+
+    /**
+     *{inheritDoc}
+     */
+    @Override
+    public List<Product> getAllProducts(Long categoryId) {
+        List<Product> products = new ArrayList<>();
+        productRepository.findByCategoryId(categoryId)
+                .forEach(products::add);
+        return products;
+
+
     }
 }
