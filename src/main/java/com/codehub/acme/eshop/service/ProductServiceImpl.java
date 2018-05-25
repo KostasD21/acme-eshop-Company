@@ -14,13 +14,16 @@ import java.util.List;
  */
 
 @Service
-public class ProductServiceImpl implements ProductService  {
-
-    @Autowired
-    ProductRepository productRepository;
+public class ProductServiceImpl implements ProductService {
 
     /**
-     *  {inheritDoc}
+     * {@link ProductRepository}
+     */
+    @Autowired
+    private ProductRepository productRepository;
+
+    /**
+     * {inheritDoc}
      */
     @Override
     public void addProduct(String title, String shortDescription, String longDescription, String productCode, Long quantity, Long stock) {
@@ -28,7 +31,7 @@ public class ProductServiceImpl implements ProductService  {
     }
 
     /**
-     *  {inheritDoc}
+     * {inheritDoc}
      */
     @Override
     public void removeProduct(Long id) {
@@ -36,7 +39,7 @@ public class ProductServiceImpl implements ProductService  {
     }
 
     /**
-     *  {inheritDoc}
+     * {inheritDoc}
      */
     @Override
     public void updateProductDetails(String title, String shortDescription, String longDescription, String productCode, Long quantity, Long stock) {
@@ -44,11 +47,7 @@ public class ProductServiceImpl implements ProductService  {
     }
 
     /**
-     *{inheritDoc}
-     */
-
-    /**
-     *  {inheritDoc}
+     * {inheritDoc}
      */
     @Override
     public Product findProductById(Long id) {
@@ -56,7 +55,7 @@ public class ProductServiceImpl implements ProductService  {
     }
 
     /**
-     *  {inheritDoc}
+     * {inheritDoc}
      */
     @Override
     public Product findProductByName(String name) {
@@ -64,14 +63,15 @@ public class ProductServiceImpl implements ProductService  {
     }
 
     /**
-     * {inheritDoc}
+     *{inheritDoc}
      */
     @Override
-    public List<Product> getAllProductsByCategoryId(Long categoryId) {
-         List<Product> productsPerCategoryId = new ArrayList<>();
-         productRepository.findByCategoryId(categoryId)
-                 .forEach(productsPerCategoryId::add);
-        return productsPerCategoryId;
-    }
+    public List<Product> getAllProducts(Long categoryId) {
+        List<Product> products = new ArrayList<>();
+        productRepository.findByCategoryId(categoryId)
+                .forEach(products::add);
+        return products;
 
+
+    }
 }

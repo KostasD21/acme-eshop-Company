@@ -1,6 +1,8 @@
 package com.codehub.acme.eshop.domain;
 
 import com.codehub.acme.eshop.enumerator.Availability;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,8 +24,9 @@ public class Product {
      * the product id
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "PRODUCT_ID", nullable = false)
+    private Long productId;
     /**
      * the title
      */
@@ -53,9 +56,8 @@ public class Product {
      * the stock available
      */
 
-    private int stock;
-      // @OneToOne
-     //  private ProductStock stock;
+    @OneToOne
+    private ProductStock stock;
     /**
      * the {@link Availability}
      */
@@ -63,8 +65,9 @@ public class Product {
     /**
      * the {@link Category}
      */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CATEGORY_ID",referencedColumnName = "CATEGORY_ID")
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "CATEGORY_ID", referencedColumnName = "CATEGORY_ID")
+    @JsonManagedReference
     private Category category;
     /**
      * the price

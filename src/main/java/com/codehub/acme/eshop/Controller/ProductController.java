@@ -1,6 +1,7 @@
 package com.codehub.acme.eshop.Controller;
 
 import com.codehub.acme.eshop.domain.Product;
+import com.codehub.acme.eshop.service.CategoryService;
 import com.codehub.acme.eshop.service.ProductService;
 import com.codehub.acme.eshop.service.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +14,16 @@ import java.util.List;
 @RestController
 public class ProductController {
 
+    /**
+     * {@link ProductService}
+     */
     @Autowired
-    ProductService productService;
+    private ProductService productService;
 
+     @GetMapping(value ="/categories/{categoryId}/products")
+      public List<Product> findProductsByCategoryId(@PathVariable Long categoryId){
+          return productService.getAllProducts(categoryId);
+    }
 
-    @GetMapping(value = "/categories/search/products/{categoryId}")
-        public List<Product> getProductsByCategoryId(@PathVariable Long categoryId){
-            return productService.getAllProductsByCategoryId(categoryId);
-        }
     }
 

@@ -11,6 +11,7 @@ INSERT INTO category (CATEGORY_ID, CATEGORY_NAME, description) VALUES (9, 'TV', 
 
 
 
---INSERT INTO product (id, title, short_description, long_description, product_code,quantity, stock, availability, price,category_id) VALUES (6, 'Acer Aspire X', 'Normal laptop','Nvidia GTX 555','product Code 555', 3,10, 1, 800,6);
+INSERT INTO product (product_id, title, short_description, long_description, product_code,quantity, stock, availability, price,category_id) VALUES (5, 'Acer Aspire X', 'Normal laptop','Nvidia GTX 555','product Code 555', 3,10, 1, 800,6);
+INSERT INTO product (product_id, title, short_description, long_description, product_code,quantity, stock, availability, price,category_id) VALUES (4, 'Acer Aspire X', 'Normal laptop','Nvidia GTX 555','product Code 555', 3,10, 1, 800,6);
 --INSERT INTO product (id, title, short_description, long_description, product_code,quantity, stock, availability, price) VALUES (5, 'Acer Aspire Turbo', 'Gaming Laptop','Nvidia 1080 TI 4gb, 32GB DDR 4 RAM','product Code 666', 1,10, 1, 1500);
 --INSERT INTO product (id, title, short_description, long_description, product_code,quantity, stock, availability, price) VALUES (4, 'Turbo X Turbo', 'Desktop PC','Nvidia 1080 TI 4gb, 64GB DDR4 RAM,SSD 512GB','product Code 1000', 1,10, 1, 2000);

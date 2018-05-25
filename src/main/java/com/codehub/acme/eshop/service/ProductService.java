@@ -64,12 +64,15 @@ public interface ProductService {
      */
     Product findProductByName(String name);
 
-
     /**
-     * This methods finds the Products per Category Id
+     * This method finds the Products per category Id
+     *
      * @param categoryId
      * @return
      */
-    List<Product> getAllProductsByCategoryId(Long categoryId);
+    List<Product> getAllProducts(Long categoryId);
+
+
+
 }
 

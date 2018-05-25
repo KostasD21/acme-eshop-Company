@@ -6,6 +6,7 @@ import com.codehub.acme.eshop.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,9 +14,11 @@ import java.util.List;
  */
 @Service
 public class CategoryServiceImpl implements CategoryService {
-
+    /**
+     * {@link CategoryRepository}
+     */
     @Autowired
-    CategoryRepository categoryRepository;
+    private CategoryRepository categoryRepository;
 
 
     /**
@@ -53,16 +56,10 @@ public class CategoryServiceImpl implements CategoryService {
      * {@inheritDoc}
      */
     @Override
-    public List<Product> productsPerGivenCategory(String categoryName) {
-        return null;
-    }
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public Category getCategoryById(Long id) {
         return categoryRepository.getCategoryById(id);
     }
+
     /**
      * {@inheritDoc}
      */

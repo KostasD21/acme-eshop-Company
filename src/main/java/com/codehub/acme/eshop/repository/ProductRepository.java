@@ -11,12 +11,6 @@ import java.util.List;
  */
 @Repository
 public interface ProductRepository extends CrudRepository<Product,Long> {
-
-    /**
-     * Search a list of Products regarding the given category name{@link Product}
-      * @param productId
-     * @return list {@link Product}
-     */
- List<Product> findByCategoryId(Long productId);
-
+    List<Product> findByCategoryId(Long categoryId);
+    List<Product> findAll();
 }
