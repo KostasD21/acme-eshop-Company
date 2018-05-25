@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,18 +25,13 @@ public class Product {
      * the product id
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "PRODUCT_ID", nullable = false)
-    private Long productId;
+    private Long id;
     /**
      * the title
      */
     private String title;
-    /**
-     * the shopping Basket
-     */
-    @ManyToOne
-    private ShoppingBasket shoppingBasket;
     /**
      * the short description
      */
@@ -49,19 +45,10 @@ public class Product {
      */
     private String productCode;
     /**
-     * the quantity of product
-     */
-    private Long quantity;
-    /**
      * the stock available
      */
-
     @OneToOne
-    private ProductStock stock;
-    /**
-     * the {@link Availability}
-     */
-    private Availability availability;
+    private ProductStock productStock;
     /**
      * the {@link Category}
      */
@@ -72,5 +59,10 @@ public class Product {
     /**
      * the price
      */
-    private Double price;
+    private BigDecimal price;
+    /**
+     * the {@link List} of {@link ProductItem}
+     */
+    @OneToMany(mappedBy = "product")
+    private List<ProductItem> productItems;
 }

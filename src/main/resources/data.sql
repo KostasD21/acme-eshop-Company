@@ -1,7 +1,6 @@
-INSERT INTO user (id, username, password, name, surname, email, phone_number, address, post_code, role) VALUES (2, 'paulos', '12345678', 'Paulos', 'Chioni', 'axilleas@gmail.com', '123456789', 'athens', '40100',1);
-INSERT INTO user (id, username, password, name, surname, email, phone_number, address, post_code, role) VALUES (5, 'Pelo', '11234579', 'Pelopidas', 'Papadopoulos', 'SPARTH21@gmail.com', '111456789', 'Sparth', '40101',1);
-INSERT INTO user (id, username, password, name, surname, email, phone_number, address, post_code, role) VALUES (6, 'Manwlhs', '1235424545', 'Manolios', 'Papadomanwlakis', 'CreteGR@gmail.com', '123456789', 'Crete', '41100',1);
-INSERT INTO user (id, username, password, name, surname, email, phone_number, address, post_code, role) VALUES (7, 'Shfhs', '12342138', 'Iwshf', 'Sifakas', 'sfakianiPita@gmail.com', '12411323', 'SFAKIA', '40100',1);
+INSERT INTO user (id, username, password, name, surname, email, phone_number, address, post_code, role) VALUES (1, 'Pelo', '11234579', 'Pelopidas', 'Papadopoulos', 'SPARTH21@gmail.com', '111456789', 'Sparth', '40101',1);
+INSERT INTO user (id, username, password, name, surname, email, phone_number, address, post_code, role) VALUES (2, 'Manwlhs', '1235424545', 'Manolios', 'Papadomanwlakis', 'CreteGR@gmail.com', '123456789', 'Crete', '41100',1);
+INSERT INTO user (id, username, password, name, surname, email, phone_number, address, post_code, role) VALUES (3, 'Shfhs', '12342138', 'Iwshf', 'Sifakas', 'sfakianiPita@gmail.com', '12411323', 'SFAKIA', '40100',1);
 
 INSERT INTO category (CATEGORY_ID, CATEGORY_NAME, description) VALUES (5, 'Desktop PC', 'Category for Desktop PCs');
 INSERT INTO category (CATEGORY_ID, CATEGORY_NAME, description) VALUES (6, 'Laptop', 'Category for Laptops');
@@ -9,9 +8,17 @@ INSERT INTO category (CATEGORY_ID, CATEGORY_NAME, description) VALUES (7, 'Table
 INSERT INTO category (CATEGORY_ID, CATEGORY_NAME, description) VALUES (8, 'Smart Phone', 'Category for Smartphones');
 INSERT INTO category (CATEGORY_ID, CATEGORY_NAME, description) VALUES (9, 'TV', 'Category for TVs');
 
+INSERT INTO product_stock (id, availability, stock) VALUES (1, 'IN_STOCK', 20);
+INSERT INTO product_stock (id, availability, stock) VALUES (2, 'IN_STOCK', 100);
+INSERT INTO product_stock (id, availability, stock) VALUES (3, 'IN_STOCK', 43);
+INSERT INTO product_stock (id, availability, stock) VALUES (4, 'IN_STOCK', 80);
 
+INSERT INTO product (product_id, title, short_description, long_description, product_code, price,category_id, product_stock_id) VALUES (1, 'Acer Aspire X', 'Normal laptop','Nvidia GTX 555','product Code 555', 800,6,1);
+INSERT INTO product (product_id, title, short_description, long_description, product_code, price,category_id, product_stock_id) VALUES (2, 'Acer Aspire S', 'Normal laptop','Nvidia GTX 777','product Code 777', 400,6, 2);
 
-INSERT INTO product (product_id, title, short_description, long_description, product_code,quantity, stock, availability, price,category_id) VALUES (5, 'Acer Aspire X', 'Normal laptop','Nvidia GTX 555','product Code 555', 3,10, 1, 800,6);
-INSERT INTO product (product_id, title, short_description, long_description, product_code,quantity, stock, availability, price,category_id) VALUES (4, 'Acer Aspire X', 'Normal laptop','Nvidia GTX 555','product Code 555', 3,10, 1, 800,6);
---INSERT INTO product (id, title, short_description, long_description, product_code,quantity, stock, availability, price) VALUES (5, 'Acer Aspire Turbo', 'Gaming Laptop','Nvidia 1080 TI 4gb, 32GB DDR 4 RAM','product Code 666', 1,10, 1, 1500);
---INSERT INTO product (id, title, short_description, long_description, product_code,quantity, stock, availability, price) VALUES (4, 'Turbo X Turbo', 'Desktop PC','Nvidia 1080 TI 4gb, 64GB DDR4 RAM,SSD 512GB','product Code 1000', 1,10, 1, 2000);
+INSERT INTO shopping_basket (shopping_basket_id, total_amount, user_id) VALUES (1, 2400, 1);
+INSERT INTO shopping_basket (shopping_basket_id, total_amount, user_id) VALUES (2, 400, 2);
+
+INSERT INTO product_item (product_item_id, amount, quantity, order_id, product_id, shopping_basket_id) VALUES (1, 1600, 2, null, 1, 1);
+INSERT INTO product_item (product_item_id, amount, quantity, order_id, product_id, shopping_basket_id) VALUES (2, 800, 1, null, 2, 1);
+INSERT INTO product_item (product_item_id, amount, quantity, order_id, product_id, shopping_basket_id) VALUES (3, 400, 1, null, 2, 2);

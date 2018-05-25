@@ -22,13 +22,13 @@ public class ShoppingBasket {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "SHOPPING_BASKET_ID",nullable = false)
     private Long id;
     /**
-     * a {@link List} of {@link Product}
+     * a {@link List} of {@link ProductItem}
      */
     @OneToMany(mappedBy = "shoppingBasket")
-    //  @JoinColumn(name="PRODUCT_ID", referencedColumnName="PRODUCT_ID")
-    private List<Product> products = new ArrayList<>();
+    private List<ProductItem> productItems = new ArrayList<>();
     /**
      * the total amount
      */
@@ -37,5 +37,5 @@ public class ShoppingBasket {
      * the user id
      */
     @OneToOne
-    private User userId;
+    private User user;
 }

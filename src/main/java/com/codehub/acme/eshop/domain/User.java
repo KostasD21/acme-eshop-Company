@@ -21,6 +21,7 @@ public class User {
     */
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
+   //@Column(name = "USER_ID",nullable = false)
    private Long id;
    /**
     * the username
@@ -63,5 +64,6 @@ public class User {
     * The role
     * {@link Role}
     */
+   @Enumerated(EnumType.STRING)
    private Role role;
 }

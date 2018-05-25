@@ -5,7 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * This domain class represents a order
@@ -33,4 +35,9 @@ public class UserOrder {
     @OneToOne
     @JoinColumn(name = "BILLING_DETAILS_ID")
     private BillingDetails billingDetails;
+    /**
+     * the {@link List} of {@link ProductItem}
+     */
+    @OneToMany(mappedBy = "order")
+    private List<ProductItem> productItems= new ArrayList<>();
 }

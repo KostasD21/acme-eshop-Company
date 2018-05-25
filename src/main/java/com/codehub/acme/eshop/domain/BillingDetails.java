@@ -23,6 +23,7 @@ public class BillingDetails {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "BILLING_DETAILS_ID",nullable = false)
     private Long id;
     /**
      * the order
@@ -40,13 +41,16 @@ public class BillingDetails {
     /**
      * the {@link ShippingMethods}
      */
+    @Enumerated(EnumType.STRING)
     private ShippingMethods shippingMethods;
     /**
      * the {@link ReceiptMethods}
      */
+    @Enumerated(EnumType.STRING)
     private ReceiptMethods receiptMethods;
     /**
      * the {@link PaymentMethods}
      */
+    @Enumerated(EnumType.STRING)
     private PaymentMethods paymentMethods;
 }
