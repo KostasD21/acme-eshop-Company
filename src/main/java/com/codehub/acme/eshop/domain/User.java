@@ -68,4 +68,9 @@ public class User {
     */
    @Enumerated(EnumType.STRING)
    private Role role;
+
+   /**
+    * The token for the user authentication
+    */
+   private String token;
 }
