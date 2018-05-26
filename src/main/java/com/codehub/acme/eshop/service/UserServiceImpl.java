@@ -19,39 +19,56 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addUser(User user) {
         userRepository.save(user);
-
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeUser(String username) {
         userRepository.deleteByUsername(username);
-
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeUserById(Long id) {
         userRepository.deleteById(id);
-
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void authenticateUser(String password) {
-
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<User> getUserById(Long id) {
         return userRepository.getUserById(id);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public User findUserByUsermane(String username) {
         return userRepository.findUserByUsername(username);
