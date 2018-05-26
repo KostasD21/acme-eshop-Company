@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -39,6 +40,7 @@ public class Category {
     /**
      * a {@link List} of {@link Product}
      */
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @OneToMany(mappedBy = "category",targetEntity = Product.class)
     @JsonBackReference
     private List<Product> products = new ArrayList<>();

@@ -16,19 +16,20 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends CrudRepository<User, Long> {
 
-    /**
-     * Search {@link User} by username
-     * @param username of the {@link User} to be searched
-     * @return {@link User}
-     */
-    List<User> findByUsername(String username);
 
     /**
      * Search {@link User} by id
      * @param Id of the {@link User} to be searched
      * @return {@link User}
      */
-    Optional<User> findById(Long Id);
+    Optional <User> getUserById(Long Id);
+
+    /**
+     * Search {@link User} by username
+     * @param username of the {@link User} to be searched
+     * @return {@link User}
+     */
+    User findUserByUsername(String username);
 
     /**
      * Search {@link User} by mail

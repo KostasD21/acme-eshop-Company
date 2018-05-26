@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 
@@ -58,6 +59,7 @@ public class User {
    /**
     * the Shopping Basket
     */
+   @Cascade(org.hibernate.annotations.CascadeType.ALL)
    @OneToOne
    private ShoppingBasket shoppingBasket;
    /**

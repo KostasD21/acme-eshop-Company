@@ -3,17 +3,21 @@ package com.codehub.acme.eshop.service;
 
 import com.codehub.acme.eshop.domain.User;
 
+import java.util.List;
+import java.util.Optional;
+
 /**
  * This interface contains the signature of methods regarding the
  * {@link com.codehub.acme.eshop.domain.User} functionality
  */
 public interface UserService {
 
-    /**
-     * This create a user
-     *
-     */
-    void registerUser();
+    void addUser(User user);
+
+    void removeUser(String username);
+
+    void removeUserById(Long id);
+
 
     /**
      *This method authenticate a user
@@ -22,18 +26,9 @@ public interface UserService {
      */
     void authenticateUser (String password);
 
-    /**
-     * This method shows the User's profile information
-     *
-     *  @param userId the userId
-        @return  the{@link User}
-     *
-     */
-     User getUserInfo(Long userId);
+    List<User> getAllUsers();
 
-    /**
-     * This method update the User's profile informations
-     *
-     */
-        void updateUserInfo (Long userId);
+   Optional <User> getUserById(Long id);
+
+    User findUserByUsermane(String username);
 }
