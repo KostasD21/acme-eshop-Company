@@ -2,10 +2,12 @@ package com.codehub.acme.eshop.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -14,9 +16,8 @@ import java.math.BigDecimal;
  * This domain represents a product of a shopping basket
  */
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
+@NoArgsConstructor
 public class ProductItem {
 
     /**
@@ -38,25 +39,57 @@ public class ProductItem {
     private BigDecimal amount;
 
     /**
-     * the shopping Basket that corresponds to the product item
+     * the shopping basket that corresponds to the product item
      */
-    @ManyToOne
+    @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn(name="SHOPPING_BASKET_ID")
-    @JsonBackReference
+    //@JsonBackReference
     private ShoppingBasket shoppingBasket;
 
     /**
      * the order that corresponds to the product item
      */
-    @ManyToOne
+    @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn(name="ORDER_ID")
     private UserOrder order;
 
     /**
      * the product that corresponds to the product item
      */
-    @ManyToOne
+    @ManyToOne (fetch = FetchType.EAGER)
     @JoinColumn(name="PRODUCT_ID")
-    @JsonManagedReference
+    //@JsonManagedReference
     private Product product;
+
+    /**
+     * Constructor with all attributes except the unique id
+     *
+     * @param quantity the quantity of the product item
+     * @param amount  the amount of the product item
+     * @param shoppingBasket the correlated {@link ShoppingBasket}
+     * @param order the correlated {@link UserOrder}
+     * @param product the correlated product {@link Product}
+     */
+    public ProductItem(Integer quantity, BigDecimal amount, ShoppingBasket shoppingBasket, UserOrder order, Product product) {
+        this.quantity = quantity;
+        this.amount = amount;
+        this.shoppingBasket = shoppingBasket;
+        this.order = order;
+        this.product = product;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return new StringBuilder("ProductItem{")
+                .append("id=").append(id)
+                .append(", quantity=").append(quantity)
+                .append(", amount=").append(amount)
+                .append(", shoppingBasket=").append(shoppingBasket)
+                .append(", order=").append(order)
+                .append(", product=").append(product)
+                .append('}').toString();
+    }
 }

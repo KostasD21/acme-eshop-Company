@@ -26,5 +26,12 @@ public interface ProductItemRepository extends CrudRepository<ProductItem, Long>
      */
     ProductItem save(ProductItem productItem);
 
-
+    /**
+     * this method finds a {@link ProductItem}
+     *
+     * @param shoppingBasketId the shopping basket Id
+     * @param productId the product Id
+     * @return {@link ProductItem}
+     */
+    ProductItem findByShoppingBasketIdAndProductId(Long shoppingBasketId, Long productId);
 }

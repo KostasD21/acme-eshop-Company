@@ -24,7 +24,7 @@ public interface ShoppingBasketRepository extends CrudRepository<ShoppingBasket,
      * @param userId the user ID
      * @return {@link ShoppingBasket}
      */
-    Optional<ShoppingBasket> findByUserId(Long userId);
+    ShoppingBasket findByUserId(Long userId);
     /**
      * Saves the {@link ShoppingBasket}
      *

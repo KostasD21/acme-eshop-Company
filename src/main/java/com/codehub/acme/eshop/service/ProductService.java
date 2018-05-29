@@ -1,6 +1,8 @@
 package com.codehub.acme.eshop.service;
 
 import com.codehub.acme.eshop.domain.Product;
+import com.codehub.acme.eshop.domain.ProductItem;
+import com.codehub.acme.eshop.domain.ShoppingBasket;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -72,7 +74,27 @@ public interface ProductService {
      */
     List<Product> getAllProducts(Long categoryId);
 
+    /**
+     * This method adds product items
+     *
+     * @param products the {@link List} of {@link Product}
+     * @param shoppingBasket {@link ShoppingBasket}
+     * @return the created {@link List} of {@link ProductItem}
+     */
+    List<ProductItem> addProductItems(List<Product> products, ShoppingBasket shoppingBasket);
 
+    /**
+     * This method remove a product item
+     *
+     * @param productItemId the product item id
+     */
+    void removeProductItem(Long productItemId);
 
+    /**
+     * This method updates the product items
+     *
+     * @param productsItems the {@link List} of {@link ProductItem}
+     */
+    void updateProductItems(List<ProductItem> productsItems);
 }
 

@@ -1,16 +1,23 @@
 package com.codehub.acme.eshop.Controller;
 
+import com.codehub.acme.eshop.domain.Product;
 import com.codehub.acme.eshop.domain.ProductItem;
 import com.codehub.acme.eshop.domain.ShoppingBasket;
+import com.codehub.acme.eshop.exception.NotFoundException;
 import com.codehub.acme.eshop.service.ShoppingBasketService;
+import com.codehub.acme.eshop.transformation.ShoppingBasketDto;
+import com.codehub.acme.eshop.transformation.service.TransformationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
+/**
+ * This controller is responsible to handle requests regarding the {@link ShoppingBasket} functionality
+ */
 @RestController
 public class ShoppingBasketController {
+
     /**
      * {@link ShoppingBasketService}
      */
@@ -18,17 +25,77 @@ public class ShoppingBasketController {
     private ShoppingBasketService shoppingBasketService;
 
     /**
-     * This method searches and returns a {@link ShoppingBasket} regarding a given user Id
+     * {@link TransformationService}
+     */
+    @Autowired
+    private TransformationService transformationService;
+
+    /**
+     * The default URL for all the methods
+     */
+    private static final String DEFAULT_RESOURCE = "/shoppingBasket/";
+
+    /**
+     * This method searches and returns a {@link ShoppingBasket} for a given user Id
+     *
+     * @param userId the user Id
      * @return {@link ShoppingBasket}
      */
-    @GetMapping("/shoppingBasket/users/{userId}")
-    public Optional<ShoppingBasket> getShoppingBasketByUserId(@PathVariable Long userId) {
-        return shoppingBasketService.findByUserId(userId);
+    @GetMapping(DEFAULT_RESOURCE + "users/{userId}")
+    public ShoppingBasketDto getShoppingBasketByUserId(@PathVariable Long userId) {
+        ShoppingBasket shoppingBasket = shoppingBasketService.findByUserId(userId);
+        if (shoppingBasket == null) {
+            throw new NotFoundException("The shopping basket for the user Id " + userId + " not found");
+        }
+        return new ShoppingBasketDto(shoppingBasket.getId(), transformationService.transformProductItems(shoppingBasket.getProductItems()), shoppingBasket.getTotalAmount(), shoppingBasket.getUser());
     }
 
-    @PostMapping("/shoppingBasket/addProducts")
-    public ShoppingBasket addProductsToShoppingBasket(@RequestBody List<ProductItem> productItems){
-        return shoppingBasketService.addProducts(productItems);
+    /**
+     * This method adds products to the shopping basket
+     *
+     * @param products the {@link List} of {@link Product}
+     * @return the created/updated {@link ShoppingBasket}
+     */
+    @PostMapping(DEFAULT_RESOURCE + "addProducts")
+    public ShoppingBasketDto addProductsToShoppingBasket(@RequestBody List<Product> products){
+        /* TODO: Validate the amount of product items > 0 */
+        ShoppingBasket shoppingBasket = shoppingBasketService.addProducts(products);
+        return new ShoppingBasketDto(shoppingBasket.getId(), transformationService.transformProductItems(shoppingBasket.getProductItems()), shoppingBasket.getTotalAmount(), shoppingBasket.getUser());
+    }
+
+    /**
+     * This method updates a the quantities of product items included into a shopping basket
+     *
+     * @param shoppingBasketId the shopping basket Id
+     * @param productItems the {@link List} of {@link ProductItem}
+     * @return the updated {@link ShoppingBasket}
+     */
+    @PutMapping(DEFAULT_RESOURCE + "{shoppingBasketId}/updateProducts")
+    public ShoppingBasketDto updateProductQuantities(@PathVariable Long shoppingBasketId, @RequestBody List<ProductItem> productItems){
+        ShoppingBasket shoppingBasket = shoppingBasketService.findById(shoppingBasketId);
+        if (shoppingBasket == null) {
+            throw new NotFoundException("The shopping basket with Id " + shoppingBasketId + " not found");
+        }
+        /* TODO: Validate the quantities of product items > 0 && quantity <= 30 */
+        shoppingBasket = shoppingBasketService.updateShoppingBasket(shoppingBasket, productItems);
+        return new ShoppingBasketDto(shoppingBasket.getId(), transformationService.transformProductItems(shoppingBasket.getProductItems()), shoppingBasket.getTotalAmount(), shoppingBasket.getUser());
+    }
+
+    /**
+     * This method deletes a product item from the shopping basket
+     *
+     * @param shoppingBasketId the shopping basket Id
+     * @param productItemId the product item Id
+     * @return the updated {@link ShoppingBasket}
+     */
+    @DeleteMapping(DEFAULT_RESOURCE + "{shoppingBasketId}/removeProduct/{productItemId}")
+    public ShoppingBasketDto removeProduct(@PathVariable Long shoppingBasketId, @PathVariable Long productItemId){
+        ShoppingBasket shoppingBasket = shoppingBasketService.findById(shoppingBasketId);
+        if (shoppingBasket == null) {
+            throw new NotFoundException("The shopping basket with Id " + shoppingBasketId + " not found");
+        }
+        shoppingBasket = shoppingBasketService.removeProduct(shoppingBasketId, productItemId);
+        return new ShoppingBasketDto(shoppingBasket.getId(), transformationService.transformProductItems(shoppingBasket.getProductItems()), shoppingBasket.getTotalAmount(), shoppingBasket.getUser());
     }
 
 }

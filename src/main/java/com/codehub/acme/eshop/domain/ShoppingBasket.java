@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -16,7 +17,6 @@ import java.util.List;
  */
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 public class ShoppingBasket {
     /**
@@ -29,8 +29,8 @@ public class ShoppingBasket {
     /**
      * a {@link List} of {@link ProductItem}
      */
-    @OneToMany(mappedBy = "shoppingBasket")
-    @JsonManagedReference
+    @OneToMany(mappedBy = "shoppingBasket", fetch = FetchType.EAGER)
+    //@JsonManagedReference
     private List<ProductItem> productItems = new ArrayList<>();
     /**
      * the total amount
@@ -39,7 +39,33 @@ public class ShoppingBasket {
     /**
      * the user id
      */
-    @OneToOne
-    @JsonManagedReference
+    @OneToOne(fetch = FetchType.LAZY)
+    //@JsonManagedReference
     private User user;
+
+    /**
+     * Constructor with all attributes except the unique id
+     *
+     * @param productItems a {@link List} of {@link ProductItem}
+     * @param totalAmount the total amount of the basket
+     * @param user the correlated {@link User}
+     */
+    public ShoppingBasket(List<ProductItem> productItems, BigDecimal totalAmount, User user) {
+        this.productItems = productItems;
+        this.totalAmount = totalAmount;
+        this.user = user;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return new StringBuilder("ShoppingBasket{")
+                .append("id=").append(id)
+                .append(", productItems=").append(productItems)
+                .append(", totalAmount=").append(totalAmount)
+                .append(", user=").append(user)
+                .append('}').toString();
+    }
 }
