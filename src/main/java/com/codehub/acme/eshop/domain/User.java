@@ -4,7 +4,7 @@ import com.codehub.acme.eshop.enumerator.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+
 
 import javax.persistence.*;
 
@@ -15,7 +15,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "AcmeUser")
+@Table(name = "ACME_USER")
 public class User {
    /**
     * the user id
