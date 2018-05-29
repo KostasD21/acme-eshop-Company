@@ -24,7 +24,7 @@ public class Category {
      * the category id
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CATEGORY_ID",nullable = false)
     private Long id;
     /**
@@ -40,7 +40,7 @@ public class Category {
      * a {@link List} of {@link Product}
      */
     @OneToMany(mappedBy = "category",targetEntity = Product.class)
-    @JsonBackReference
+    //@JsonBackReference
     private List<Product> products = new ArrayList<>();
 
 }

@@ -54,7 +54,7 @@ public class Product {
      */
     @ManyToOne(optional = false)
     @JoinColumn(name = "CATEGORY_ID", referencedColumnName = "CATEGORY_ID")
-    @JsonManagedReference
+    //@JsonManagedReference
     private Category category;
     /**
      * the price
@@ -64,6 +64,6 @@ public class Product {
      * the {@link List} of {@link ProductItem}
      */
     @OneToMany(mappedBy = "product")
-    @JsonBackReference
+    //@JsonBackReference
     private List<ProductItem> productItems;
 }
