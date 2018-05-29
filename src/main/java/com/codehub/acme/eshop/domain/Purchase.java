@@ -23,7 +23,7 @@ public class Purchase {
      * the purchase id
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "PURCHASE_ID", nullable = false)
     private Long id;
     /**
@@ -44,6 +44,7 @@ public class Purchase {
      * The type of provider
      * {@link Provider}
      */
+    @Enumerated(EnumType.STRING)
     private Provider provider;
     /**
      * Total amount of the purchase
@@ -53,5 +54,6 @@ public class Purchase {
      * The status of the purchase
      * {@link PurchaseStatus}
      */
+    @Enumerated(EnumType.STRING)
     private PurchaseStatus purchaseStatus;
 }

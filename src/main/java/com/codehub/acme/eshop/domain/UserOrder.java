@@ -1,5 +1,6 @@
 package com.codehub.acme.eshop.domain;
 
+import com.codehub.acme.eshop.enumerator.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -36,8 +37,18 @@ public class UserOrder {
     @JoinColumn(name = "BILLING_DETAILS_ID")
     private BillingDetails billingDetails;
     /**
+     * the order status {@link OrderStatus}
+     */
+    @Enumerated(EnumType.STRING)
+    private OrderStatus orderStatus;
+    /**
      * the {@link List} of {@link ProductItem}
      */
     @OneToMany(mappedBy = "order")
     private List<ProductItem> productItems= new ArrayList<>();
+    /**
+     * the {@link User} of the order
+     */
+    @OneToOne
+    private User user;
 }
