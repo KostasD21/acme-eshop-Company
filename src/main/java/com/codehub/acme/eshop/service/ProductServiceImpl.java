@@ -38,8 +38,11 @@ public class ProductServiceImpl implements ProductService  {
     /**
      *  {inheritDoc}
      */
+
+
     @Override
-    public void addProduct(String title, String shortDescription, String longDescription, String productCode, Long quantity, Long stock) {
+    public Product addProduct(Product product) {
+        return productRepository.save(product);
 
     }
 
