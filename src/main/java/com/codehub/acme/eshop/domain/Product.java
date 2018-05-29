@@ -1,16 +1,12 @@
 package com.codehub.acme.eshop.domain;
 
-import com.codehub.acme.eshop.enumerator.Availability;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -54,8 +50,7 @@ public class Product {
      */
     @ManyToOne(optional = false)
     @JoinColumn(name = "CATEGORY_ID", referencedColumnName = "CATEGORY_ID")
-    //@JsonManagedReference
-    private Category category;
+     private Category category;
     /**
      * the price
      */
@@ -63,7 +58,8 @@ public class Product {
     /**
      * the {@link List} of {@link ProductItem}
      */
-    @OneToMany(mappedBy = "product")
-    //@JsonBackReference
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+  // @JsonBackReference
+    @JsonIgnore
     private List<ProductItem> productItems;
 }

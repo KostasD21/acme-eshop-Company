@@ -1,6 +1,6 @@
-INSERT INTO user (id, username, password, name, surname, email, phone_number, address, post_code, role) VALUES (1, 'Pelo', '11234579', 'Pelopidas', 'Papadopoulos', 'SPARTH21@gmail.com', '111456789', 'Sparth', '40101','REGISTERED_USER');
-INSERT INTO user (id, username, password, name, surname, email, phone_number, address, post_code, role) VALUES (2, 'Manwlhs', '1235424545', 'Manolios', 'Papadomanwlakis', 'CreteGR@gmail.com', '123456789', 'Crete', '41100','REGISTERED_USER');
-INSERT INTO user (id, username, password, name, surname, email, phone_number, address, post_code, role) VALUES (3, 'Shfhs', '12342138', 'Iwshf', 'Sifakas', 'sfakianiPita@gmail.com', '12411323', 'SFAKIA', '40100','REGISTERED_USER');
+INSERT INTO AcmeUser (id, username, password, name, surname, email, phone_number, address, post_code, role) VALUES (1, 'Pelo', '11234579', 'Pelopidas', 'Papadopoulos', 'SPARTH21@gmail.com', '111456789', 'Sparth', '40101','REGISTERED_USER');
+INSERT INTO AcmeUser (id, username, password, name, surname, email, phone_number, address, post_code, role) VALUES (2, 'Manwlhs', '1235424545', 'Manolios', 'Papadomanwlakis', 'CreteGR@gmail.com', '123456789', 'Crete', '41100','REGISTERED_USER');
+INSERT INTO AcmeUser (id, username, password, name, surname, email, phone_number, address, post_code, role) VALUES (3, 'Shfhs', '12342138', 'Iwshf', 'Sifakas', 'sfakianiPita@gmail.com', '12411323', 'SFAKIA', '40100','REGISTERED_USER');
 
 INSERT INTO category (CATEGORY_ID, CATEGORY_NAME, description) VALUES (1, 'Desktop PC', 'Category for Desktop PCs');
 INSERT INTO category (CATEGORY_ID, CATEGORY_NAME, description) VALUES (2, 'Laptop', 'Category for Laptops');

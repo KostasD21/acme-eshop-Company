@@ -5,7 +5,7 @@ import com.codehub.acme.eshop.domain.User;
 
 /**
  * This interface contains the signature of methods regarding the
- * {@link com.codehub.acme.eshop.domain.User} functionality
+ * {@link User} functionality
  */
 public interface UserService {
 

@@ -1,14 +1,13 @@
 package com.codehub.acme.eshop.domain;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +39,8 @@ public class Category {
      * a {@link List} of {@link Product}
      */
     @OneToMany(mappedBy = "category",targetEntity = Product.class)
-    //@JsonBackReference
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @JsonIgnore
     private List<Product> products = new ArrayList<>();
 
 }

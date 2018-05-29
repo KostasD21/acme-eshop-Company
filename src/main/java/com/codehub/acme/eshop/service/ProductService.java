@@ -13,14 +13,15 @@ public interface ProductService {
     /**
      *This method adds a new Product
      *
-     * @param title product title
-     * @param shortDescription a short description for the product
-     * @param longDescription a long description for the product
-     * @param productCode a unique code for each product
-     * @param quantity quantiy of the product
-     * @param stock the amount of stock
+    // * @param title product title
+    // * @param shortDescription a short description for the product
+     //* @param longDescription a long description for the product
+    // * @param productCode a unique code for each product
+    // * @param quantity quantiy of the product
+    // * @param stock the amount of stock
+        * @param product
      */
-    void addProduct(String title, String shortDescription, String longDescription, String productCode, Long quantity, Long stock);
+    Product addProduct(Product product);
 
     /**
      * This method removes a Product
