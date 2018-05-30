@@ -6,6 +6,8 @@ import com.codehub.acme.eshop.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
+import java.security.SecureRandom;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,6 +26,8 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public User addUser(User user) {
+        String token = generateRandomHexToken(10);
+        user.setToken(token);
         return userRepository.save(user);
     }
 
@@ -72,5 +76,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findUserByUsermane(String username) {
         return userRepository.findUserByUsername(username);
+    }
+
+    private String generateRandomHexToken(int byteLength) {
+        SecureRandom secureRandom = new SecureRandom();
+        byte[] token = new byte[byteLength];
+        secureRandom.nextBytes(token);
+        return new BigInteger(1, token).toString(16); //hex encoding
     }
 }

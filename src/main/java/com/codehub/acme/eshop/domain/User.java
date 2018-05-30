@@ -75,13 +75,6 @@ public class User {
    /**
     * The token for the user authentication
     */
-   private String generateRandomHexToken;
-   public static String generateRandomHexToken(int byteLength) {
-        SecureRandom secureRandom = new SecureRandom();
-        byte[] token = new byte[byteLength];
-        secureRandom.nextBytes(token);
-        return new BigInteger(1, token).toString(16); //hex encoding
-
-    }
+   private String token;
 }
 

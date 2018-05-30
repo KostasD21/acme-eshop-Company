@@ -2,6 +2,7 @@ package com.codehub.acme.eshop.Controller;
 
 import com.codehub.acme.eshop.domain.User;
 import com.codehub.acme.eshop.service.UserService;
+import com.codehub.acme.eshop.transformation.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,10 +46,11 @@ public class UserController {
      * @param user
      */
     @PostMapping(value = "/users/new")
-    public ResponseEntity<User> addUser(@RequestBody User user){
+    public ResponseEntity<UserDto> addUser(@RequestBody User user){
+        User userNew = userService.addUser(user);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(userService.addUser(user));
+                .body(new UserDto(userNew.getId(), userNew.getUsername(), userNew.getPassword(), userNew.getName(), userNew.getSurname(), userNew.getEmail(), userNew.getPhoneNumber(), userNew.getAddress(), userNew.getPostCode(), null, userNew.getRole(), userNew.getToken()));
     }
 
     /**
