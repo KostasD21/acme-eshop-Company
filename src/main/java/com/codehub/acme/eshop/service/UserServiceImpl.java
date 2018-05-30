@@ -23,8 +23,8 @@ public class UserServiceImpl implements UserService {
      * {@inheritDoc}
      */
     @Override
-    public void addUser(User user) {
-        userRepository.save(user);
+    public User addUser(User user) {
+        return userRepository.save(user);
     }
 
     /**

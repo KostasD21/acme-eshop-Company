@@ -42,7 +42,7 @@ public class Category {
      */
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @OneToMany(mappedBy = "category",targetEntity = Product.class)
-    @JsonBackReference
+    //@JsonBackReference
     private List<Product> products = new ArrayList<>();
 
 }

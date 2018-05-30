@@ -55,6 +55,6 @@ public class ProductItem {
      */
     @ManyToOne
     @JoinColumn(name="PRODUCT_ID")
-    @JsonManagedReference
+    //@JsonManagedReference
     private Product product;
 }

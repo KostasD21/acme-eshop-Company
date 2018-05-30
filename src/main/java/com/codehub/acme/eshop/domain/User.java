@@ -4,10 +4,13 @@ import com.codehub.acme.eshop.enumerator.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
+import java.math.BigInteger;
+import java.security.SecureRandom;
+import java.util.Random;
+import java.util.UUID;
 
 /**
  * This domain class represents a user
@@ -72,5 +75,13 @@ public class User {
    /**
     * The token for the user authentication
     */
-   private String token;
+   private String generateRandomHexToken;
+   public static String generateRandomHexToken(int byteLength) {
+        SecureRandom secureRandom = new SecureRandom();
+        byte[] token = new byte[byteLength];
+        secureRandom.nextBytes(token);
+        return new BigInteger(1, token).toString(16); //hex encoding
+
+    }
 }
+

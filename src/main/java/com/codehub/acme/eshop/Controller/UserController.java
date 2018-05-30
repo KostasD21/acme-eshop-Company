@@ -3,6 +3,8 @@ package com.codehub.acme.eshop.Controller;
 import com.codehub.acme.eshop.domain.User;
 import com.codehub.acme.eshop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,9 +23,13 @@ public class UserController {
      * This Controller returns a List of Users from the DB
      * @return {@link User}
      */
-    @GetMapping("/users")
-    public List<User> userList() {
-        return userService.getAllUsers();
+
+    @GetMapping(value = "/users")
+    public ResponseEntity<List<User>> getAllUsers() {
+        List<User> userList = userService.getAllUsers();
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(userList);
     }
     /**
      * This controllers searches and returns a User {@link User} from the DB regarding a given Id
@@ -39,8 +45,10 @@ public class UserController {
      * @param user
      */
     @PostMapping(value = "/users/new")
-    public void addUser(@RequestBody User user){
-       userService.addUser(user);
+    public ResponseEntity<User> addUser(@RequestBody User user){
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(userService.addUser(user));
     }
 
     /**
@@ -50,8 +58,9 @@ public class UserController {
      *
      */
     @DeleteMapping(value = "/users/remove/{userName}")
-    public void deleteUserName (@PathVariable (name="userName") String userName){
+    public ResponseEntity deleteUserName (@PathVariable (name="userName") String userName){
         userService.removeUser(userName);
+        return ResponseEntity.noContent().build();
     }
 
     /**
@@ -61,8 +70,6 @@ public class UserController {
      *
      */
     @DeleteMapping(value = "/users/removeById/{userId}")
-    public void deleteUserById(@PathVariable (name="userId") Long userId){
-        userService.removeUserById(userId);
-    }
-
+    public void deleteUserById(@PathVariable Long userId){
+        userService.removeUserById(userId); }
 }

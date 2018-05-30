@@ -24,7 +24,8 @@ public interface UserService {
      *    //  * @param postalCode  the postal code
      * @return {@link User}
      */
-    void addUser(User user);
+    User addUser(User user);
+
 
     /**
      * This method removes a user from the DB
@@ -66,4 +67,6 @@ public interface UserService {
      * @return a {@link User}
      */
     User findUserByUsermane(String username);
+
+
 }

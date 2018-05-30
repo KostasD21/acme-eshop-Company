@@ -3,6 +3,7 @@ package com.codehub.acme.eshop.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -36,6 +37,7 @@ public class ShoppingBasket {
     /**
      * the user id
      */
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @OneToOne
     private User user;
 }
