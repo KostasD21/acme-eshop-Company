@@ -37,7 +37,7 @@ public class ShoppingBasket {
     /**
      * the user id
      */
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    //@Cascade(org.hibernate.annotations.CascadeType.ALL)
     @OneToOne
     private User user;
 }

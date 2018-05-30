@@ -71,7 +71,7 @@ public class UserController {
      * @return {@link User}
      *
      */
-    @DeleteMapping(value = "/users/removeById/{userId}")
+    @DeleteMapping(value = "/users/{userId}")
     public void deleteUserById(@PathVariable Long userId){
         userService.removeUserById(userId); }
 }
