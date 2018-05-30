@@ -45,7 +45,7 @@ public class UserController {
      * This Controller adds/creates a User {@link User} to the DB
      * @param user
      */
-    @PostMapping(value = "/users/new")
+    @PostMapping(value = "/users")
     public ResponseEntity<UserDto> addUser(@RequestBody User user){
         User userNew = userService.addUser(user);
         return ResponseEntity
