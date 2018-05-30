@@ -9,12 +9,16 @@ import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.codehub.acme.eshop.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.math.BigDecimal;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -113,15 +117,28 @@ public class ProductServiceImpl implements ProductService  {
      * {@inheritDoc}
      */
     @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void removeProductItem(Long productItemId) {
-        productItemRepository.deleteById(productItemId);
+        try {
+            productItemRepository.deleteById(productItemId);
+        } catch (EmptyResultDataAccessException e) {
+            throw new RuntimeException("The product item Id "+productItemId+" does not exist!");
+        }
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void updateProductItems(List<ProductItem> productsItems) {
-        productItemRepository.saveAll(productsItems);
+    public Collection<ProductItem> updateProductItems(List<ProductItem> productsItems) {
+        return (Collection<ProductItem>) productItemRepository.saveAll(productsItems);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public ProductItem updateProductItem(ProductItem productsItem) {
+        return productItemRepository.save(productsItem);
     }
 }

@@ -78,26 +78,39 @@ public class ShoppingBasketServiceImpl implements ShoppingBasketService {
      * {@inheritDoc}
      */
     @Override
-    public ShoppingBasket removeProduct(Long shoppingBasketId, Long productId) {
-        productService.removeProductItem(productId);
-        return findById(shoppingBasketId);
+    public ShoppingBasket removeProductItem(Long shoppingBasketId, Long productItemId) {
+        productService.removeProductItem(productItemId);
+        ShoppingBasket shoppingBasket = findById(shoppingBasketId);
+        return updateShoppingBasket(shoppingBasket, shoppingBasket.getProductItems());
     }
     /**
      * {@inheritDoc}
      */
     @Override
     public ShoppingBasket updateShoppingBasket(ShoppingBasket shoppingBasket, List<ProductItem> productItems) {
+        List<ProductItem> productItemList = new ArrayList<>();
         for(ProductItem productItem : productItems) {
+            Integer quantity = productItem.getQuantity();
             productItem = checkIfProductItemExist(productItem);
+            BigDecimal amount = productItem.getAmount().multiply(new BigDecimal(quantity));
+            productItem.setQuantity(quantity);
+            productItem.setAmount(amount);
             checkIfProductItemBelongToShoppingBasket(shoppingBasket, productItem);
             checkProductStock(productItem);
+            productItemList.add(productService.updateProductItem(productItem));
         }
-        productService.updateProductItems(productItems);
-        /* TODO: Update total amount of the basket */
-        shoppingBasket.setProductItems(productItems);
-        shoppingBasket.setTotalAmount(calculateTotalAmount(productItems));
+        shoppingBasket.setProductItems(productItemList);
+        shoppingBasket.setTotalAmount(calculateTotalAmount(productItemList));
         shoppingBasketRepository.save(shoppingBasket);
         return findById(shoppingBasket.getId());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean exists(Long shoppingBasketId) {
+        return shoppingBasketRepository.existsById(shoppingBasketId);
     }
 
     /**

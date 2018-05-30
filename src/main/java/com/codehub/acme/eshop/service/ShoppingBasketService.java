@@ -29,8 +29,8 @@ public interface ShoppingBasketService {
     /**
      * This method adds a list of products to the shopping basket
      *
-     * @param productItems     the {@link List} of {@link ProductItem}
-     * @return                 the {@link ShoppingBasket}
+     * @param products the {@link List} of {@link Product}
+     * @return the {@link ShoppingBasket}
      */
     ShoppingBasket addProducts(List<Product> products);
     /**
@@ -39,7 +39,7 @@ public interface ShoppingBasketService {
      * @param shoppingBasketId the ID of the shopping basket
      * @param productItemId    the product to be removed from the basket
      */
-    ShoppingBasket removeProduct(Long shoppingBasketId, Long productItemId);
+    ShoppingBasket removeProductItem(Long shoppingBasketId, Long productItemId);
     /**
      * This method updates the shopping basket
      *
@@ -48,4 +48,11 @@ public interface ShoppingBasketService {
      * @return the updated {@link ShoppingBasket}
      */
     ShoppingBasket updateShoppingBasket(ShoppingBasket shoppingBasket, List<ProductItem> productItems);
+    /**
+     * This method checks if shopping basket exists
+     *
+     * @param shoppingBasketId the shopping basket id
+     * @return true if shopping basket exist, else false
+     */
+    boolean exists(Long shoppingBasketId);
 }

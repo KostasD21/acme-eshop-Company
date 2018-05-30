@@ -60,6 +60,7 @@ public class ShoppingBasketController {
     public ShoppingBasketDto addProductsToShoppingBasket(@RequestBody List<Product> products){
         /* TODO: Validate the amount of product items > 0 */
         ShoppingBasket shoppingBasket = shoppingBasketService.addProducts(products);
+        /* FIXME: Display the Product information properly in the response */
         return new ShoppingBasketDto(shoppingBasket.getId(), transformationService.transformProductItems(shoppingBasket.getProductItems()), shoppingBasket.getTotalAmount(), shoppingBasket.getUser());
     }
 
@@ -72,11 +73,11 @@ public class ShoppingBasketController {
      */
     @PutMapping(DEFAULT_RESOURCE + "{shoppingBasketId}/updateProducts")
     public ShoppingBasketDto updateProductQuantities(@PathVariable Long shoppingBasketId, @RequestBody List<ProductItem> productItems){
+        /* TODO: Validate the quantities of product items > 0 && quantity <= 30 */
         ShoppingBasket shoppingBasket = shoppingBasketService.findById(shoppingBasketId);
         if (shoppingBasket == null) {
             throw new NotFoundException("The shopping basket with Id " + shoppingBasketId + " not found");
         }
-        /* TODO: Validate the quantities of product items > 0 && quantity <= 30 */
         shoppingBasket = shoppingBasketService.updateShoppingBasket(shoppingBasket, productItems);
         return new ShoppingBasketDto(shoppingBasket.getId(), transformationService.transformProductItems(shoppingBasket.getProductItems()), shoppingBasket.getTotalAmount(), shoppingBasket.getUser());
     }
@@ -90,12 +91,10 @@ public class ShoppingBasketController {
      */
     @DeleteMapping(DEFAULT_RESOURCE + "{shoppingBasketId}/removeProduct/{productItemId}")
     public ShoppingBasketDto removeProduct(@PathVariable Long shoppingBasketId, @PathVariable Long productItemId){
-        ShoppingBasket shoppingBasket = shoppingBasketService.findById(shoppingBasketId);
-        if (shoppingBasket == null) {
+        if (!shoppingBasketService.exists(shoppingBasketId)) {
             throw new NotFoundException("The shopping basket with Id " + shoppingBasketId + " not found");
         }
-        shoppingBasket = shoppingBasketService.removeProduct(shoppingBasketId, productItemId);
+        ShoppingBasket shoppingBasket = shoppingBasketService.removeProductItem(shoppingBasketId, productItemId);
         return new ShoppingBasketDto(shoppingBasket.getId(), transformationService.transformProductItems(shoppingBasket.getProductItems()), shoppingBasket.getTotalAmount(), shoppingBasket.getUser());
     }
-
 }

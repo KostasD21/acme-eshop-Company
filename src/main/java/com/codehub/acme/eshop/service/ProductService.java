@@ -5,6 +5,7 @@ import com.codehub.acme.eshop.domain.ProductItem;
 import com.codehub.acme.eshop.domain.ShoppingBasket;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -95,6 +96,14 @@ public interface ProductService {
      *
      * @param productsItems the {@link List} of {@link ProductItem}
      */
-    void updateProductItems(List<ProductItem> productsItems);
+    Collection<ProductItem> updateProductItems(List<ProductItem> productsItems);
+
+    /**
+     * This method updates a product item
+     *
+     * @param productsItem the product item to be saved
+     * @return  the updated product item
+     */
+    ProductItem updateProductItem(ProductItem productsItem);
 }
 
