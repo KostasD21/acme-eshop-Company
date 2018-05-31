@@ -1,6 +1,8 @@
 package com.codehub.acme.eshop.domain;
 
 import com.codehub.acme.eshop.enumerator.Role;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -60,6 +62,7 @@ public class User {
     * the Shopping Basket
     */
    @OneToOne
+   @JsonBackReference
    private ShoppingBasket shoppingBasket;
    /**
     * The role
