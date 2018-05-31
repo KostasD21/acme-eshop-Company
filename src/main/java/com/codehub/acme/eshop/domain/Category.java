@@ -1,15 +1,13 @@
 package com.codehub.acme.eshop.domain;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +23,7 @@ public class Category {
      * the category id
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CATEGORY_ID",nullable = false)
     private Long id;
     /**
@@ -42,7 +40,7 @@ public class Category {
      */
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @OneToMany(mappedBy = "category",targetEntity = Product.class)
-    //@JsonBackReference
+    @JsonIgnore
     private List<Product> products = new ArrayList<>();
 
 }
