@@ -66,7 +66,7 @@ public interface UserRepository extends CrudRepository<User, Long> {
      * @param username of the {@link User} to be checked
      * @return true/false
      */
-    List<User> getByUsername(String username);
+    User getByUsername(String username);
 
     /**
      * Get the list of {@link User}
