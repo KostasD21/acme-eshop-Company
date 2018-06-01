@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 
 @RestController
 public class UserController {
@@ -38,8 +38,12 @@ public class UserController {
      * @return {@link User}
      */
     @GetMapping( value = "/users/{userId}")
-    public Optional<User> findById(@PathVariable Long userId){
-        return userService.getUserById(userId);
+    public User findById(@PathVariable Long userId){
+        try {
+            return userService.getUserById(userId);
+        } catch (NoSuchElementException e) {
+            throw new NotFoundException("The user cannot be found!");
+        }
     }
 
     /**
