@@ -1,6 +1,7 @@
 package com.codehub.acme.eshop.Controller;
 
 import com.codehub.acme.eshop.domain.User;
+import com.codehub.acme.eshop.exception.NotFoundException;
 import com.codehub.acme.eshop.service.UserService;
 import com.codehub.acme.eshop.transformation.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;

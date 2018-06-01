@@ -59,7 +59,7 @@ public interface UserService {
      * @param id the user id
      * @return a {@link User}
      */
-    Optional <User> getUserById(Long id);
+    User getUserById(Long id);
 
     /**
      * This methods searches and returns a Users from the DB regarding on the given username
