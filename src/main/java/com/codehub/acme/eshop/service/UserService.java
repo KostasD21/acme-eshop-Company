@@ -68,5 +68,11 @@ public interface UserService {
      */
     User findUserByUsermane(String username);
 
-
+    /**
+     * This method authenticates a user with the provided token
+     *
+     * @param token the token
+     * @return the authenticated user
+     */
+    User authenticate(String token);
 }

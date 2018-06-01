@@ -72,6 +72,7 @@ public class UserController {
      *
      */
     @DeleteMapping(value = "/users/{userId}")
-    public void deleteUserById(@PathVariable Long userId){
+    public void deleteUserById(@PathVariable Long userId, @RequestHeader String token){
+        userService.authenticate(token);
         userService.removeUserById(userId); }
 }

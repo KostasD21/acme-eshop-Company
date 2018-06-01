@@ -2,6 +2,7 @@ package com.codehub.acme.eshop.service;
 
 
 import com.codehub.acme.eshop.domain.User;
+import com.codehub.acme.eshop.exception.TokenInvalidException;
 import com.codehub.acme.eshop.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -83,5 +84,20 @@ public class UserServiceImpl implements UserService {
         byte[] token = new byte[byteLength];
         secureRandom.nextBytes(token);
         return new BigInteger(1, token).toString(16); //hex encoding
+    }
+
+    /**
+     * This method authenticates a user with the provided token
+     *
+     * @param token the token
+     * @return the authenticated user
+     */
+    @Override
+    public User authenticate(String token) {
+        User user = userRepository.findByToken(token);
+        if (user == null) {
+            throw new TokenInvalidException("The token is invalid");
+        }
+        return user;
     }
 }

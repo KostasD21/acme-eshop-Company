@@ -73,4 +73,11 @@ public interface UserRepository extends CrudRepository<User, Long> {
      *
      */
     List<User> findAll();
+
+    /**
+     * This method a {@link User} finds by token
+     *
+     * @return {@link User}
+     */
+    User findByToken(String token);
 }
