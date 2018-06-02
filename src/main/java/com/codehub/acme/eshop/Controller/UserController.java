@@ -1,6 +1,7 @@
 package com.codehub.acme.eshop.Controller;
 
 import com.codehub.acme.eshop.domain.User;
+import com.codehub.acme.eshop.domain.UserLogin;
 import com.codehub.acme.eshop.exception.NotFoundException;
 import com.codehub.acme.eshop.service.UserService;
 import com.codehub.acme.eshop.transformation.UserDto;
@@ -65,7 +66,8 @@ public class UserController {
      *
      */
     @DeleteMapping(value = "/users/remove/{userName}")
-    public ResponseEntity deleteUserName (@PathVariable (name="userName") String userName){
+    public ResponseEntity deleteUserName (@PathVariable (name="userName") String userName, @RequestHeader String token){
+        userService.authenticate(token);
         userService.removeUser(userName);
         return ResponseEntity.noContent().build();
     }
@@ -77,6 +79,25 @@ public class UserController {
      *
      */
     @DeleteMapping(value = "/users/{userId}")
-    public void deleteUserById(@PathVariable Long userId){
-        userService.removeUserById(userId); }
+    public void deleteUserById(@PathVariable Long userId, @RequestHeader String token){
+        userService.authenticate(token);
+        userService.removeUserById(userId);
+    }
+
+
+    /**
+     * This Controller is used to login a User {@link UserLogin} to the DB
+     * @param userLogin
+     * @return UserLogin
+     */
+    @PostMapping(value = "/users/login")
+    public ResponseEntity<User> login(@RequestBody UserLogin userLogin){
+
+        User user = userService.login(userLogin);
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(user);
+    }
+
 }

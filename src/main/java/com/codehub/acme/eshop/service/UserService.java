@@ -2,6 +2,7 @@ package com.codehub.acme.eshop.service;
 
 
 import com.codehub.acme.eshop.domain.User;
+import com.codehub.acme.eshop.domain.UserLogin;
 
 import java.util.List;
 import java.util.Optional;
@@ -68,5 +69,18 @@ public interface UserService {
      */
     User findUserByUsermane(String username);
 
+    /**
+     * This method authenticates a user with the provided token
+     *
+     * @param token the token
+     * @return the authenticated user
+     */
+    User authenticate(String token);
 
+    /**
+     * This method is uesed to login the {User}
+     * @param userLogin the user provides username/password
+     * @return {@link User}
+     */
+    User login(UserLogin userLogin);
 }

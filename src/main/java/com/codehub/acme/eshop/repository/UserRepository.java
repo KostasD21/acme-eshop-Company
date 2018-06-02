@@ -66,11 +66,18 @@ public interface UserRepository extends CrudRepository<User, Long> {
      * @param username of the {@link User} to be checked
      * @return true/false
      */
-    List<User> getByUsername(String username);
+    User getByUsername(String username);
 
     /**
      * Get the list of {@link User}
      *
      */
     List<User> findAll();
+
+    /**
+     * This method a {@link User} finds by token
+     *
+     * @return {@link User}
+     */
+    User findByToken(String token);
 }
