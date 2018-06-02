@@ -2,6 +2,7 @@ package com.codehub.acme.eshop.service;
 
 
 import com.codehub.acme.eshop.domain.Product;
+import com.codehub.acme.eshop.domain.ProductItem;
 import com.codehub.acme.eshop.domain.ProductStock;
 import com.codehub.acme.eshop.domain.ShoppingBasket;
 import com.codehub.acme.eshop.repository.ProductItemRepository;
