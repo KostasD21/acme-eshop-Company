@@ -26,6 +26,7 @@ public class CategoryServiceImpl implements CategoryService {
      */
     @Override
     public void addCategory(Category category) {
+
         categoryRepository.save(category);
     }
     /**
@@ -41,6 +42,7 @@ public class CategoryServiceImpl implements CategoryService {
      */
     @Override
     public void removeCategorybyId(Long id) {
+
         categoryRepository.deleteById(id);
     }
 
@@ -57,6 +59,7 @@ public class CategoryServiceImpl implements CategoryService {
      */
     @Override
     public Category getCategoryById(Long id) {
+
         return categoryRepository.getCategoryById(id);
     }
 
@@ -65,6 +68,7 @@ public class CategoryServiceImpl implements CategoryService {
      */
     @Override
     public Category findByName(String name) {
+
         return categoryRepository.findByName(name);
     }
 
