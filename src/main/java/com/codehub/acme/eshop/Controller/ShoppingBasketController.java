@@ -5,6 +5,7 @@ import com.codehub.acme.eshop.domain.ProductItem;
 import com.codehub.acme.eshop.domain.ShoppingBasket;
 import com.codehub.acme.eshop.exception.NotFoundException;
 import com.codehub.acme.eshop.service.ShoppingBasketService;
+import com.codehub.acme.eshop.service.UserService;
 import com.codehub.acme.eshop.transformation.ShoppingBasketDto;
 import com.codehub.acme.eshop.transformation.service.TransformationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,9 @@ public class ShoppingBasketController {
     @Autowired
     private TransformationService transformationService;
 
+    @Autowired
+    private UserService userService;
+
     /**
      * The default URL for all the methods
      */
@@ -42,7 +46,10 @@ public class ShoppingBasketController {
      * @return {@link ShoppingBasket}
      */
     @GetMapping(DEFAULT_RESOURCE + "users/{userId}")
-    public ShoppingBasketDto getShoppingBasketByUserId(@PathVariable Long userId) {
+    public ShoppingBasketDto getShoppingBasketByUserId(@PathVariable Long userId, @RequestHeader String token) {
+
+        userService.authenticate(token);
+
         ShoppingBasket shoppingBasket = shoppingBasketService.findByUserId(userId);
         if (shoppingBasket == null) {
             throw new NotFoundException("The shopping basket for the user Id " + userId + " not found");
@@ -57,7 +64,10 @@ public class ShoppingBasketController {
      * @return the created/updated {@link ShoppingBasket}
      */
     @PostMapping(DEFAULT_RESOURCE + "addProducts")
-    public ShoppingBasketDto addProductsToShoppingBasket(@RequestBody List<Product> products){
+    public ShoppingBasketDto addProductsToShoppingBasket(@RequestBody List<Product> products, @RequestHeader String token){
+
+        userService.authenticate(token);
+
         /* TODO: Validate the amount of product items > 0 */
         ShoppingBasket shoppingBasket = shoppingBasketService.addProducts(products);
         /* FIXME: Display the Product information properly in the response */
@@ -72,7 +82,10 @@ public class ShoppingBasketController {
      * @return the updated {@link ShoppingBasket}
      */
     @PutMapping(DEFAULT_RESOURCE + "{shoppingBasketId}/updateProducts")
-    public ShoppingBasketDto updateProductQuantities(@PathVariable Long shoppingBasketId, @RequestBody List<ProductItem> productItems){
+    public ShoppingBasketDto updateProductQuantities(@PathVariable Long shoppingBasketId, @RequestBody List<ProductItem> productItems,
+                                                     @RequestHeader String token){
+        userService.authenticate(token);
+
         /* TODO: Validate the quantities of product items > 0 && quantity <= 30 */
         ShoppingBasket shoppingBasket = shoppingBasketService.findById(shoppingBasketId);
         if (shoppingBasket == null) {
@@ -90,7 +103,10 @@ public class ShoppingBasketController {
      * @return the updated {@link ShoppingBasket}
      */
     @DeleteMapping(DEFAULT_RESOURCE + "{shoppingBasketId}/removeProduct/{productItemId}")
-    public ShoppingBasketDto removeProduct(@PathVariable Long shoppingBasketId, @PathVariable Long productItemId){
+    public ShoppingBasketDto removeProduct(@PathVariable Long shoppingBasketId, @PathVariable Long productItemId, @RequestHeader String token){
+
+        userService.authenticate(token);
+
         if (!shoppingBasketService.exists(shoppingBasketId)) {
             throw new NotFoundException("The shopping basket with Id " + shoppingBasketId + " not found");
         }

@@ -1,9 +1,7 @@
 package com.codehub.acme.eshop.Controller;
 
 
-import com.codehub.acme.eshop.exception.NotFoundException;
-import com.codehub.acme.eshop.exception.ProductOutOfStockException;
-import com.codehub.acme.eshop.exception.ShoppingBasketException;
+import com.codehub.acme.eshop.exception.*;
 import com.codehub.acme.eshop.transformation.ErrorMessage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,49 +44,49 @@ public class AdviceController {
                 .body(new ErrorMessage(ex.getMessage()));
     }
 
-//    /**
-//     * This method handles the {@link PasswordInvalidException}
-//     *
-//     * @param ex {@link TokenInvalidException}
-//     * @param request the {@link HttpServletRequest}
-//     * @return the {@link ErrorMessage}
-//     */
-//    @ExceptionHandler({TokenInvalidException.class})
-//    public ResponseEntity<ErrorMessage> handleErrors(TokenInvalidException ex, HttpServletRequest request) {
-//        return ResponseEntity
-//                .status(HttpStatus.UNAUTHORIZED)
-//                .body(new ErrorMessage(ex.getMessage()));
-//    }
-//
+    /**
+     * This method handles the {@link PasswordInvalidException}
+     *
+     * @param ex {@link TokenInvalidException}
+     * @param request the {@link HttpServletRequest}
+     * @return the {@link ErrorMessage}
+     */
+    @ExceptionHandler({TokenInvalidException.class})
+    public ResponseEntity<ErrorMessage> handleErrors(TokenInvalidException ex, HttpServletRequest request) {
+        return ResponseEntity
+                .status(HttpStatus.UNAUTHORIZED)
+                .body(new ErrorMessage(ex.getMessage()));
+    }
 
 
-//    /**
-//     * This method handles the {@link PasswordInvalidException}
-//     *
-//     * @param ex {@link PasswordInvalidException}
-//     * @param request the {@link HttpServletRequest}
-//     * @return the {@link ErrorMessage}
-//     */
-//    @ExceptionHandler({PasswordInvalidException.class})
-//    public ResponseEntity<ErrorMessage> handleInvalidErrors(PasswordInvalidException ex, HttpServletRequest request) {
-//        return ResponseEntity
-//                .status(HttpStatus.BAD_REQUEST)
-//                .body(new ErrorMessage(ex.getMessage()));
-//    }
 
-//    /**
-//     * This method handles the {@link UsernameInvalidException}
-//     *
-//     * @param ex {@link UsernameInvalidException}
-//     * @param request the {@link HttpServletRequest}
-//     * @return the {@link ErrorMessage}
-//     */
-//    @ExceptionHandler({UsernameInvalidException.class})
-//    public ResponseEntity<ErrorMessage> handleInvalidErrors(UsernameInvalidException ex, HttpServletRequest request) {
-//        return ResponseEntity
-//                .status(HttpStatus.BAD_REQUEST)
-//                .body(new ErrorMessage(ex.getMessage()));
-//    }
+    /**
+     * This method handles the {@link PasswordInvalidException}
+     *
+     * @param ex {@link PasswordInvalidException}
+     * @param request the {@link HttpServletRequest}
+     * @return the {@link ErrorMessage}
+     */
+    @ExceptionHandler({PasswordInvalidException.class})
+    public ResponseEntity<ErrorMessage> handleInvalidErrors(PasswordInvalidException ex, HttpServletRequest request) {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(new ErrorMessage(ex.getMessage()));
+    }
+
+    /**
+     * This method handles the {@link UsernameInvalidException}
+     *
+     * @param ex {@link UsernameInvalidException}
+     * @param request the {@link HttpServletRequest}
+     * @return the {@link ErrorMessage}
+     */
+    @ExceptionHandler({UsernameInvalidException.class})
+    public ResponseEntity<ErrorMessage> handleInvalidErrors(UsernameInvalidException ex, HttpServletRequest request) {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(new ErrorMessage(ex.getMessage()));
+    }
 
 
     /**
