@@ -15,6 +15,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Table (name = "PRODUCT")
 @Entity
 public class Product {
     /**
@@ -43,7 +44,7 @@ public class Product {
     /**
      * the stock available
      */
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     private ProductStock productStock;
     /**
      * the {@link Category}

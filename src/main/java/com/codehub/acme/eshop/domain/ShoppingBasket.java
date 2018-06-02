@@ -19,6 +19,8 @@ import java.util.List;
  */
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "SHOPPING_BASKET")
 @Entity
 public class ShoppingBasket {
     /**

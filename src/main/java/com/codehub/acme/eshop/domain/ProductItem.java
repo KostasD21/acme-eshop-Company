@@ -2,6 +2,7 @@ package com.codehub.acme.eshop.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,8 +13,10 @@ import java.math.BigDecimal;
  * This domain represents a product of a shopping basket
  */
 @Data
-@Entity
 @NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "PRODUCT_ITEM")
+@Entity
 public class ProductItem {
 
     /**

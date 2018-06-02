@@ -3,12 +3,13 @@ package com.codehub.acme.eshop.domain;
 import com.codehub.acme.eshop.enumerator.PaymentMethods;
 import com.codehub.acme.eshop.enumerator.ReceiptMethods;
 import com.codehub.acme.eshop.enumerator.ShippingMethods;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * This domain class represents the billing details referring to the {@link UserOrder}
@@ -17,7 +18,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class BillingDetails {
+@Table(name ="BILLING_DETAILS")
+public class BillingDetails implements Serializable {
     /**
      * the billing details id
      */
@@ -29,6 +31,7 @@ public class BillingDetails {
      * the order
      */
     @OneToOne
+    @JsonIgnore
     private UserOrder userOrder;
     /**
      * the address
