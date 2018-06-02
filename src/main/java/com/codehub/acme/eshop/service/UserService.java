@@ -9,7 +9,7 @@ import java.util.Optional;
 
 /**
  * This interface contains the signature of methods regarding the
- * {@link com.codehub.acme.eshop.domain.User} functionality
+ * {@link User} functionality
  */
 public interface UserService {
 
@@ -60,7 +60,7 @@ public interface UserService {
      * @param id the user id
      * @return a {@link User}
      */
-    Optional <User> getUserById(Long id);
+    User getUserById(Long id);
 
     /**
      * This methods searches and returns a Users from the DB regarding on the given username

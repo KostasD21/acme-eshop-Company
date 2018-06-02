@@ -1,6 +1,8 @@
 package com.codehub.acme.eshop.domain;
 
 import com.codehub.acme.eshop.enumerator.Role;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,6 +21,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name = "ACME_USER")
 public class User {
    /**
     * the user id
@@ -64,6 +67,7 @@ public class User {
     */
    @Cascade(org.hibernate.annotations.CascadeType.ALL)
    @OneToOne
+   @JsonBackReference
    private ShoppingBasket shoppingBasket;
    /**
     * The role

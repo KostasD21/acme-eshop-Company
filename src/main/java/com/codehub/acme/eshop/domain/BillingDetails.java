@@ -42,15 +42,15 @@ public class BillingDetails {
      * the {@link ShippingMethods}
      */
     @Enumerated(EnumType.STRING)
-    private ShippingMethods shippingMethods;
+    private ShippingMethods shippingMethod;
     /**
      * the {@link ReceiptMethods}
      */
     @Enumerated(EnumType.STRING)
-    private ReceiptMethods receiptMethods;
+    private ReceiptMethods receiptMethod;
     /**
      * the {@link PaymentMethods}
      */
     @Enumerated(EnumType.STRING)
-    private PaymentMethods paymentMethods;
+    private PaymentMethods paymentMethod;
 }

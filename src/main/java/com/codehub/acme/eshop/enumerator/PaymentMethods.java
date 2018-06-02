@@ -1,5 +1,5 @@
 package com.codehub.acme.eshop.enumerator;
 
 public enum PaymentMethods {
-    PAYPAL,ANTIKATAVOLI,CREDITCARD
+    PAYPAL,PAY_ON_DELEIVERY,CREDIT_CARD
 }

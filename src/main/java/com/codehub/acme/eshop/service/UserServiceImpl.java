@@ -79,8 +79,8 @@ public class UserServiceImpl implements UserService {
      * {@inheritDoc}
      */
     @Override
-    public Optional<User> getUserById(Long id) {
-        return userRepository.getUserById(id);
+    public User getUserById(Long id) {
+        return userRepository.getUserById(id).get();
     }
 
     /**

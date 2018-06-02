@@ -1,7 +1,6 @@
 package com.codehub.acme.eshop.Controller;
 
 import com.codehub.acme.eshop.domain.User;
-import com.codehub.acme.eshop.domain.UserLogin;
 import com.codehub.acme.eshop.service.UserService;
 import com.codehub.acme.eshop.transformation.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 
 @RestController
 public class UserController {
@@ -38,8 +37,12 @@ public class UserController {
      * @return {@link User}
      */
     @GetMapping( value = "/users/{userId}")
-    public Optional<User> findById(@PathVariable Long userId){
-        return userService.getUserById(userId);
+    public User findById(@PathVariable Long userId){
+        try {
+            return userService.getUserById(userId);
+        } catch (NoSuchElementException e) {
+            throw new NotFoundException("The user cannot be found!");
+        }
     }
 
     /**

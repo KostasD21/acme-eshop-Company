@@ -9,20 +9,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class AcmeEshopApplication implements CommandLineRunner {
+public class AcmeEshopApplication {
 
-	@Autowired
-	private OrderService orderService;
-	@Autowired
-	private ProductServiceImpl productService;
+
 
 	public static void main(String[] args) {
 		SpringApplication.run(AcmeEshopApplication.class, args);
 	}
 
-	@Override
-	public void run(String... args) throws Exception {
-		//orderService.submitOrder();
-		//productService.save();
-	}
+
 }
