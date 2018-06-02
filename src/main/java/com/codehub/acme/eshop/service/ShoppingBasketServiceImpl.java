@@ -9,6 +9,8 @@ import com.codehub.acme.eshop.exception.ShoppingBasketException;
 import com.codehub.acme.eshop.repository.ProductItemRepository;
 import com.codehub.acme.eshop.repository.ShoppingBasketRepository;
 import com.codehub.acme.eshop.repository.UserRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,7 @@ import java.util.Optional;
  */
 @Service
 public class ShoppingBasketServiceImpl implements ShoppingBasketService {
+    private static final Logger logger = LogManager.getLogger(ShoppingBasketService.class);
 
     /**
      * {@link ShoppingBasketRepository}
@@ -47,6 +50,7 @@ public class ShoppingBasketServiceImpl implements ShoppingBasketService {
      */
     @Override
     public ShoppingBasket findById(Long shoppingBasketId) {
+        logger.debug("The method of searching the shopping Basket by id is about to start");
         return shoppingBasketRepository.findById(shoppingBasketId).get();
     }
     /**
@@ -54,6 +58,7 @@ public class ShoppingBasketServiceImpl implements ShoppingBasketService {
      */
     @Override
     public ShoppingBasket findByUserId(Long userId) {
+        logger.debug("The method of searching the shopping Basket by the user id is about to start");
         return shoppingBasketRepository.findByUserId(userId);
     }
     /**
@@ -79,6 +84,7 @@ public class ShoppingBasketServiceImpl implements ShoppingBasketService {
      */
     @Override
     public ShoppingBasket removeProductItem(Long shoppingBasketId, Long productItemId) {
+        logger.debug("The method of removes the product items of a shopping Basket is about to start");
         productService.removeProductItem(productItemId);
         ShoppingBasket shoppingBasket = findById(shoppingBasketId);
         return updateShoppingBasket(shoppingBasket, shoppingBasket.getProductItems());
@@ -99,6 +105,7 @@ public class ShoppingBasketServiceImpl implements ShoppingBasketService {
             checkProductStock(productItem);
             productItemList.add(productService.updateProductItem(productItem));
         }
+        logger.debug("The method of updating the shopping Basket content is about to start");
         shoppingBasket.setProductItems(productItemList);
         shoppingBasket.setTotalAmount(calculateTotalAmount(productItemList));
         shoppingBasketRepository.save(shoppingBasket);
@@ -119,11 +126,13 @@ public class ShoppingBasketServiceImpl implements ShoppingBasketService {
      * @param productItem the {@link ProductItem}
      */
     private ProductItem checkIfProductItemExist(ProductItem productItem) {
+        logger.debug("The method of checking if a product item exists in a shopping basket is about to start");
         Optional<ProductItem> productItemTemp;
         productItemTemp = productItemRepository.findById(productItem.getId());
         if (productItemTemp.isPresent()) {
             return productItemTemp.get();
         } else {
+            logger.error("The product item with Id "+ productItem.getId() +" not found");
             throw new NotFoundException("The product item with Id "+ productItem.getId() +" not found");
         }
     }
@@ -135,7 +144,9 @@ public class ShoppingBasketServiceImpl implements ShoppingBasketService {
      * @param productItem the {@link ProductItem}
      */
     private void checkIfProductItemBelongToShoppingBasket(ShoppingBasket shoppingBasket, ProductItem productItem) {
+        logger.debug("The method of checking if a product item exists in a certain shopping basket is about to start");
         if (!shoppingBasket.getProductItems().contains(productItem)){
+            logger.error("The product item with certain id does not belong to the shopping basket with Id " + shoppingBasket.getId());
             throw new ShoppingBasketException("The product item with Id " + productItem.getId() + " does not belong to the shopping basket with Id " + shoppingBasket.getId());
         }
     }
@@ -147,6 +158,7 @@ public class ShoppingBasketServiceImpl implements ShoppingBasketService {
      */
     private void checkProductStock(ProductItem productItem) {
         if (productItem.getProduct().getProductStock().getStock() < productItem.getQuantity()) {
+            logger.error("The product with the certain id is out of stock");
             throw new ProductOutOfStockException("The product with Id "+ productItem.getProduct().getId() +" is out of stock");
         }
     }

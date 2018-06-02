@@ -4,12 +4,15 @@ import com.codehub.acme.eshop.domain.UserOrder;
 import com.codehub.acme.eshop.domain.Purchase;
 import com.codehub.acme.eshop.enumerator.Provider;
 import com.codehub.acme.eshop.enumerator.PurchaseStatus;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 
 @Service
 public class PurchaseServiceImpl implements PurchaseService {
+    private static final Logger logger = LogManager.getLogger(PurchaseServiceImpl.class);
 
     /**
      * Search for Purchase by Id
@@ -50,6 +53,6 @@ public class PurchaseServiceImpl implements PurchaseService {
      */
     @Override
     public void cancelPurchase(Long id) {
-
+        logger.debug("The method of canceling a purchase is about to start");
     }
 }
