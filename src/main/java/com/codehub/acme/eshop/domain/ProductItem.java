@@ -15,6 +15,7 @@ import java.math.BigDecimal;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "PRODUCT_ITEM")
 @Entity
 public class ProductItem {
 

@@ -3,7 +3,10 @@ package com.codehub.acme.eshop.service;
 
 import com.codehub.acme.eshop.domain.Product;
 import com.codehub.acme.eshop.domain.ProductItem;
+import com.codehub.acme.eshop.domain.ProductStock;
 import com.codehub.acme.eshop.repository.ProductItemRepository;
+import com.codehub.acme.eshop.repository.ProductStockRepository;
+import org.apache.tomcat.util.digester.ArrayStack;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.codehub.acme.eshop.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,22 +31,19 @@ public class ProductServiceImpl implements ProductService  {
     private ProductRepository productRepository;
 
     @Autowired
+    private ProductStockRepository productStockRepository;
+
+    @Autowired
     private ProductItemRepository productItemRepository;
 
-    public void save() {
-        //ProductItem productItem = new ProductItem(1L,1,new BigDecimal(20), null, null, null);
-        //productItemRepository.save(productItem);
-    }
+    String stock = "OUT_OF_STOCK";
 
     /**
      *  {inheritDoc}
      */
-
-
     @Override
     public Product addProduct(Product product) {
         return productRepository.save(product);
-
     }
 
     /**
@@ -51,7 +51,7 @@ public class ProductServiceImpl implements ProductService  {
      */
     @Override
     public void removeProduct(Long id) {
-
+    productRepository.deleteById(id);
     }
 
     /**
@@ -90,4 +90,22 @@ public class ProductServiceImpl implements ProductService  {
 
 
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<Product> findAllProducts() {
+        long stock = 0;
+        List<ProductStock> productStockList = productStockRepository.findByStockEquals(stock);
+        List<Product> productOutOfStock = new ArrayList<>();
+
+        for(int i=0; i <productStockList.size(); i++){
+            productOutOfStock.add(productRepository.getProductById(productStockList.get(i).getId()));
+        }
+
+        return productOutOfStock;
+    }
+
+
 }

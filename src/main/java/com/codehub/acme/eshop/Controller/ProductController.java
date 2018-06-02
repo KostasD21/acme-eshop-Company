@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping(value = "/products")
 public class ProductController {
 
     /**
@@ -20,24 +21,40 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @Autowired
-    private ProductItemRepository productItemRepository;
-
-    @GetMapping(value ="/categories/{categoryId}/products")
+    /**
+     * This Controller returns a list of {@link Product} by given Category Id
+     * @param categoryId
+     * @return {@link Product}
+     */
+    @GetMapping(value ="/{categoryId}")
     public List<Product> findProductsByCategoryId(@PathVariable Long categoryId){
         return productService.getAllProducts(categoryId);
     }
-
-    @GetMapping(value = "/getProductItems")
-    public List<ProductItem> getAll(){
-         return (List<ProductItem>) productItemRepository.findAll();
-    }
-    @PostMapping(value ="Products/new")
+    /**
+     * This Controller adds a {@link Product}
+     * @param product
+     * @return {@link Product}
+     */
+    @PostMapping
     public Product addProduct(@RequestBody Product product){
         return productService.addProduct(product);
     }
 
+    /**
+     * This Controller deletes a {@link Product} by a given id
+     */
+    @DeleteMapping(value = "/{productId}")
+    public void deleteProduct(@PathVariable Long productId){
+        productService.removeProduct(productId);
+    }
 
+    /**
+     * This Controller returns a list of {@link Product} out of stock
+     */
+    @GetMapping(value ="/productsOutOfStock")
+    public List<Product> productsOutOfStock(){
+        return productService.findAllProducts();
 
     }
+}
 
