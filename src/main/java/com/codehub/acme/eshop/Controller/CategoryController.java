@@ -12,6 +12,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@RequestMapping(value = "categories")
 public class CategoryController {
 
     /**
@@ -24,7 +25,7 @@ public class CategoryController {
      * This Controller returns a List of Categories from the DB
      * @return {@link Category}
      */
-    @GetMapping("/categories")
+    @GetMapping
     public List<Category> categoryList() {
         return categoryService.getAllCategories();
     }
@@ -33,7 +34,7 @@ public class CategoryController {
      * This controllers searches and returns a Category {@link Category} from the DB regarding a given Id
      * @return {@link Category}
      */
-    @GetMapping( value ="/categories/{categoryId}")
+    @GetMapping( value ="{categoryId}")
     public Category getCategoryById(@PathVariable Long categoryId){
         return categoryService.getCategoryById(categoryId);
     }
@@ -41,7 +42,7 @@ public class CategoryController {
      * This Controller adds/creates a new Category {@link Category} to the DB
      * @param category
      */
-    @PostMapping(value = "/categories/new")
+    @PostMapping
      public void addCategory(@RequestBody Category category){
         categoryService.addCategory(category);
         }
@@ -50,7 +51,7 @@ public class CategoryController {
      * @param categoryName
      * return {@link Category}
       */
-    @GetMapping(value ="/categories/search/{categoryName}")
+    @GetMapping(value ="/{categoryName}")
     public Category findByName(@PathVariable String categoryName){
         return categoryService.findByName(categoryName);
     }
@@ -58,7 +59,7 @@ public class CategoryController {
     /**
      * This Controller removes a Category from the DB regarding a given name
      */
-    @DeleteMapping(value = "/categories/remove/{categoryName}")
+    @DeleteMapping(value = "/{categoryName}")
     public void deleteCategory(@PathVariable String categoryName){
         categoryService.removeCategory(categoryName);
 
@@ -66,7 +67,7 @@ public class CategoryController {
          * This Controller removes a Category from the DB regarding a given Id
          */
     }
-    @DeleteMapping(value ="/categories/removeById/{categoryId}")
+    @DeleteMapping(value ="/{categoryId}")
     public void deleteCategorybyId(@PathVariable Long categoryId){
         categoryService.removeCategorybyId(categoryId);
     }
