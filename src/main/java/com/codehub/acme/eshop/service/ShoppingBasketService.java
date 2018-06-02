@@ -1,9 +1,12 @@
 package com.codehub.acme.eshop.service;
 
 import com.codehub.acme.eshop.domain.Product;
+import com.codehub.acme.eshop.domain.ProductItem;
 import com.codehub.acme.eshop.domain.ShoppingBasket;
+import com.codehub.acme.eshop.transformation.ShoppingBasketDto;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * This interface contains the signatures of methods regarding the {@link com.codehub.acme.eshop.domain.ShoppingBasket} functionality
@@ -26,24 +29,30 @@ public interface ShoppingBasketService {
     /**
      * This method adds a list of products to the shopping basket
      *
-     * @param shoppingBasketId the ID of the shopping basket
-     * @param productList      the {@link List} of {@link Product}
-     * @return                 the {@link List} of added {@link Product}
+     * @param products the {@link List} of {@link Product}
+     * @return the {@link ShoppingBasket}
      */
-    List<Product> addProducts(Long shoppingBasketId, List<Product> productList);
+    ShoppingBasket addProducts(List<Product> products);
     /**
-     * This method removes a list of products from shopping basket
+     * This method removes a product item from a shopping basket
      *
      * @param shoppingBasketId the ID of the shopping basket
-     * @param productList      the {@link List} of {@link Product}
+     * @param productItemId    the product to be removed from the basket
      */
-    void removeProducts(Long shoppingBasketId, List<Product> productList);
+    ShoppingBasket removeProductItem(Long shoppingBasketId, Long productItemId);
     /**
      * This method updates the shopping basket
      *
-     * @param shoppingBasketId the shopping basket ID
-     * @param productList      the {@link List} of {@link Product}
-     * @return                 the {@link List} of updated {@link Product}
+     * @param shoppingBasket the shopping basket {@link ShoppingBasket}
+     * @param productItems the {@link List} of {@link ProductItem}
+     * @return the updated {@link ShoppingBasket}
      */
-    ShoppingBasket updateShoppingBasket(Long shoppingBasketId, List<Product> productList);
+    ShoppingBasket updateShoppingBasket(ShoppingBasket shoppingBasket, List<ProductItem> productItems);
+    /**
+     * This method checks if shopping basket exists
+     *
+     * @param shoppingBasketId the shopping basket id
+     * @return true if shopping basket exist, else false
+     */
+    boolean exists(Long shoppingBasketId);
 }
