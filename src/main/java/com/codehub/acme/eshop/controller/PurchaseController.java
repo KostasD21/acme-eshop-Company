@@ -35,7 +35,7 @@ public class PurchaseController {
      * @param purchase the purchase
      * @return the created/updated {@link Purchase}
      */
-    @PostMapping("/purchase")
+    @PostMapping("/purchases")
     public PurchaseDto completePurchase(@Valid @RequestBody Purchase purchase, @RequestHeader String token){
         userService.authenticate(token);
         return new PurchaseDto(purchaseService.completePurchase(purchase));
@@ -47,7 +47,7 @@ public class PurchaseController {
      * @param token 
      * @return
      */
-    @PostMapping(value = "/cancel/{id}")
+    @PostMapping(value = "/purchases/cancel/{id}")
     public ResponseEntity<PurchaseDto> cancelPurchase(@PathVariable Long id, @RequestHeader String token){
         userService.authenticate(token);
 
