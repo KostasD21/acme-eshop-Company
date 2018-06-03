@@ -11,6 +11,7 @@ import com.codehub.acme.eshop.transformation.service.TransformationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -81,9 +82,8 @@ public class ShoppingBasketController {
      * @return the updated {@link ShoppingBasket}
      */
     @PutMapping(DEFAULT_RESOURCE + "{shoppingBasketId}/updateProducts")
-    public ShoppingBasketDto updateProductQuantities(@PathVariable Long shoppingBasketId, @RequestBody List<ProductItem> productItems, @RequestHeader String token){
+    public ShoppingBasketDto updateProductQuantities(@PathVariable Long shoppingBasketId, @Valid @RequestBody List<ProductItem> productItems, @RequestHeader String token){
         userService.authenticate(token);
-        /* TODO: Validate the quantities of product items > 0 && quantity <= 30 */
         ShoppingBasket shoppingBasket = shoppingBasketService.findById(shoppingBasketId);
         if (shoppingBasket == null) {
             throw new NotFoundException("The shopping basket with Id " + shoppingBasketId + " not found");

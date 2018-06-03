@@ -42,4 +42,11 @@ public interface OrderRepository extends CrudRepository<UserOrder, Long> {
      */
     List<UserOrder> findAll();
 
+    /**
+     * Finds user orders by user id
+     *
+     * @param userId the user id
+     * @return
+     */
+    List<UserOrder> findUserOrdersByUserId(Long userId);
 }

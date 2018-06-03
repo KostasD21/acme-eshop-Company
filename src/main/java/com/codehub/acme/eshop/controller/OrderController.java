@@ -5,6 +5,8 @@ import com.codehub.acme.eshop.domain.User;
 import com.codehub.acme.eshop.domain.UserOrder;
 import com.codehub.acme.eshop.exception.TokenInvalidException;
 import com.codehub.acme.eshop.service.OrderService;
+import com.codehub.acme.eshop.transformation.UserOrderDto;
+import com.codehub.acme.eshop.transformation.service.TransformationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,12 +40,18 @@ public class OrderController {
     private UserService userService;
 
     /**
+     * {@link TransformationService}
+     */
+    @Autowired
+    private TransformationService transformationService;
+
+    /**
      * This Controller returns a list of {@link UserOrder}
      * @return a list of {@link UserOrder}
      */
     @GetMapping
-    public ResponseEntity<List<UserOrder>> userOrderList(){
-        List<UserOrder> userOrderList = orderService.findAllOrders();
+    public ResponseEntity<List<UserOrderDto>> userOrderList(){
+        List<UserOrderDto> userOrderList = transformationService.transformUserOrders(orderService.findAllOrders());
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(userOrderList);
@@ -80,4 +88,15 @@ public class OrderController {
         return orderService.submitOrder(order);
     }
 
+    /**
+     * This method adds products to the shopping basket
+     *
+     * @param token the token
+     * @return the submitted order
+     */
+    @GetMapping(value = "byUser")
+    public List<UserOrderDto> getOrders(@RequestHeader String token){
+        User user = userService.authenticate(token);
+        return transformationService.transformUserOrders(orderService.findOrdersByUserId(user.getId()));
+    }
 }

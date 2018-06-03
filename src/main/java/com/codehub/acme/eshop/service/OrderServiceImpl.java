@@ -72,14 +72,14 @@ public class OrderServiceImpl implements OrderService {
      */
     @Override
     public UserOrder findOrderById(Long orderId) {
-        return null;
+        return orderRepository.findById(orderId).get();
     }
     /**
      * {@inheritDoc}
      */
     @Override
-    public UserOrder findOrderByUserId(Long userId) {
-        return null;
+    public List<UserOrder> findOrdersByUserId(Long userId) {
+        return orderRepository.findUserOrdersByUserId(userId);
     }
 
     /**

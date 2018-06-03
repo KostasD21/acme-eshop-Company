@@ -35,7 +35,7 @@ public interface OrderService {
      * @param userId the user ID
      * @return the {@link UserOrder}
      */
-    UserOrder findOrderByUserId(Long userId);
+    List<UserOrder> findOrdersByUserId(Long userId);
     /**
      * This method saves the order
      *

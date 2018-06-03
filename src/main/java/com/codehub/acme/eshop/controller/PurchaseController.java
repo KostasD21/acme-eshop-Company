@@ -6,6 +6,8 @@ import com.codehub.acme.eshop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 
 /**
  * This controller handles the request for the {@link Purchase}
@@ -25,15 +27,14 @@ public class PurchaseController {
     private UserService userService;
 
     /**
-     * This method completes a purcahse
+     * This method completes a purchase
      *
-     * @param orderId the order Id
      * @param purchase the purchase
      * @return the created/updated {@link Purchase}
      */
-    @PostMapping("/purchase/{orderId}")
-    public Purchase completePurchase(@PathVariable Long orderId, @RequestBody Purchase purchase, @RequestHeader String token){
+    @PostMapping("/purchase")
+    public Purchase completePurchase(@Valid @RequestBody Purchase purchase, @RequestHeader String token){
         userService.authenticate(token);
-        return purchaseService.completePurchase(orderId, purchase);
+        return purchaseService.completePurchase(purchase);
     }
 }

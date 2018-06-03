@@ -24,11 +24,10 @@ public interface PurchaseService {
     /**
      * Completes a purchase
      *
-     * @param orderId the id of the Order that gets purchased
      * @param purchase {@link Purchase}
      * @return the {@link Purchase}
      */
-    Purchase completePurchase(Long orderId, Purchase purchase);
+    Purchase completePurchase(Purchase purchase);
 
     /**
      * Cancels a purchase
