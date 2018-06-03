@@ -73,10 +73,10 @@ public class User {
    /**
     * the Shopping Basket
     */
-   @Cascade(org.hibernate.annotations.CascadeType.ALL)
+   /*@Cascade(org.hibernate.annotations.CascadeType.ALL)
    @OneToOne
    @JsonBackReference
-   private ShoppingBasket shoppingBasket;
+   private ShoppingBasket shoppingBasket;*/
    /**
     * The role
     * {@link Role}

@@ -3,6 +3,8 @@ package com.codehub.acme.eshop.service;
 import com.codehub.acme.eshop.domain.Category;
 import com.codehub.acme.eshop.domain.Product;
 import com.codehub.acme.eshop.repository.CategoryRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,7 @@ import java.util.List;
  */
 @Service
 public class CategoryServiceImpl implements CategoryService {
+    private static final Logger logger = LogManager.getLogger(CategoryServiceImpl.class);
     /**
      * {@link CategoryRepository}
      */
@@ -26,7 +29,7 @@ public class CategoryServiceImpl implements CategoryService {
      */
     @Override
     public void addCategory(Category category) {
-
+        logger.debug("The method of adding a new category is about to start");
         categoryRepository.save(category);
     }
     /**
@@ -34,6 +37,7 @@ public class CategoryServiceImpl implements CategoryService {
      */
     @Override
     public void removeCategory(String name) {
+        logger.debug("The method of removing a category by category name is about to start");
         categoryRepository.deleteByName(name);
     }
 
@@ -42,7 +46,7 @@ public class CategoryServiceImpl implements CategoryService {
      */
     @Override
     public void removeCategorybyId(Long id) {
-
+        logger.debug("The method of removing a category by category id is about to start");
         categoryRepository.deleteById(id);
     }
 
@@ -59,8 +63,8 @@ public class CategoryServiceImpl implements CategoryService {
      */
     @Override
     public Category getCategoryById(Long id) {
-
-        return categoryRepository.getCategoryById(id).get();
+        logger.debug("The method of finding a category by category id is about to start");
+        return categoryRepository.getCategoryById(id);
     }
 
     /**
@@ -68,8 +72,8 @@ public class CategoryServiceImpl implements CategoryService {
      */
     @Override
     public Category findByName(String name) {
-
-        return categoryRepository.findByName(name).get();
+        logger.debug("The method of finding a category by category name is about to start");
+        return categoryRepository.findByName(name);
     }
 
 

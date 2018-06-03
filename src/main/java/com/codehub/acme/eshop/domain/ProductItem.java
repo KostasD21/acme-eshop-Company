@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.math.BigDecimal;
 
 /**
@@ -20,7 +22,6 @@ import java.math.BigDecimal;
 @Entity
 public class ProductItem {
 
-
     /**
      * the product item id
      */
@@ -32,6 +33,8 @@ public class ProductItem {
     /**
      * the quantity of the product item
      */
+    @Min(value = 1)
+    @Max(value = 30)
     private Integer quantity;
 
     /**

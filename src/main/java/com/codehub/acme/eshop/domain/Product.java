@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -55,6 +57,7 @@ public class Product {
     /**
      * the price
      */
+    @Min(value = 1)
     private BigDecimal price;
     /**
      * the {@link List} of {@link ProductItem}

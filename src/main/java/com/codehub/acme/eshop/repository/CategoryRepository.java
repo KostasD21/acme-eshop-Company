@@ -14,7 +14,6 @@ import java.util.Optional;
 @Repository
 public interface CategoryRepository extends CrudRepository<Category, Long> {
 
-
     /**
      * Search {@link Category} by id
      *

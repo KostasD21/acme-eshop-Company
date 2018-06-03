@@ -5,7 +5,6 @@ import com.codehub.acme.eshop.domain.User;
 import com.codehub.acme.eshop.domain.UserLogin;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * This interface contains the signature of methods regarding the
@@ -14,19 +13,11 @@ import java.util.Optional;
 public interface UserService {
 
     /**
-     *This method adds a Category to the Database
-     *    //  * @param id           the user id
-     *    //  * @param username     the username
-     *    //  * @param password     the login password
-     *    //  * @param description  the Category description
-     *    //  * @param name        the name
-     *    //  * @param surname     the surname
-     *    //  * @param address     the address
-     *    //  * @param postalCode  the postal code
+     * This method adds a user
+     * @param user the user to be saved
      * @return {@link User}
      */
     User addUser(User user);
-
 
     /**
      * This method removes a user from the DB
@@ -43,7 +34,7 @@ public interface UserService {
     void removeUserById(Long id);
 
     /**
-     *This method authenticate a user
+     * This method authenticate a user
      *
      * @param password login password for the user
      */

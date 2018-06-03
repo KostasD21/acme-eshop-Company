@@ -1,15 +1,12 @@
-package com.codehub.acme.eshop.Controller;
+package com.codehub.acme.eshop.controller;
 
 import com.codehub.acme.eshop.domain.Category;
 import com.codehub.acme.eshop.domain.Product;
 import com.codehub.acme.eshop.exception.NotFoundException;
 import com.codehub.acme.eshop.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.NoSuchElementException;
 

@@ -1,4 +1,4 @@
-package com.codehub.acme.eshop.Controller;
+package com.codehub.acme.eshop.controller;
 
 import com.codehub.acme.eshop.domain.Product;
 import com.codehub.acme.eshop.domain.ProductItem;
@@ -8,9 +8,12 @@ import com.codehub.acme.eshop.service.ShoppingBasketService;
 import com.codehub.acme.eshop.service.UserService;
 import com.codehub.acme.eshop.transformation.ShoppingBasketDto;
 import com.codehub.acme.eshop.transformation.service.TransformationService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -18,6 +21,8 @@ import java.util.List;
  */
 @RestController
 public class ShoppingBasketController {
+    private static final Logger logger = LogManager.getLogger(ShoppingBasketController.class);
+
 
     /**
      * {@link ShoppingBasketService}
@@ -31,6 +36,9 @@ public class ShoppingBasketController {
     @Autowired
     private TransformationService transformationService;
 
+    /**
+     * {@link UserService}
+     */
     @Autowired
     private UserService userService;
 
@@ -47,11 +55,10 @@ public class ShoppingBasketController {
      */
     @GetMapping(DEFAULT_RESOURCE + "users/{userId}")
     public ShoppingBasketDto getShoppingBasketByUserId(@PathVariable Long userId, @RequestHeader String token) {
-
         userService.authenticate(token);
-
         ShoppingBasket shoppingBasket = shoppingBasketService.findByUserId(userId);
         if (shoppingBasket == null) {
+            logger.error("The shopping basket for the user Id " + userId + " not found");
             throw new NotFoundException("The shopping basket for the user Id " + userId + " not found");
         }
         return new ShoppingBasketDto(shoppingBasket.getId(), transformationService.transformProductItems(shoppingBasket.getProductItems()), shoppingBasket.getTotalAmount(), shoppingBasket.getUser());
@@ -65,12 +72,8 @@ public class ShoppingBasketController {
      */
     @PostMapping(DEFAULT_RESOURCE + "addProducts")
     public ShoppingBasketDto addProductsToShoppingBasket(@RequestBody List<Product> products, @RequestHeader String token){
-
         userService.authenticate(token);
-
-        /* TODO: Validate the amount of product items > 0 */
         ShoppingBasket shoppingBasket = shoppingBasketService.addProducts(products);
-        /* FIXME: Display the Product information properly in the response */
         return new ShoppingBasketDto(shoppingBasket.getId(), transformationService.transformProductItems(shoppingBasket.getProductItems()), shoppingBasket.getTotalAmount(), shoppingBasket.getUser());
     }
 
@@ -82,13 +85,11 @@ public class ShoppingBasketController {
      * @return the updated {@link ShoppingBasket}
      */
     @PutMapping(DEFAULT_RESOURCE + "{shoppingBasketId}/updateProducts")
-    public ShoppingBasketDto updateProductQuantities(@PathVariable Long shoppingBasketId, @RequestBody List<ProductItem> productItems,
-                                                     @RequestHeader String token){
+    public ShoppingBasketDto updateProductQuantities(@PathVariable Long shoppingBasketId, @Valid @RequestBody List<ProductItem> productItems, @RequestHeader String token){
         userService.authenticate(token);
-
-        /* TODO: Validate the quantities of product items > 0 && quantity <= 30 */
         ShoppingBasket shoppingBasket = shoppingBasketService.findById(shoppingBasketId);
         if (shoppingBasket == null) {
+            logger.error("The shopping basket with Id " + shoppingBasketId + " not found");
             throw new NotFoundException("The shopping basket with Id " + shoppingBasketId + " not found");
         }
         shoppingBasket = shoppingBasketService.updateShoppingBasket(shoppingBasket, productItems);
@@ -104,10 +105,9 @@ public class ShoppingBasketController {
      */
     @DeleteMapping(DEFAULT_RESOURCE + "{shoppingBasketId}/removeProduct/{productItemId}")
     public ShoppingBasketDto removeProduct(@PathVariable Long shoppingBasketId, @PathVariable Long productItemId, @RequestHeader String token){
-
         userService.authenticate(token);
-
         if (!shoppingBasketService.exists(shoppingBasketId)) {
+            logger.error("The shopping basket with Id " + shoppingBasketId + " not found");
             throw new NotFoundException("The shopping basket with Id " + shoppingBasketId + " not found");
         }
         ShoppingBasket shoppingBasket = shoppingBasketService.removeProductItem(shoppingBasketId, productItemId);
