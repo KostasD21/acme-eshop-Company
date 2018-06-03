@@ -5,6 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -23,6 +24,12 @@ public interface OrderRepository extends CrudRepository<UserOrder, Long> {
      */
     Optional<UserOrder> findById(Long Id);
 
+    /**
+     * Adds a User Order
+     * @param order
+     * @return UserOrder
+     */
+
     UserOrder save(UserOrder order);
 
     /**
@@ -30,5 +37,10 @@ public interface OrderRepository extends CrudRepository<UserOrder, Long> {
      * @param id of the {@link UserOrder} that we need to delete
      */
     void deleteById(Long id);
+
+    /**
+     *Get a list of {@link UserOrder}
+     */
+    List<UserOrder> findAll();
 
 }

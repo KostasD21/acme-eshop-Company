@@ -21,7 +21,7 @@ public interface ProductService {
     Product addProduct(Product product);
 
     /**
-     * This method finds a Product by the ID
+     * This method finds a {@link Product} by the ID
      *
      * @param id of the Product
      * @return a Product object
@@ -29,7 +29,7 @@ public interface ProductService {
     Product findProductById(Long id);
 
     /**
-     * This method finds a Product by it's name
+     * This method finds a {@link Product} by it's name
      *
      * @param name of the Product
      * @return a Product object
@@ -37,12 +37,19 @@ public interface ProductService {
     Product findProductByTitle(String name);
 
     /**
-     * This method finds the Products per category Id
+     * This method finds the list of{@link Product} per category Id
      *
      * @param categoryId
      * @return
      */
     List<Product> getAllProducts(Long categoryId);
+
+    /**
+     * This method gets all the products
+     * @return a {@link List} of {@link Product}
+     */
+    List<Product> findAllProducts();
+
 
     /**
      * This method adds product items

@@ -1,13 +1,16 @@
 package com.codehub.acme.eshop.domain;
 
 import com.codehub.acme.eshop.enumerator.OrderStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -18,8 +21,9 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Table (name ="USER_ORDER")
 @Entity
-public class UserOrder {
+public class UserOrder implements Serializable {
     /**
      * the order id
      */

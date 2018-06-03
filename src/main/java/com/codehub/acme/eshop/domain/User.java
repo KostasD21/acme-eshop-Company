@@ -6,9 +6,13 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
+import java.math.BigInteger;
+import java.security.SecureRandom;
+import java.util.Random;
+import java.util.UUID;
 
 /**
  * This domain class represents a user
@@ -61,6 +65,7 @@ public class User {
    /**
     * the Shopping Basket
     */
+   @Cascade(org.hibernate.annotations.CascadeType.ALL)
    @OneToOne
    @JsonBackReference
    private ShoppingBasket shoppingBasket;
@@ -70,4 +75,10 @@ public class User {
     */
    @Enumerated(EnumType.STRING)
    private Role role;
+
+   /**
+    * The token for the user authentication
+    */
+   private String token;
 }
+

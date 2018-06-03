@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
 import lombok.ToString;
 
 import javax.persistence.*;
@@ -18,6 +19,8 @@ import java.util.List;
  */
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "SHOPPING_BASKET")
 @Entity
 public class ShoppingBasket {
     /**

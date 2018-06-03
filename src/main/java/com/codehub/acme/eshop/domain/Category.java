@@ -17,6 +17,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "CATEGORY")
 @Entity
 public class Category {
     /**
@@ -38,8 +39,8 @@ public class Category {
     /**
      * a {@link List} of {@link Product}
      */
-    @OneToMany(mappedBy = "category",targetEntity = Product.class)
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @OneToMany(mappedBy = "category",targetEntity = Product.class)
     @JsonIgnore
     private List<Product> products = new ArrayList<>();
 

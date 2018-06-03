@@ -13,6 +13,7 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "PRODUCT_STOCK")
 @Entity
 public class ProductStock {
     /**

@@ -4,6 +4,8 @@ import com.codehub.acme.eshop.domain.ProductStock;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * This interface contains the signatures for the CRUD functionality regarding {@link ProductStock}
  */
@@ -24,4 +26,10 @@ public interface ProductStockRepository extends CrudRepository<ProductStock, Lon
      * @return {@link ProductStock}
      */
     ProductStock save(ProductStock productStock);
+
+    /**
+     * This method searches {@link ProductStock} where stock equals 0
+     */
+
+    List<ProductStock> findByStockEquals(Long stock);
 }

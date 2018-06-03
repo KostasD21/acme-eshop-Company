@@ -7,6 +7,10 @@ import com.codehub.acme.eshop.domain.ProductStock;
 import com.codehub.acme.eshop.domain.ShoppingBasket;
 import com.codehub.acme.eshop.enumerator.Availability;
 import com.codehub.acme.eshop.repository.ProductItemRepository;
+import com.codehub.acme.eshop.repository.ProductStockRepository;
+import org.apache.tomcat.util.digester.ArrayStack;
+import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.beans.factory.annotation.Autowired;
 import com.codehub.acme.eshop.repository.ProductRepository;
 import com.codehub.acme.eshop.repository.ProductStockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,10 +35,14 @@ public class ProductServiceImpl implements ProductService  {
     private ProductRepository productRepository;
 
     @Autowired
+    private ProductStockRepository productStockRepository;
+
+    @Autowired
     private ProductItemRepository productItemRepository;
 
     @Autowired
     private ProductStockRepository productStockRepository;
+    String stock = "OUT_OF_STOCK";
 
     /**
      * {@inheritDoc}
@@ -42,11 +50,18 @@ public class ProductServiceImpl implements ProductService  {
     @Override
     public Product addProduct(Product product) {
         return productRepository.save(product);
-
     }
 
     /**
-     * {@inheritDoc}
+     *  {inheritDoc}
+     */
+    @Override
+    public void removeProduct(Long id) {
+        productRepository.deleteById(id);
+    }
+
+    /**
+     *  {inheritDoc}
      */
     @Override
     public Product findProductById(Long id) {
@@ -139,4 +154,22 @@ public class ProductServiceImpl implements ProductService  {
     public Product save(Product product) {
         return productRepository.save(product);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<Product> findAllProducts() {
+        long stock = 0;
+        List<ProductStock> productStockList = productStockRepository.findByStockEquals(stock);
+        List<Product> productOutOfStock = new ArrayList<>();
+
+        for(int i=0; i <productStockList.size(); i++){
+            productOutOfStock.add(productRepository.getProductById(productStockList.get(i).getId()));
+        }
+
+        return productOutOfStock;
+    }
+
+
 }
