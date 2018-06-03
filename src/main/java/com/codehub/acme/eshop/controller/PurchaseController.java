@@ -40,4 +40,20 @@ public class PurchaseController {
         userService.authenticate(token);
         return new PurchaseDto(purchaseService.completePurchase(purchase));
     }
+
+    /**
+     * This method cancels a purchase
+     * @param id of the {@link Purchase}
+     * @param token 
+     * @return
+     */
+    @PostMapping(value = "/cancel/{id}")
+    public ResponseEntity<PurchaseDto> cancelPurchase(@PathVariable Long id, @RequestHeader String token){
+        userService.authenticate(token);
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(new PurchaseDto(purchaseService.cancelPurchase(id)));
+    }
+
 }
