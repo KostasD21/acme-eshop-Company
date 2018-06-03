@@ -40,7 +40,7 @@ public class ProductServiceImpl implements ProductService  {
 
     @Autowired
     private ProductItemRepository productItemRepository;
-    private static final Logger logger = LogManager.getLogger(ProductServiceImpl.class);
+    private static final Logger logger = LogManager.getLogger(ProductItemRepository.class);
 
     String stock = "OUT_OF_STOCK";
 

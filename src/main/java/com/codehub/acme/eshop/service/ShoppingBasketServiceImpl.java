@@ -24,7 +24,7 @@ import java.util.Optional;
  */
 @Service
 public class ShoppingBasketServiceImpl implements ShoppingBasketService {
-    private static final Logger logger = LogManager.getLogger(ShoppingBasketService.class);
+    private static final Logger logger = LogManager.getLogger(ShoppingBasketServiceImpl.class);
 
     /**
      * {@link ShoppingBasketRepository}
