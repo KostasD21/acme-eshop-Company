@@ -5,27 +5,24 @@ import com.codehub.acme.eshop.domain.Product;
 import com.codehub.acme.eshop.domain.ProductItem;
 import com.codehub.acme.eshop.domain.ProductStock;
 import com.codehub.acme.eshop.domain.ShoppingBasket;
+import com.codehub.acme.eshop.enumerator.Availability;
 import com.codehub.acme.eshop.exception.NotFoundException;
 import com.codehub.acme.eshop.repository.ProductItemRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.codehub.acme.eshop.repository.ProductStockRepository;
-import org.apache.tomcat.util.digester.ArrayStack;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.codehub.acme.eshop.repository.ProductRepository;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
+
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 /**
  * This Service contains all the implementations of methods regarding the {@link Product} functionality
  */
-
 @Service
 public class ProductServiceImpl implements ProductService  {
 
@@ -42,10 +39,8 @@ public class ProductServiceImpl implements ProductService  {
     private ProductItemRepository productItemRepository;
     private static final Logger logger = LogManager.getLogger(ProductItemRepository.class);
 
-    String stock = "OUT_OF_STOCK";
-
     /**
-     *  {inheritDoc}
+     * {@inheritDoc}
      */
     @Override
     public Product addProduct(Product product) {
@@ -54,39 +49,31 @@ public class ProductServiceImpl implements ProductService  {
     }
 
     /**
-     *  {inheritDoc}
+     *  {@inheritDoc}
      */
     @Override
     public void removeProduct(Long id) {
-    productRepository.deleteById(id);
+        productRepository.deleteById(id);
     }
 
     /**
-     *  {inheritDoc}
-     */
-    @Override
-    public void updateProductDetails(String title, String shortDescription, String longDescription, String productCode, Long quantity, Long stock) {
-
-    }
-
-    /**
-     *  {inheritDoc}
+     *  {@inheritDoc}
      */
     @Override
     public Product findProductById(Long id) {
-        return null;
+        return productRepository.findById(id).get();
     }
 
     /**
-     *  {inheritDoc}
+     * {@inheritDoc}
      */
     @Override
-    public Product findProductByName(String name) {
-        return null;
+    public Product findProductByTitle(String title) {
+        return productRepository.findByTitle(StringUtils.replace(title,"'", ""));
     }
 
     /**
-     *{inheritDoc}
+     * {@inheritDoc}
      */
     @Override
     public List<Product> getAllProducts(Long categoryId) {
@@ -95,8 +82,6 @@ public class ProductServiceImpl implements ProductService  {
         productRepository.findByCategoryId(categoryId)
                 .forEach(products::add);
         return products;
-
-
     }
 
     /**
@@ -112,9 +97,7 @@ public class ProductServiceImpl implements ProductService  {
             } catch (EntityNotFoundException e) {
                 logger.error("The product or shopping basket is invalid");
                 throw new RuntimeException("The product or shopping basket is invalid");
-            }/* catch (ConstraintViolationException e) {
-                throw new RuntimeException("The shopping basket is invalid");
-            }*/
+            }
         }
         return productItems;
     }
@@ -123,7 +106,6 @@ public class ProductServiceImpl implements ProductService  {
      * {@inheritDoc}
      */
     @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void removeProductItem(Long productItemId) {
         logger.debug("The method of removing a product item from a shopping basket is about to start");
         try {
@@ -138,16 +120,37 @@ public class ProductServiceImpl implements ProductService  {
      * {@inheritDoc}
      */
     @Override
-    public Collection<ProductItem> updateProductItems(List<ProductItem> productsItems) {
-        return (Collection<ProductItem>) productItemRepository.saveAll(productsItems);
+    public ProductItem updateProductItem(ProductItem productsItem) {
+        return productItemRepository.save(productsItem);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void setProductAvailability(ProductStock productStock) {
+        if (productStock.getStock() >= 10) {
+            productStock.setAvailability(Availability.IN_STOCK);
+        } else if (productStock.getStock() >= 1) {
+            productStock.setAvailability(Availability.LIMITED);
+        } else {
+            productStock.setAvailability(Availability.OUT_OF_STOCK);
+        }
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public ProductItem updateProductItem(ProductItem productsItem) {
-        return productItemRepository.save(productsItem);
+    public ProductItem getProductItem(Long productItemId) {
+        return productItemRepository.findById(productItemId).get();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Product save(Product product) {
+        return productRepository.save(product);
     }
 
     /**

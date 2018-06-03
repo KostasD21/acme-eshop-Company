@@ -1,7 +1,8 @@
-package com.codehub.acme.eshop.Controller;
+package com.codehub.acme.eshop.controller;
 
 import com.codehub.acme.eshop.domain.User;
 import com.codehub.acme.eshop.domain.UserLogin;
+import com.codehub.acme.eshop.enumerator.Role;
 import com.codehub.acme.eshop.exception.NotFoundException;
 import com.codehub.acme.eshop.service.UserService;
 import com.codehub.acme.eshop.transformation.UserDto;
@@ -60,6 +61,7 @@ public class UserController {
      */
     @PostMapping(value = "/users")
     public ResponseEntity<UserDto> addUser(@RequestBody User user){
+        user.setRole(Role.REGISTERED_USER);
         User userNew = userService.addUser(user);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -99,12 +101,9 @@ public class UserController {
      */
     @PostMapping(value = "/users/login")
     public ResponseEntity<User> login(@RequestBody UserLogin userLogin){
-
         User user = userService.login(userLogin);
-
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(user);
     }
-
 }

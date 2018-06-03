@@ -44,4 +44,12 @@ public interface ProductRepository extends CrudRepository<Product,Long> {
      * @param id
      */
     Product getProductById(Long id);
+
+    /**
+     * Finds the product by title
+     *
+     * @param title
+     * @return the product
+     */
+    Product findByTitle(String title);
 }

@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.math.BigDecimal;
 
 /**
@@ -30,6 +32,8 @@ public class ProductItem {
     /**
      * the quantity of the product item
      */
+    @Min(value = 1)
+    @Max(value = 30)
     private Integer quantity;
 
     /**

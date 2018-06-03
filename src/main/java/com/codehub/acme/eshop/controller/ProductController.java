@@ -1,16 +1,15 @@
-package com.codehub.acme.eshop.Controller;
+package com.codehub.acme.eshop.controller;
 
 import com.codehub.acme.eshop.domain.Product;
-import com.codehub.acme.eshop.domain.ProductItem;
-import com.codehub.acme.eshop.repository.ProductItemRepository;
-import com.codehub.acme.eshop.service.CategoryService;
 import com.codehub.acme.eshop.service.ProductService;
-import com.codehub.acme.eshop.service.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * This controller handles the requests for the {@link Product}
+ */
 @RestController
 @RequestMapping(value = "/products")
 public class ProductController {
@@ -30,6 +29,7 @@ public class ProductController {
     public List<Product> findProductsByCategoryId(@PathVariable Long categoryId){
         return productService.getAllProducts(categoryId);
     }
+
     /**
      * This Controller adds a {@link Product}
      * @param product
@@ -38,6 +38,17 @@ public class ProductController {
     @PostMapping
     public Product addProduct(@RequestBody Product product){
         return productService.addProduct(product);
+    }
+
+    /**
+     * This method searches for a product
+     *
+     * @param text the client's free text
+     * @return the {@link Product} that found
+     */
+    @GetMapping
+    public Product searchProduct(@RequestParam String text) {
+        return productService.findProductByTitle(text);
     }
 
     /**
@@ -54,7 +65,6 @@ public class ProductController {
     @GetMapping(value ="/productsOutOfStock")
     public List<Product> productsOutOfStock(){
         return productService.findAllProducts();
-
     }
 }
 

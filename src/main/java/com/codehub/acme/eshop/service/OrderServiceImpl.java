@@ -1,7 +1,9 @@
 package com.codehub.acme.eshop.service;
 
-import com.codehub.acme.eshop.domain.UserOrder;
+import com.codehub.acme.eshop.domain.*;
+import com.codehub.acme.eshop.enumerator.OrderStatus;
 import com.codehub.acme.eshop.repository.OrderRepository;
+import com.codehub.acme.eshop.utils.GeneratorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,15 +16,49 @@ import java.util.List;
 @Service
 public class OrderServiceImpl implements OrderService {
 
+    /**
+     * {@link OrderRepository}
+     */
     @Autowired
-    OrderRepository orderRepository;
+    private OrderRepository orderRepository;
+
+    /**
+     * {@link BillingDetailsService}
+     */
+    @Autowired
+    private BillingDetailsService billingDetailsService;
+
+    /**
+     * {@link ProductService}
+     */
+    @Autowired
+    private ProductService productService;
+
+    /**
+     * {@link ShoppingBasketService}
+     */
+    @Autowired
+    private ShoppingBasketService shoppingBasketService;
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void submitOrder() {
-        //orderRepository.save(new UserOrder(1L, new Date(), null, null));
+    public UserOrder submitOrder(UserOrder order) {
+        BillingDetails billingDetails = billingDetailsService.addBillingDetails(order.getBillingDetails());
+        order = orderRepository.save(new UserOrder(new Date(), billingDetails, OrderStatus.PENDING, order.getProductItems(), order.getUser(), GeneratorUtils.generateRandomHexToken(10)));
+        for (ProductItem productItem : order.getProductItems()) {
+            productItem = productService.getProductItem(productItem.getId());
+            Product product = productService.findProductById(productItem.getProduct().getId());
+            ProductStock productStock = product.getProductStock();
+            productService.setProductAvailability(productStock);
+            productStock.setStock(productStock.getStock() - productItem.getQuantity());
+            productItem.setOrder(order);
+            productItem.setShoppingBasket(null);
+            productService.updateProductItem(productItem);
+        }
+        shoppingBasketService.delete(shoppingBasketService.findByUserId(order.getUser().getId()));
+        return order;
     }
     /**
      * {@inheritDoc}
@@ -36,14 +72,21 @@ public class OrderServiceImpl implements OrderService {
      */
     @Override
     public UserOrder findOrderById(Long orderId) {
-        return null;
+        return orderRepository.findById(orderId).get();
     }
     /**
      * {@inheritDoc}
      */
     @Override
-    public UserOrder findOrderByUserId(Long userId) {
-        return null;
+    public List<UserOrder> findOrdersByUserId(Long userId) {
+        return orderRepository.findUserOrdersByUserId(userId);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public UserOrder saveOrder(UserOrder userOrder) {
+        return orderRepository.save(userOrder);
     }
 
     /**
