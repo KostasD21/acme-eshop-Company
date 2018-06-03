@@ -7,20 +7,26 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 /**
- * This domain class represents the billing details referring to the {@link Order}
+ * This domain class represents the billing details referring to the {@link UserOrder}
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class BillingDetails {
+@Table(name ="BILLING_DETAILS")
+public class BillingDetails implements Serializable {
     /**
      * the billing details id
      */
-    private Long Id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "BILLING_DETAILS_ID",nullable = false)
+    private Long id;
     /**
      * the address
      */
@@ -32,13 +38,36 @@ public class BillingDetails {
     /**
      * the {@link ShippingMethods}
      */
-    private ShippingMethods shippingMethods;
+    @Enumerated(EnumType.STRING)
+    @NotNull
+    private ShippingMethods shippingMethod;
     /**
      * the {@link ReceiptMethods}
      */
-    private ReceiptMethods receiptMethods;
+    @Enumerated(EnumType.STRING)
+    @NotNull
+    private ReceiptMethods receiptMethod;
     /**
      * the {@link PaymentMethods}
      */
-    private PaymentMethods paymentMethods;
+    @Enumerated(EnumType.STRING)
+    @NotNull
+    private PaymentMethods paymentMethod;
+
+    /**
+     * Constructor for the billing details
+     *
+     * @param address the address
+     * @param postCode the post code
+     * @param shippingMethod the shipping method
+     * @param receiptMethod the receipt method
+     * @param paymentMethod the payment method
+     */
+    public BillingDetails(String address, String postCode, @NotNull ShippingMethods shippingMethod, @NotNull ReceiptMethods receiptMethod, @NotNull PaymentMethods paymentMethod) {
+        this.address = address;
+        this.postCode = postCode;
+        this.shippingMethod = shippingMethod;
+        this.receiptMethod = receiptMethod;
+        this.paymentMethod = paymentMethod;
+    }
 }

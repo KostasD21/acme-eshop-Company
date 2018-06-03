@@ -4,22 +4,29 @@ import com.codehub.acme.eshop.domain.BillingDetails;
 import com.codehub.acme.eshop.enumerator.PaymentMethods;
 import com.codehub.acme.eshop.enumerator.ReceiptMethods;
 import com.codehub.acme.eshop.enumerator.ShippingMethods;
+import com.codehub.acme.eshop.repository.BillingDetailsRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 
 /**
  * This service contains the implementation of methods regarding the {@link BillingDetails} functionality
- *
  */
 @Service
 public class BillingDetailsServiceImpl implements BillingDetailsService {
 
     /**
+     * {@link BillingDetailsRepository}
+     */
+    @Autowired
+    private BillingDetailsRepository billingDetailsRepository;
+
+    /**
      *{@inheritDoc}
      */
     @Override
-    public BillingDetails getUserId(Long id) {
+    public BillingDetails getByUserId(Long id) {
         return null;
     }
 
@@ -27,7 +34,7 @@ public class BillingDetailsServiceImpl implements BillingDetailsService {
      *{@inheritDoc}
      */
     @Override
-    public BillingDetails addBillingDetails(Long id, String address, String postCode, ShippingMethods shippingMethods, ReceiptMethods receiptMethods, PaymentMethods paymentMethods) {
-        return null;
+    public BillingDetails addBillingDetails(BillingDetails billingDetails) {
+        return billingDetailsRepository.save(billingDetails);
     }
 }

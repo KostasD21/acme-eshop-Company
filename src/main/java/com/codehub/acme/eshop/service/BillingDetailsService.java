@@ -2,9 +2,6 @@ package com.codehub.acme.eshop.service;
 
 
 import com.codehub.acme.eshop.domain.BillingDetails;
-import com.codehub.acme.eshop.enumerator.PaymentMethods;
-import com.codehub.acme.eshop.enumerator.ReceiptMethods;
-import com.codehub.acme.eshop.enumerator.ShippingMethods;
 
 /**
  * This interface contains the signature of the methods regarding the functionality
@@ -18,22 +15,13 @@ public interface BillingDetailsService {
      * @param id the userId
      * @return {@link BillingDetails}
      */
-     BillingDetails getUserId(Long id);
+     BillingDetails getByUserId(Long id);
 
     /**
      * This method adds the Billing Details
-     * @param id        the user ID
-     * @param address   the user address
-     * @param postCode  the user postcode
-     * @param shippingMethods   the shipping methods
-     * @param receiptMethods    the receipt methods
-     * @param paymentMethods    the payment methods
+     *
+     * @param billingDetails {@link BillingDetails}
      * @return {@link BillingDetails}
      */
-     BillingDetails addBillingDetails(Long id, String address, String postCode,
-                                            ShippingMethods shippingMethods,ReceiptMethods receiptMethods,
-                                            PaymentMethods paymentMethods);
-
-
-
+     BillingDetails addBillingDetails(BillingDetails billingDetails);
 }

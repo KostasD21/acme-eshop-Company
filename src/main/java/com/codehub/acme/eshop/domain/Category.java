@@ -1,10 +1,14 @@
 package com.codehub.acme.eshop.domain;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,23 +17,31 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "CATEGORY")
 @Entity
 public class Category {
     /**
      * the category id
      */
-    private Long Id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "CATEGORY_ID",nullable = false)
+    private Long id;
     /**
      * the name of the category
      */
+    @Column(name = "CATEGORY_NAME")
     private String name;
     /**
      * the description of the category
      */
     private String description;
     /**
-     * the {@link Product}
+     * a {@link List} of {@link Product}
      */
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @OneToMany(mappedBy = "category",targetEntity = Product.class)
+    @JsonIgnore
+    private List<Product> products = new ArrayList<>();
 
-    private List<Product> products;
 }
