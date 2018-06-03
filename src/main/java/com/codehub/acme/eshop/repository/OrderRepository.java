@@ -16,7 +16,6 @@ import java.util.Optional;
 @Repository
 public interface OrderRepository extends CrudRepository<UserOrder, Long> {
 
-
     /**
      * Search {@link UserOrder} by id
      * @param Id of the {@link UserOrder} that we need to search
@@ -43,4 +42,11 @@ public interface OrderRepository extends CrudRepository<UserOrder, Long> {
      */
     List<UserOrder> findAll();
 
+    /**
+     * Finds user orders by user id
+     *
+     * @param userId the user id
+     * @return
+     */
+    List<UserOrder> findUserOrdersByUserId(Long userId);
 }

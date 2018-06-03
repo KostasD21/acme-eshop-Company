@@ -1,4 +1,4 @@
-package com.codehub.acme.eshop.Controller;
+package com.codehub.acme.eshop.controller;
 
 import com.codehub.acme.eshop.domain.User;
 import com.codehub.acme.eshop.domain.UserLogin;
@@ -100,12 +100,9 @@ public class UserController {
      */
     @PostMapping(value = "/users/login")
     public ResponseEntity<User> login(@RequestBody UserLogin userLogin){
-
         User user = userService.login(userLogin);
-
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(user);
     }
-
 }

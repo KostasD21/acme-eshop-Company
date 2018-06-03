@@ -55,4 +55,10 @@ public interface ShoppingBasketService {
      * @return true if shopping basket exist, else false
      */
     boolean exists(Long shoppingBasketId);
+    /**
+     * This method removes a shopping basket
+     *
+     * @param shoppingBasket the shopping basket
+     */
+    void delete(ShoppingBasket shoppingBasket);
 }

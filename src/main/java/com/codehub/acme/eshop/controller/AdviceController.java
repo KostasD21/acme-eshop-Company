@@ -1,4 +1,4 @@
-package com.codehub.acme.eshop.Controller;
+package com.codehub.acme.eshop.controller;
 
 
 import com.codehub.acme.eshop.exception.*;
@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * This controller is used to handle the exceptions for all controllers
  */
-@ControllerAdvice(basePackageClasses = {CategoryController.class, UserController.class, ShoppingBasketController.class, ProductController.class})
+@ControllerAdvice(basePackageClasses = {CategoryController.class, UserController.class, ShoppingBasketController.class, ProductController.class, PurchaseController.class, OrderController.class})
 public class AdviceController {
 
     /**
@@ -45,7 +45,7 @@ public class AdviceController {
     }
 
     /**
-     * This method handles the {@link PasswordInvalidException}
+     * This method handles the {@link TokenInvalidException}
      *
      * @param ex {@link TokenInvalidException}
      * @param request the {@link HttpServletRequest}

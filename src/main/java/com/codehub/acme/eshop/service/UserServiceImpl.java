@@ -7,6 +7,7 @@ import com.codehub.acme.eshop.exception.PasswordInvalidException;
 import com.codehub.acme.eshop.exception.TokenInvalidException;
 import com.codehub.acme.eshop.exception.UsernameInvalidException;
 import com.codehub.acme.eshop.repository.UserRepository;
+import com.codehub.acme.eshop.utils.GeneratorUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +17,10 @@ import org.springframework.stereotype.Service;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
 /**
  * This service contains the implementation of methods regarding the {@link User} functionality
  */
-
 @Service
 public class UserServiceImpl implements UserService {
     private static final Logger logger = LogManager.getLogger(UserServiceImpl.class);
@@ -40,7 +38,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public User addUser(User user) {
-        String token = generateRandomHexToken(10);
+        String token = GeneratorUtils.generateRandomHexToken(10);
         user.setToken(token);
         String password = user.getPassword();
         user.setPassword(passwordEncoder.encodePassword(password, PASSWORD_SALT));
@@ -94,13 +92,6 @@ public class UserServiceImpl implements UserService {
         return userRepository.findUserByUsername(username);
     }
 
-    private String generateRandomHexToken(int byteLength) {
-        SecureRandom secureRandom = new SecureRandom();
-        byte[] token = new byte[byteLength];
-        secureRandom.nextBytes(token);
-        return new BigInteger(1, token).toString(16); //hex encoding
-    }
-
     /**
      * {@inheritDoc}
      */
@@ -134,7 +125,7 @@ public class UserServiceImpl implements UserService {
             throw new PasswordInvalidException("The password is invalid");
         }
 
-        String token = generateRandomHexToken(10);
+        String token = GeneratorUtils.generateRandomHexToken(10);
         user.setToken(token);
         userRepository.save(user);
 
@@ -143,13 +134,12 @@ public class UserServiceImpl implements UserService {
 
     /**
      * This method is used to encode the provided password
-     * @param plainTextPassword
+     *
+     * @param plainTextPassword the password as plain text
      * @return encoded password
      */
     private String encode(final String plainTextPassword) {
         logger.debug("The method of encoding the given password is about to start");
         return passwordEncoder.encodePassword(plainTextPassword, PASSWORD_SALT);
     }
-
-
 }
