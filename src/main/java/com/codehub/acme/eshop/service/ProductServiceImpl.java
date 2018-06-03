@@ -91,7 +91,7 @@ public class ProductServiceImpl implements ProductService  {
     @Override
     public List<Product> getAllProducts(Long categoryId) {
         List<Product> products = new ArrayList<>();
-        productRepository.findByCategoryId(categoryId)
+        productRepository.findByCategoryId(categoryId).get()
                 .forEach(products::add);
         return products;
 

@@ -6,6 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * This interface contains the signatures for the CRUD functionalities regarding {@link Product}
@@ -19,7 +20,7 @@ public interface ProductRepository extends CrudRepository<Product,Long> {
      * @param categoryId of the {@link Product} that we need to search
      * @return a Category, if found
      */
-    List<Product> findByCategoryId(Long categoryId);
+   Optional<List<Product>> findByCategoryId(Long categoryId);
     /**
      * Search {@link Product}
      * @return a List of products, if found

@@ -2,6 +2,7 @@ package com.codehub.acme.eshop.Controller;
 
 import com.codehub.acme.eshop.domain.Product;
 import com.codehub.acme.eshop.domain.ProductItem;
+import com.codehub.acme.eshop.exception.NotFoundException;
 import com.codehub.acme.eshop.repository.ProductItemRepository;
 import com.codehub.acme.eshop.service.CategoryService;
 import com.codehub.acme.eshop.service.ProductService;
@@ -10,11 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
-@RequestMapping(value = "/products")
 public class ProductController {
-
+    /**
+     * The default URL for all the methods
+     */
+    private static final String DEFAULT_PATTERN = "/products";
     /**
      * {@link ProductService}
      */
@@ -26,9 +30,13 @@ public class ProductController {
      * @param categoryId
      * @return {@link Product}
      */
-    @GetMapping(value ="/{categoryId}")
+    @GetMapping(value = DEFAULT_PATTERN + "/{categoryId}")
     public List<Product> findProductsByCategoryId(@PathVariable Long categoryId){
-        return productService.getAllProducts(categoryId);
+       try {
+           return productService.getAllProducts(categoryId);
+       }catch(NoSuchElementException e){
+           throw new NotFoundException("The category with this id:"+categoryId+" cannot be found");
+       }
     }
     /**
      * This Controller adds a {@link Product}
@@ -43,7 +51,7 @@ public class ProductController {
     /**
      * This Controller deletes a {@link Product} by a given id
      */
-    @DeleteMapping(value = "/{productId}")
+    @DeleteMapping(value = DEFAULT_PATTERN + "/{productId}")
     public void deleteProduct(@PathVariable Long productId){
         productService.removeProduct(productId);
     }
@@ -51,7 +59,7 @@ public class ProductController {
     /**
      * This Controller returns a list of {@link Product} out of stock
      */
-    @GetMapping(value ="/productsOutOfStock")
+    @GetMapping(value = DEFAULT_PATTERN +"/productsOutOfStock")
     public List<Product> productsOutOfStock(){
         return productService.findAllProducts();
 

@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import java.math.BigDecimal;
 
 /**
@@ -18,6 +19,7 @@ import java.math.BigDecimal;
 @Table(name = "PRODUCT_ITEM")
 @Entity
 public class ProductItem {
+
 
     /**
      * the product item id

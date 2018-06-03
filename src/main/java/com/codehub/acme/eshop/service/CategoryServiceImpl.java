@@ -60,7 +60,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category getCategoryById(Long id) {
 
-        return categoryRepository.getCategoryById(id);
+        return categoryRepository.getCategoryById(id).get();
     }
 
     /**
@@ -69,7 +69,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category findByName(String name) {
 
-        return categoryRepository.findByName(name);
+        return categoryRepository.findByName(name).get();
     }
 
 

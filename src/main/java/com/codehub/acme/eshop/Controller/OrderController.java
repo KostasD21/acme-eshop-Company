@@ -12,9 +12,11 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping(value = "orders")
 public class OrderController {
-
+    /**
+     * The default URL for all the methods
+     */
+    private static final String DEFAULT_PATTERN ="/orders";
     /**
      * {@link OrderService}
      */
@@ -25,7 +27,7 @@ public class OrderController {
      * This Controller returns a list of {@link UserOrder}
      * @return a list of {@link UserOrder}
      */
-    @GetMapping
+    @GetMapping(value = DEFAULT_PATTERN)
     public ResponseEntity<List<UserOrder>> userOrderList(){
         List<UserOrder> userOrderList = orderService.findAllOrders();
         return ResponseEntity

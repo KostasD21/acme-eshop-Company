@@ -2,6 +2,7 @@ package com.codehub.acme.eshop.Controller;
 
 import com.codehub.acme.eshop.domain.Category;
 import com.codehub.acme.eshop.domain.Product;
+import com.codehub.acme.eshop.exception.NotFoundException;
 import com.codehub.acme.eshop.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,11 +11,15 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
-@RequestMapping(value = "categories")
 public class CategoryController {
 
+    /**
+     * The default URL for all the methods
+     */
+    private static final String DEFAULT_RESOURCE = "/categories";
     /**
      * {@link CategoryService}
      */
@@ -25,7 +30,7 @@ public class CategoryController {
      * This Controller returns a List of Categories from the DB
      * @return {@link Category}
      */
-    @GetMapping
+    @GetMapping(DEFAULT_RESOURCE)
     public List<Category> categoryList() {
         return categoryService.getAllCategories();
     }
@@ -34,15 +39,19 @@ public class CategoryController {
      * This controllers searches and returns a Category {@link Category} from the DB regarding a given Id
      * @return {@link Category}
      */
-    @GetMapping( value ="{categoryId}")
+    @GetMapping( value = DEFAULT_RESOURCE + "/{categoryId}")
     public Category getCategoryById(@PathVariable Long categoryId){
-        return categoryService.getCategoryById(categoryId);
+        try {
+            return categoryService.getCategoryById(categoryId);
+        }catch (NoSuchElementException e){
+            throw new NotFoundException("The category with the id: "+categoryId + " cannot be found");
+        }
     }
     /**
      * This Controller adds/creates a new Category {@link Category} to the DB
      * @param category
      */
-    @PostMapping
+    @PostMapping(value = DEFAULT_RESOURCE)
      public void addCategory(@RequestBody Category category){
         categoryService.addCategory(category);
         }
@@ -51,15 +60,19 @@ public class CategoryController {
      * @param categoryName
      * return {@link Category}
       */
-    @GetMapping(value ="/{categoryName}")
+    @GetMapping(value = DEFAULT_RESOURCE +"/categoryName/{categoryName}")
     public Category findByName(@PathVariable String categoryName){
-        return categoryService.findByName(categoryName);
+        try {
+            return categoryService.findByName(categoryName);
+        }catch(NoSuchElementException e){
+            throw new NotFoundException("The category with the name: "+categoryName+" cannot be found");
+        }
     }
 
     /**
      * This Controller removes a Category from the DB regarding a given name
      */
-    @DeleteMapping(value = "/{categoryName}")
+    @DeleteMapping(value = DEFAULT_RESOURCE +"/{categoryName}")
     public void deleteCategory(@PathVariable String categoryName){
         categoryService.removeCategory(categoryName);
 
@@ -67,7 +80,7 @@ public class CategoryController {
          * This Controller removes a Category from the DB regarding a given Id
          */
     }
-    @DeleteMapping(value ="/{categoryId}")
+    @DeleteMapping(value = DEFAULT_RESOURCE +"/{categoryId}")
     public void deleteCategorybyId(@PathVariable Long categoryId){
         categoryService.removeCategorybyId(categoryId);
     }
