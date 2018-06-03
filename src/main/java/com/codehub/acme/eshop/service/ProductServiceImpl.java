@@ -5,6 +5,7 @@ import com.codehub.acme.eshop.domain.Product;
 import com.codehub.acme.eshop.domain.ProductItem;
 import com.codehub.acme.eshop.domain.ProductStock;
 import com.codehub.acme.eshop.domain.ShoppingBasket;
+import com.codehub.acme.eshop.enumerator.Availability;
 import com.codehub.acme.eshop.exception.NotFoundException;
 import com.codehub.acme.eshop.repository.ProductItemRepository;
 import org.apache.logging.log4j.LogManager;
@@ -16,8 +17,6 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
