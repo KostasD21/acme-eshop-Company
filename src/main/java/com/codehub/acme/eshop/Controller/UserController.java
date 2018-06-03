@@ -45,6 +45,7 @@ public class UserController {
      */
     @GetMapping( value = "/users/{userId}")
     public User findById(@PathVariable Long userId){
+        logger.debug("The method of searching a user by id is about to start");
         try {
             return userService.getUserById(userId);
         } catch (NoSuchElementException e) {
