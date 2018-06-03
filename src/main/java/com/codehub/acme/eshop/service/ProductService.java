@@ -29,12 +29,19 @@ public interface ProductService {
     Product findProductById(Long id);
 
     /**
-     * This method finds a {@link Product} by it's name
+     * This method finds a {@link Product} by it's title
      *
-     * @param name of the Product
+     * @param title of the Product
      * @return a Product object
      */
-    Product findProductByTitle(String name);
+    Product findProductByTitle(String title);
+
+    /**
+     * This method removes a product by Id
+     *
+     * @param productId the product Id
+     */
+    void removeProduct(Long productId);
 
     /**
      * This method finds the list of{@link Product} per category Id
@@ -75,9 +82,20 @@ public interface ProductService {
      */
     ProductItem updateProductItem(ProductItem productsItem);
 
-    void checkAvailability(ProductStock productStock);
+    /**
+     * This method sets the availability for a given product
+     *
+     * @param productStock the {@link ProductStock}
+     */
+    void setProductAvailability(ProductStock productStock);
 
-    ProductItem getProductItem(ProductItem productItem);
+    /**
+     * This method gets a {@link ProductItem}
+     *
+     * @param productItemId the product item Id
+     * @return the product item
+     */
+    ProductItem getProductItem(Long productItemId);
 
     /**
      * This method saves a product

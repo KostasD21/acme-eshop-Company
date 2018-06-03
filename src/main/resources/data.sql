@@ -16,8 +16,8 @@ INSERT INTO PRODUCT_STOCK (id, availability, stock) VALUES (4, 'IN_STOCK', 80);
 
 INSERT INTO PRODUCT (product_id, title, short_description, long_description, product_code, price,category_id, product_stock_id) VALUES (1, 'Acer Aspire X', 'Normal laptop','Nvidia GTX 555','product Code 555', 800,2,1);
 INSERT INTO PRODUCT (product_id, title, short_description, long_description, product_code, price,category_id, product_stock_id) VALUES (2, 'Acer Aspire S', 'Normal laptop','Nvidia GTX 777','product Code 777', 400,2, 2);
-INSERT INTO PRODUCT (product_id, title, short_description, long_description, product_code, price,category_id, product_stock_id) VALUES (3, 'Acer Aspire X', 'Normal Desktop','Nvidia GTX 555','product Code 555', 800,1,3);
-INSERT INTO PRODUCT (product_id, title, short_description, long_description, product_code, price,category_id, product_stock_id) VALUES (4, 'Acer Aspire S', 'Normal Desktop','Nvidia GTX 777','product Code 777', 400,3, 4);
+INSERT INTO PRODUCT (product_id, title, short_description, long_description, product_code, price,category_id, product_stock_id) VALUES (3, 'Acer Aspire X200', 'Normal Desktop','Nvidia GTX 555','product Code 555', 800,1,3);
+INSERT INTO PRODUCT (product_id, title, short_description, long_description, product_code, price,category_id, product_stock_id) VALUES (4, 'Acer Aspire S440', 'Normal Desktop','Nvidia GTX 777','product Code 777', 400,3, 4);
 
 INSERT INTO shopping_basket (shopping_basket_id, total_amount, user_id) VALUES (1, 2400, 1);
 INSERT INTO shopping_basket (shopping_basket_id, total_amount, user_id) VALUES (2, 400, 2);

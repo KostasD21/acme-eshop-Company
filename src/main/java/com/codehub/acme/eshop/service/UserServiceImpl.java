@@ -14,13 +14,10 @@ import org.springframework.stereotype.Service;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
 /**
  * This service contains the implementation of methods regarding the {@link User} functionality
  */
-
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -91,13 +88,6 @@ public class UserServiceImpl implements UserService {
         return userRepository.findUserByUsername(username);
     }
 
-    private String generateRandomHexToken(int byteLength) {
-        SecureRandom secureRandom = new SecureRandom();
-        byte[] token = new byte[byteLength];
-        secureRandom.nextBytes(token);
-        return new BigInteger(1, token).toString(16); //hex encoding
-    }
-
     /**
      * {@inheritDoc}
      */
@@ -134,12 +124,24 @@ public class UserServiceImpl implements UserService {
 
     /**
      * This method is used to encode the provided password
-     * @param plainTextPassword
+     *
+     * @param plainTextPassword the password as plain text
      * @return encoded password
      */
     private String encode(final String plainTextPassword) {
         return passwordEncoder.encodePassword(plainTextPassword, PASSWORD_SALT);
     }
 
-
+    /**
+     * This method generates a random string
+     *
+     * @param byteLength the length of the string
+     * @return the generated random string
+     */
+    private String generateRandomHexToken(int byteLength) {
+        SecureRandom secureRandom = new SecureRandom();
+        byte[] token = new byte[byteLength];
+        secureRandom.nextBytes(token);
+        return new BigInteger(1, token).toString(16); //hex encoding
+    }
 }

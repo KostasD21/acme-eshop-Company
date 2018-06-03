@@ -8,14 +8,11 @@ import com.codehub.acme.eshop.domain.ShoppingBasket;
 import com.codehub.acme.eshop.enumerator.Availability;
 import com.codehub.acme.eshop.repository.ProductItemRepository;
 import com.codehub.acme.eshop.repository.ProductStockRepository;
-import org.apache.tomcat.util.digester.ArrayStack;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.codehub.acme.eshop.repository.ProductRepository;
-import com.codehub.acme.eshop.repository.ProductStockRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
@@ -24,7 +21,6 @@ import java.util.List;
 /**
  * This Service contains all the implementations of methods regarding the {@link Product} functionality
  */
-
 @Service
 public class ProductServiceImpl implements ProductService  {
 
@@ -40,10 +36,6 @@ public class ProductServiceImpl implements ProductService  {
     @Autowired
     private ProductItemRepository productItemRepository;
 
-    @Autowired
-    private ProductStockRepository productStockRepository;
-    String stock = "OUT_OF_STOCK";
-
     /**
      * {@inheritDoc}
      */
@@ -53,7 +45,7 @@ public class ProductServiceImpl implements ProductService  {
     }
 
     /**
-     *  {inheritDoc}
+     *  {@inheritDoc}
      */
     @Override
     public void removeProduct(Long id) {
@@ -61,7 +53,7 @@ public class ProductServiceImpl implements ProductService  {
     }
 
     /**
-     *  {inheritDoc}
+     *  {@inheritDoc}
      */
     @Override
     public Product findProductById(Long id) {
@@ -72,8 +64,8 @@ public class ProductServiceImpl implements ProductService  {
      * {@inheritDoc}
      */
     @Override
-    public Product findProductByTitle(String code) {
-        return productRepository.findByTitle(code);
+    public Product findProductByTitle(String title) {
+        return productRepository.findByTitle(StringUtils.replace(title,"'", ""));
     }
 
     /**
@@ -98,9 +90,7 @@ public class ProductServiceImpl implements ProductService  {
                 productItems.add(productItemRepository.save(new ProductItem(1, product.getPrice(), shoppingBasket, null, product)));
             } catch (EntityNotFoundException e) {
                 throw new RuntimeException("The product or shopping basket is invalid");
-            }/* catch (ConstraintViolationException e) {
-                throw new RuntimeException("The shopping basket is invalid");
-            }*/
+            }
         }
         return productItems;
     }
@@ -109,7 +99,6 @@ public class ProductServiceImpl implements ProductService  {
      * {@inheritDoc}
      */
     @Override
-    //@Transactional(propagation = Propagation.REQUIRES_NEW)
     public void removeProductItem(Long productItemId) {
         try {
             productItemRepository.deleteById(productItemId);
@@ -129,7 +118,7 @@ public class ProductServiceImpl implements ProductService  {
     /**
      * {@inheritDoc}
      */
-    public void checkAvailability(ProductStock productStock) {
+    public void setProductAvailability(ProductStock productStock) {
         if (productStock.getStock() >= 10) {
             productStock.setAvailability(Availability.IN_STOCK);
         } else if (productStock.getStock() >= 1) {
@@ -143,8 +132,8 @@ public class ProductServiceImpl implements ProductService  {
      * {@inheritDoc}
      */
     @Override
-    public ProductItem getProductItem(ProductItem productItem) {
-        return productItemRepository.findById(productItem.getId()).get();
+    public ProductItem getProductItem(Long productItemId) {
+        return productItemRepository.findById(productItemId).get();
     }
 
     /**

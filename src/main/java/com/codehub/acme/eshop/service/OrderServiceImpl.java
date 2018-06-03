@@ -43,19 +43,19 @@ public class OrderServiceImpl implements OrderService {
      * {@inheritDoc}
      */
     @Override
-    public UserOrder submitOrder(UserOrder order/*, User user*/) {
+    public UserOrder submitOrder(UserOrder order) {
         BillingDetails billingDetails = billingDetailsService.addBillingDetails(order.getBillingDetails());
         order = orderRepository.save(new UserOrder(new Date(), billingDetails, OrderStatus.PENDING, order.getProductItems(), order.getUser()));
         for (ProductItem productItem : order.getProductItems()) {
-            productItem = productService.getProductItem(productItem);
+            productItem = productService.getProductItem(productItem.getId());
             Product product = productService.findProductById(productItem.getProduct().getId());
             ProductStock productStock = product.getProductStock();
             productStock.setStock(productStock.getStock() - productItem.getQuantity());
-            productService.checkAvailability(productStock);
+            productService.setProductAvailability(productStock);
             productItem.setOrder(order);
             productService.updateProductItem(productItem);
         }
-        //shoppingBasketService.delete(shoppingBasketService.findByUserId(order.getUser().getId()));
+        shoppingBasketService.delete(shoppingBasketService.findByUserId(order.getUser().getId()));
         return order;
     }
     /**

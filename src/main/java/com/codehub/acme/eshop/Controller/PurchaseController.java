@@ -1,12 +1,10 @@
-package com.codehub.acme.eshop.Controller;
+package com.codehub.acme.eshop.controller;
 
 import com.codehub.acme.eshop.domain.Purchase;
 import com.codehub.acme.eshop.service.PurchaseService;
+import com.codehub.acme.eshop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 /**
@@ -20,6 +18,11 @@ public class PurchaseController {
      */
     @Autowired
     private PurchaseService purchaseService;
+    /**
+     * {@link UserService}
+     */
+    @Autowired
+    private UserService userService;
 
     /**
      * This method completes a purcahse
@@ -29,7 +32,8 @@ public class PurchaseController {
      * @return the created/updated {@link Purchase}
      */
     @PostMapping("/purchase/{orderId}")
-    public Purchase completePurchase(@PathVariable Long orderId, @RequestBody Purchase purchase){
+    public Purchase completePurchase(@PathVariable Long orderId, @RequestBody Purchase purchase, @RequestHeader String token){
+        userService.authenticate(token);
         return purchaseService.completePurchase(orderId, purchase);
     }
 }

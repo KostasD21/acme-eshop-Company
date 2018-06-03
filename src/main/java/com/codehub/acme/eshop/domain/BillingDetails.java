@@ -3,7 +3,6 @@ package com.codehub.acme.eshop.domain;
 import com.codehub.acme.eshop.enumerator.PaymentMethods;
 import com.codehub.acme.eshop.enumerator.ReceiptMethods;
 import com.codehub.acme.eshop.enumerator.ShippingMethods;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -55,6 +54,15 @@ public class BillingDetails implements Serializable {
     @NotNull
     private PaymentMethods paymentMethod;
 
+    /**
+     * Constructor for the billing details
+     *
+     * @param address the address
+     * @param postCode the post code
+     * @param shippingMethod the shipping method
+     * @param receiptMethod the receipt method
+     * @param paymentMethod the payment method
+     */
     public BillingDetails(String address, String postCode, @NotNull ShippingMethods shippingMethod, @NotNull ReceiptMethods receiptMethod, @NotNull PaymentMethods paymentMethod) {
         this.address = address;
         this.postCode = postCode;
