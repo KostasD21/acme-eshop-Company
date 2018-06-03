@@ -5,6 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 
 /**
@@ -19,7 +20,7 @@ public interface CategoryRepository extends CrudRepository<Category, Long> {
      * @param id of the {@link Category} that we need to search
      * @return a Category, if found
      */
-    Category getCategoryById(Long id);
+    Optional<Category> getCategoryById(Long id);
 
     /**
      * Search {@link Category} by name
@@ -27,7 +28,7 @@ public interface CategoryRepository extends CrudRepository<Category, Long> {
      * @param name of the {@link Category} that we need to search
      * @return a Category, if found
      */
-    Category findByName(String name);
+    Optional<Category> findByName(String name);
 
     /**
      * Delete {@link Category} by it's id

@@ -79,7 +79,7 @@ public class ProductServiceImpl implements ProductService  {
     public List<Product> getAllProducts(Long categoryId) {
         logger.debug("The method of finding all products by category is about to start");
         List<Product> products = new ArrayList<>();
-        productRepository.findByCategoryId(categoryId)
+        productRepository.findByCategoryId(categoryId).get()
                 .forEach(products::add);
         return products;
     }
