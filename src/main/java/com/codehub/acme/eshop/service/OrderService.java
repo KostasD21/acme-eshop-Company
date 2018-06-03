@@ -8,8 +8,10 @@ import com.codehub.acme.eshop.domain.UserOrder;
 public interface OrderService {
     /**
      * This method creates an order
+     * @param order
+     * @return the submitted order
      */
-    void submitOrder();
+    UserOrder submitOrder(UserOrder order);
     /**
      * This method cancels the order
      *
@@ -30,4 +32,11 @@ public interface OrderService {
      * @return        the {@link UserOrder}
      */
     UserOrder findOrderByUserId(Long userId);
+    /**
+     * This method saves the order
+     *
+     * @param userOrder the order {@link UserOrder}
+     * @return the saved/updates {@link UserOrder}
+     */
+    UserOrder saveOrder(UserOrder userOrder);
 }

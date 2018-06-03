@@ -2,10 +2,9 @@ package com.codehub.acme.eshop.service;
 
 import com.codehub.acme.eshop.domain.Product;
 import com.codehub.acme.eshop.domain.ProductItem;
+import com.codehub.acme.eshop.domain.ProductStock;
 import com.codehub.acme.eshop.domain.ShoppingBasket;
-import org.springframework.stereotype.Service;
 
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -14,43 +13,12 @@ import java.util.List;
 public interface ProductService {
 
     /**
-     *This method adds a new Product
+     * This method adds a product
      *
-    // * @param title product title
-    // * @param shortDescription a short description for the product
-     //* @param longDescription a long description for the product
-    // * @param productCode a unique code for each product
-    // * @param quantity quantiy of the product
-    // * @param stock the amount of stock
-        * @param product
+     * @param product the product
+     * @return the added product
      */
     Product addProduct(Product product);
-
-    /**
-     * This method removes a Product
-     *
-     * @param id remove the product by ID
-     */
-    void removeProduct(Long id);
-
-    /**
-     * This method updates the details of the Product
-     *
-     * @param title product title
-     * @param shortDescription a short description for the product
-     * @param longDescription a long description for the product
-     * @param productCode a unique code for each product
-     * @param quantity of a producy
-     * @param stock the amount of stock
-     */
-    void updateProductDetails(String title, String shortDescription, String longDescription, String productCode, Long quantity, Long stock);
-
-    /**
-     * This method finds a Product by the Category that it belongs
-     *
-     * @param id the name of the Category
-     * @return a Product object
-     */
 
     /**
      * This method finds a Product by the ID
@@ -66,7 +34,7 @@ public interface ProductService {
      * @param name of the Product
      * @return a Product object
      */
-    Product findProductByName(String name);
+    Product findProductByTitle(String name);
 
     /**
      * This method finds the Products per category Id
@@ -93,18 +61,23 @@ public interface ProductService {
     void removeProductItem(Long productItemId);
 
     /**
-     * This method updates the product items
-     *
-     * @param productsItems the {@link List} of {@link ProductItem}
-     */
-    Collection<ProductItem> updateProductItems(List<ProductItem> productsItems);
-
-    /**
      * This method updates a product item
      *
      * @param productsItem the product item to be saved
      * @return  the updated product item
      */
     ProductItem updateProductItem(ProductItem productsItem);
+
+    void checkAvailability(ProductStock productStock);
+
+    ProductItem getProductItem(ProductItem productItem);
+
+    /**
+     * This method saves a product
+     *
+     * @param product the product
+     * @return the saved/updated product
+     */
+    Product save(Product product);
 }
 

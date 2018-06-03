@@ -1,15 +1,41 @@
 package com.codehub.acme.eshop.service;
 
-import com.codehub.acme.eshop.domain.UserOrder;
+import com.codehub.acme.eshop.domain.Product;
+import com.codehub.acme.eshop.domain.ProductItem;
 import com.codehub.acme.eshop.domain.Purchase;
-import com.codehub.acme.eshop.enumerator.Provider;
+import com.codehub.acme.eshop.domain.UserOrder;
+import com.codehub.acme.eshop.enumerator.OrderStatus;
 import com.codehub.acme.eshop.enumerator.PurchaseStatus;
+import com.codehub.acme.eshop.exception.NotFoundException;
+import com.codehub.acme.eshop.repository.PurchaseRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
+import java.util.Date;
 
+/**
+ * This service contains the implementation of methods regarding the {@link Purchase} functionality
+ */
 @Service
 public class PurchaseServiceImpl implements PurchaseService {
+
+    /**
+     * {@link PurchaseRepository}
+     */
+    @Autowired
+    private PurchaseRepository purchaseRepository;
+
+    /**
+     * {@link OrderService}
+     */
+    @Autowired
+    private OrderService orderService;
+
+    /**
+     * {@link ProductService}
+     */
+    @Autowired
+    private ProductService productService;
 
     /**
      * Search for Purchase by Id
@@ -32,16 +58,23 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     /**
-     * Submits a Purchase on DB
-     * @param orderId the id of the Order that gets purchased
-     * @param provider bank that provides the transaction
-     * @param referenceId UID between bank provider and customer
-     * @param purchaseStatus the status of the {@link Purchase}
-     * @param amount total amount of the order + provider fee
+     * {@inheritDoc}
      */
     @Override
-    public void submitPurchase(UserOrder orderId, Provider provider, String referenceId, PurchaseStatus purchaseStatus, BigDecimal amount) {
-
+    public Purchase completePurchase(Long orderId, Purchase purchase) {
+        UserOrder userOrder = orderService.findOrderById(orderId);
+        if (userOrder == null) {
+            throw new NotFoundException("The order with Id "+ orderId +" not found");
+        }
+        /* FIXME: Auto-generate the referenceId */
+        /* FIXME: Random Statuses for the purchase */
+        purchase = purchaseRepository.save(new Purchase(new Date(), userOrder, "42385923483", purchase.getProvider(), purchase.getAmount(), PurchaseStatus.ERROR));
+        userOrder = setOrderStatusFromPurchaseStatus(purchase, userOrder);
+        if (userOrder.getOrderStatus().equals(OrderStatus.ERROR)) {
+            revertTheProductStock(userOrder);
+        }
+        orderService.saveOrder(userOrder);
+        return purchase;
     }
 
     /**
@@ -51,5 +84,30 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Override
     public void cancelPurchase(Long id) {
 
+    }
+
+    private void revertTheProductStock(UserOrder userOrder) {
+        for (ProductItem productItem : userOrder.getProductItems()) {
+            productItem.getProduct().getProductStock().setStock(productItem.getQuantity() + productItem.getProduct().getProductStock().getStock());
+            productService.save(productItem.getProduct());
+        }
+    }
+
+    /**
+     * This method sets the order status according to purchase
+     *
+     * @param purchase the purchase
+     * @param userOrder the order
+     * @return the updated {@link UserOrder}
+     */
+    private UserOrder setOrderStatusFromPurchaseStatus(Purchase purchase, UserOrder userOrder) {
+        if (purchase.getPurchaseStatus().equals(PurchaseStatus.ACCEPTED)) {
+            userOrder.setOrderStatus(OrderStatus.COMPLETED);
+        } else if (purchase.getPurchaseStatus().equals(PurchaseStatus.ERROR)) {
+            userOrder.setOrderStatus(OrderStatus.ERROR);
+        } else if (purchase.getPurchaseStatus().equals(PurchaseStatus.CANCELED)) {
+            userOrder.setOrderStatus(OrderStatus.CANCELED);
+        }
+        return userOrder;
     }
 }

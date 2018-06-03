@@ -20,10 +20,10 @@ INSERT INTO product (product_id, title, short_description, long_description, pro
 
 INSERT INTO shopping_basket (shopping_basket_id, total_amount, user_id) VALUES (1, 2400, 1);
 INSERT INTO shopping_basket (shopping_basket_id, total_amount, user_id) VALUES (2, 400, 2);
-
-INSERT INTO product_item (product_item_id, amount, quantity, order_id, product_id, shopping_basket_id) VALUES (1, 1600, 2, null, 1, 1);
-INSERT INTO product_item (product_item_id, amount, quantity, order_id, product_id, shopping_basket_id) VALUES (2, 800, 1, null, 2, 1);
-INSERT INTO product_item (product_item_id, amount, quantity, order_id, product_id, shopping_basket_id) VALUES (3, 400, 1, null, 2, 2);
+INSERT INTO shopping_basket (shopping_basket_id, total_amount, user_id) VALUES (3, 2000, 2);
+INSERT INTO shopping_basket (shopping_basket_id, total_amount, user_id) VALUES (4, 50, 2);
+INSERT INTO shopping_basket (shopping_basket_id, total_amount, user_id) VALUES (5, 130, 2);
+INSERT INTO shopping_basket (shopping_basket_id, total_amount, user_id) VALUES (6, 130, 2);
 
 INSERT INTO billing_details (BILLING_DETAILS_ID, ADDRESS, POST_CODE, SHIPPING_METHOD, PAYMENT_METHOD, RECEIPT_METHOD) VALUES (1, 'Sparth', '40101', 'COURIER', 'PAYPAL', 'RECEIPT');
 INSERT INTO billing_details (BILLING_DETAILS_ID, ADDRESS, POST_CODE, SHIPPING_METHOD, PAYMENT_METHOD, RECEIPT_METHOD) VALUES (2, 'Feidippidoy', '34394', 'COURIER', 'PAY_ON_DELIVERY', 'RECEIPT');
@@ -39,12 +39,20 @@ INSERT INTO USER_ORDER (ORDER_ID, ORDER_DATE, BILLING_DETAILS_ID, ORDER_STATUS, 
 INSERT INTO USER_ORDER (ORDER_ID, ORDER_DATE, BILLING_DETAILS_ID, ORDER_STATUS, USER_ID) VALUES (5, sysdate, 5, 'COMPLETED', 3);
 INSERT INTO USER_ORDER (ORDER_ID, ORDER_DATE, BILLING_DETAILS_ID, ORDER_STATUS, USER_ID) VALUES (6, sysdate, 6, 'COMPLETED', 1);
 
-INSERT INTO PURCHASE (PURCHASE_ID, PURCHASE_DATE, ORDER_ID, REFERENCE_ID, PROVIDER, AMOUNT, PURCHASE_STATUS) VALUES (1, sysdate, 1, '4832948', 'PAYPAL', 20, 'COMPLETED');
+INSERT INTO product_item (product_item_id, amount, quantity, order_id, product_id, shopping_basket_id) VALUES (1, 1600, 2, null, 1, 1);
+INSERT INTO product_item (product_item_id, amount, quantity, order_id, product_id, shopping_basket_id) VALUES (2, 800, 1, null, 2, 1);
+INSERT INTO product_item (product_item_id, amount, quantity, order_id, product_id, shopping_basket_id) VALUES (3, 400, 1, null, 2, 2);
+INSERT INTO product_item (product_item_id, amount, quantity, order_id, product_id, shopping_basket_id) VALUES (4, 2000, 4, 4, 1, 3);
+INSERT INTO product_item (product_item_id, amount, quantity, order_id, product_id, shopping_basket_id) VALUES (5, 50, 1, 4, 2, 4);
+INSERT INTO product_item (product_item_id, amount, quantity, order_id, product_id, shopping_basket_id) VALUES (6, 130, 1, 4, 3, 5);
+INSERT INTO product_item (product_item_id, amount, quantity, order_id, product_id, shopping_basket_id) VALUES (7, 130, 1, 5, 2, 6);
+
+INSERT INTO PURCHASE (PURCHASE_ID, PURCHASE_DATE, ORDER_ID, REFERENCE_ID, PROVIDER, AMOUNT, PURCHASE_STATUS) VALUES (1, sysdate, 1, '4832948', 'PAYPAL', 20, 'ACCEPTED');
 INSERT INTO PURCHASE (PURCHASE_ID, PURCHASE_DATE, ORDER_ID, REFERENCE_ID, PROVIDER, AMOUNT, PURCHASE_STATUS) VALUES (2, sysdate, 2, '5234235', null, 44, 'ERROR');
-INSERT INTO PURCHASE (PURCHASE_ID, PURCHASE_DATE, ORDER_ID, REFERENCE_ID, PROVIDER, AMOUNT, PURCHASE_STATUS) VALUES (3, sysdate, 3, '234324', 'VISA', 56, 'CANCELED');
-INSERT INTO PURCHASE (PURCHASE_ID, PURCHASE_DATE, ORDER_ID, REFERENCE_ID, PROVIDER, AMOUNT, PURCHASE_STATUS) VALUES (4, sysdate, 4, '643543', 'PAYPAL', 120,  'COMPLETED');
-INSERT INTO PURCHASE (PURCHASE_ID, PURCHASE_DATE, ORDER_ID, REFERENCE_ID, PROVIDER, AMOUNT, PURCHASE_STATUS) VALUES (5, sysdate, 5, '12343225', 'MASTERCARD', 245, 'COMPLETED');
-INSERT INTO PURCHASE (PURCHASE_ID, PURCHASE_DATE, ORDER_ID, REFERENCE_ID, PROVIDER, AMOUNT, PURCHASE_STATUS) VALUES (6, sysdate, 6, '453643643', 'MASTERCARD', 50, 'COMPLETED');
+INSERT INTO PURCHASE (PURCHASE_ID, PURCHASE_DATE, ORDER_ID, REFERENCE_ID, PROVIDER, AMOUNT, PURCHASE_STATUS) VALUES (3, sysdate, 3, '234324', 'VISA', 56, 'ACCEPTED');
+INSERT INTO PURCHASE (PURCHASE_ID, PURCHASE_DATE, ORDER_ID, REFERENCE_ID, PROVIDER, AMOUNT, PURCHASE_STATUS) VALUES (4, sysdate, 4, '643543', 'PAYPAL', 120,  'ACCEPTED');
+INSERT INTO PURCHASE (PURCHASE_ID, PURCHASE_DATE, ORDER_ID, REFERENCE_ID, PROVIDER, AMOUNT, PURCHASE_STATUS) VALUES (5, sysdate, 5, '12343225', 'MASTERCARD', 245, 'ACCEPTED');
+INSERT INTO PURCHASE (PURCHASE_ID, PURCHASE_DATE, ORDER_ID, REFERENCE_ID, PROVIDER, AMOUNT, PURCHASE_STATUS) VALUES (6, sysdate, 6, '453643643', 'MASTERCARD', 50, 'ACCEPTED');
 
 
 

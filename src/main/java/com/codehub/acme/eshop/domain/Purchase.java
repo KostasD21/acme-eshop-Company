@@ -56,4 +56,23 @@ public class Purchase {
      */
     @Enumerated(EnumType.STRING)
     private PurchaseStatus purchaseStatus;
+
+    /**
+     * Constructor with all attributes except the unique id
+     *
+     * @param purchaseDate the purchase date
+     * @param orderDetails the order
+     * @param referenceId the referenceId of the provider
+     * @param provider the provider that we communicate for the payment
+     * @param amount the total purchase amount
+     * @param purchaseStatus the purchase status
+     */
+    public Purchase(Date purchaseDate, UserOrder orderDetails, String referenceId, Provider provider, BigDecimal amount, PurchaseStatus purchaseStatus) {
+        this.purchaseDate = purchaseDate;
+        this.orderDetails = orderDetails;
+        this.referenceId = referenceId;
+        this.provider = provider;
+        this.amount = amount;
+        this.purchaseStatus = purchaseStatus;
+    }
 }

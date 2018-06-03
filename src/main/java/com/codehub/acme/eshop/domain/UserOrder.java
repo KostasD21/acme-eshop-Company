@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -35,6 +37,7 @@ public class UserOrder {
      */
     @OneToOne
     @JoinColumn(name = "BILLING_DETAILS_ID")
+    @NotNull
     private BillingDetails billingDetails;
     /**
      * the order status {@link OrderStatus}
@@ -45,10 +48,23 @@ public class UserOrder {
      * the {@link List} of {@link ProductItem}
      */
     @OneToMany(mappedBy = "order")
-    private List<ProductItem> productItems= new ArrayList<>();
+    @NotEmpty
+    private List<ProductItem> productItems = new ArrayList<>();
     /**
      * the {@link User} of the order
      */
     @OneToOne
     private User user;
+    /**
+     * the order reference that sent to the customer
+     */
+    //private String reference;
+
+    public UserOrder(Date orderDate, BillingDetails billingDetails, OrderStatus orderStatus, List<ProductItem> productItems, User user) {
+        this.orderDate = orderDate;
+        this.billingDetails = billingDetails;
+        this.orderStatus = orderStatus;
+        this.productItems = productItems;
+        this.user = user;
+    }
 }

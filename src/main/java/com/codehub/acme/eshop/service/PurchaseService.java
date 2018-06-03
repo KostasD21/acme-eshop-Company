@@ -1,12 +1,10 @@
 package com.codehub.acme.eshop.service;
 
-import com.codehub.acme.eshop.domain.UserOrder;
 import com.codehub.acme.eshop.domain.Purchase;
-import com.codehub.acme.eshop.enumerator.Provider;
-import com.codehub.acme.eshop.enumerator.PurchaseStatus;
 
-import java.math.BigDecimal;
-
+/**
+ * This interface contains the signatures of methods regarding the {@link Purchase} functionality
+ */
 public interface PurchaseService {
 
     /**
@@ -24,17 +22,17 @@ public interface PurchaseService {
     Purchase findByOrderId(Long orderId);
 
     /**
-     * Submits a Purchase on DB
+     * Completes a purchase
+     *
      * @param orderId the id of the Order that gets purchased
-     * @param provider bank that provides the transaction
-     * @param referenceId UID between bank provider and customer
-     * @param purchaseStatus the status of the {@link Purchase}
-     * @param amount total amount of the order + provider fee
+     * @param purchase {@link Purchase}
+     * @return the {@link Purchase}
      */
-    void submitPurchase(UserOrder orderId, Provider provider, String referenceId, PurchaseStatus purchaseStatus, BigDecimal amount);
+    Purchase completePurchase(Long orderId, Purchase purchase);
 
     /**
      * Cancels a purchase
+     *
      * @param id the {@link Purchase} id
      */
     void cancelPurchase(Long id);

@@ -3,22 +3,18 @@ package com.codehub.acme.eshop.service;
 
 import com.codehub.acme.eshop.domain.Product;
 import com.codehub.acme.eshop.domain.ProductItem;
+import com.codehub.acme.eshop.domain.ProductStock;
 import com.codehub.acme.eshop.domain.ShoppingBasket;
+import com.codehub.acme.eshop.enumerator.Availability;
 import com.codehub.acme.eshop.repository.ProductItemRepository;
-import org.hibernate.exception.ConstraintViolationException;
-import org.springframework.beans.factory.annotation.Autowired;
 import com.codehub.acme.eshop.repository.ProductRepository;
+import com.codehub.acme.eshop.repository.ProductStockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
-import java.math.BigDecimal;
-
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -37,16 +33,12 @@ public class ProductServiceImpl implements ProductService  {
     @Autowired
     private ProductItemRepository productItemRepository;
 
-    public void save() {
-        //ProductItem productItem = new ProductItem(1L,1,new BigDecimal(20), null, null, null);
-        //productItemRepository.save(productItem);
-    }
+    @Autowired
+    private ProductStockRepository productStockRepository;
 
     /**
-     *  {inheritDoc}
+     * {@inheritDoc}
      */
-
-
     @Override
     public Product addProduct(Product product) {
         return productRepository.save(product);
@@ -54,39 +46,23 @@ public class ProductServiceImpl implements ProductService  {
     }
 
     /**
-     *  {inheritDoc}
-     */
-    @Override
-    public void removeProduct(Long id) {
-
-    }
-
-    /**
-     *  {inheritDoc}
-     */
-    @Override
-    public void updateProductDetails(String title, String shortDescription, String longDescription, String productCode, Long quantity, Long stock) {
-
-    }
-
-    /**
-     *  {inheritDoc}
+     * {@inheritDoc}
      */
     @Override
     public Product findProductById(Long id) {
-        return null;
+        return productRepository.findById(id).get();
     }
 
     /**
-     *  {inheritDoc}
+     * {@inheritDoc}
      */
     @Override
-    public Product findProductByName(String name) {
-        return null;
+    public Product findProductByTitle(String code) {
+        return productRepository.findByTitle(code);
     }
 
     /**
-     *{inheritDoc}
+     * {@inheritDoc}
      */
     @Override
     public List<Product> getAllProducts(Long categoryId) {
@@ -94,8 +70,6 @@ public class ProductServiceImpl implements ProductService  {
         productRepository.findByCategoryId(categoryId)
                 .forEach(products::add);
         return products;
-
-
     }
 
     /**
@@ -120,7 +94,7 @@ public class ProductServiceImpl implements ProductService  {
      * {@inheritDoc}
      */
     @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    //@Transactional(propagation = Propagation.REQUIRES_NEW)
     public void removeProductItem(Long productItemId) {
         try {
             productItemRepository.deleteById(productItemId);
@@ -133,15 +107,36 @@ public class ProductServiceImpl implements ProductService  {
      * {@inheritDoc}
      */
     @Override
-    public Collection<ProductItem> updateProductItems(List<ProductItem> productsItems) {
-        return (Collection<ProductItem>) productItemRepository.saveAll(productsItems);
+    public ProductItem updateProductItem(ProductItem productsItem) {
+        return productItemRepository.save(productsItem);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void checkAvailability(ProductStock productStock) {
+        if (productStock.getStock() >= 10) {
+            productStock.setAvailability(Availability.IN_STOCK);
+        } else if (productStock.getStock() >= 1) {
+            productStock.setAvailability(Availability.LIMITED);
+        } else {
+            productStock.setAvailability(Availability.OUT_OF_STOCK);
+        }
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public ProductItem updateProductItem(ProductItem productsItem) {
-        return productItemRepository.save(productsItem);
+    public ProductItem getProductItem(ProductItem productItem) {
+        return productItemRepository.findById(productItem.getId()).get();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Product save(Product product) {
+        return productRepository.save(product);
     }
 }

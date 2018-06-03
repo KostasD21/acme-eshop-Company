@@ -90,8 +90,8 @@ public class ShoppingBasketServiceImpl implements ShoppingBasketService {
     public ShoppingBasket updateShoppingBasket(ShoppingBasket shoppingBasket, List<ProductItem> productItems) {
         List<ProductItem> productItemList = new ArrayList<>();
         for(ProductItem productItem : productItems) {
-            Integer quantity = productItem.getQuantity();
             productItem = checkIfProductItemExist(productItem);
+            Integer quantity = productItem.getQuantity();
             BigDecimal amount = productItem.getAmount().multiply(new BigDecimal(quantity));
             productItem.setQuantity(quantity);
             productItem.setAmount(amount);
@@ -111,6 +111,14 @@ public class ShoppingBasketServiceImpl implements ShoppingBasketService {
     @Override
     public boolean exists(Long shoppingBasketId) {
         return shoppingBasketRepository.existsById(shoppingBasketId);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void delete(ShoppingBasket shoppingBasket) {
+        shoppingBasketRepository.delete(shoppingBasket);
     }
 
     /**
