@@ -16,7 +16,6 @@ import java.util.Optional;
 @Repository
 public interface OrderRepository extends CrudRepository<UserOrder, Long> {
 
-
     /**
      * Search {@link UserOrder} by id
      * @param Id of the {@link UserOrder} that we need to search
