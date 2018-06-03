@@ -7,6 +7,7 @@ import com.codehub.acme.eshop.domain.UserOrder;
 import com.codehub.acme.eshop.enumerator.OrderStatus;
 import com.codehub.acme.eshop.enumerator.PurchaseStatus;
 import com.codehub.acme.eshop.exception.NotFoundException;
+import com.codehub.acme.eshop.exception.PurchaseException;
 import com.codehub.acme.eshop.repository.PurchaseRepository;
 import com.codehub.acme.eshop.utils.GeneratorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,12 +71,14 @@ public class PurchaseServiceImpl implements PurchaseService {
         UserOrder userOrder;
         try {
             userOrder = orderService.findOrderById(purchase.getOrder().getId());
+            /*if(purchaseRepository.existsById(purchase.getId())) {
+                throw new PurchaseException("The purchase with Id "+purchase.getOrder().getId()+" has already been done");
+            }*/
         } catch (NoSuchElementException e) {
             logger.error("The order with Id "+purchase.getOrder().getId()+" was not found");
             throw new NotFoundException("The order with Id "+ purchase.getOrder().getId() +" not found");
         }
-        /* FIXME: Random Statuses for the purchase */
-        purchase = purchaseRepository.save(new Purchase(new Date(), userOrder, GeneratorUtils.generateRandomHexToken(10), purchase.getProvider(), purchase.getAmount(), PurchaseStatus.ERROR));
+        purchase = purchaseRepository.save(new Purchase(new Date(), userOrder, GeneratorUtils.generateRandomHexToken(10), purchase.getProvider(), purchase.getAmount(), simulatePurchaseStatus()));
         userOrder = setOrderStatusFromPurchaseStatus(purchase, userOrder);
         if (userOrder.getOrderStatus().equals(OrderStatus.ERROR)) {
             revertTheProductStock(userOrder);
@@ -94,6 +97,11 @@ public class PurchaseServiceImpl implements PurchaseService {
 
     }
 
+    /**
+     * This method reverts the stored stock for the product after the order
+     *
+     * @param userOrder the order
+     */
     private void revertTheProductStock(UserOrder userOrder) {
         for (ProductItem productItem : userOrder.getProductItems()) {
             productItem.getProduct().getProductStock().setStock(productItem.getQuantity() + productItem.getProduct().getProductStock().getStock());
@@ -117,5 +125,18 @@ public class PurchaseServiceImpl implements PurchaseService {
             userOrder.setOrderStatus(OrderStatus.CANCELED);
         }
         return userOrder;
+    }
+
+    /**
+     * This method is used to simulate the purchase status based on probability
+     *
+     * @return the {@link PurchaseStatus}
+     */
+    private PurchaseStatus simulatePurchaseStatus() {
+        double prob = Math.random();
+        if (prob > 0 && prob <= 0.9) {
+            return PurchaseStatus.ACCEPTED;
+        }
+        return PurchaseStatus.ERROR;
     }
 }

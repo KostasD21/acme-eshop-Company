@@ -73,9 +73,7 @@ public class ShoppingBasketController {
     @PostMapping(DEFAULT_RESOURCE + "addProducts")
     public ShoppingBasketDto addProductsToShoppingBasket(@RequestBody List<Product> products, @RequestHeader String token){
         userService.authenticate(token);
-        /* TODO: Validate the amount of product items > 0 */
         ShoppingBasket shoppingBasket = shoppingBasketService.addProducts(products);
-        /* FIXME: Display the Product information properly in the response */
         return new ShoppingBasketDto(shoppingBasket.getId(), transformationService.transformProductItems(shoppingBasket.getProductItems()), shoppingBasket.getTotalAmount(), shoppingBasket.getUser());
     }
 

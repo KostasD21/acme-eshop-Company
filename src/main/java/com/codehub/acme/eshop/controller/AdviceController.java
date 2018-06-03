@@ -102,4 +102,18 @@ public class AdviceController {
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(new ErrorMessage(ex.getMessage()));
     }
+
+    /**
+     * This method handles the {@link PurchaseException}
+     *
+     * @param ex {@link PurchaseException}
+     * @param request the {@link HttpServletRequest}
+     * @return the {@link ErrorMessage}
+     */
+    @ExceptionHandler({PurchaseException.class})
+    public ResponseEntity<ErrorMessage> handleInvalidErrors(PurchaseException ex, HttpServletRequest request) {
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(new ErrorMessage(ex.getMessage()));
+    }
 }
