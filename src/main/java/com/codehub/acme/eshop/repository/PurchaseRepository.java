@@ -20,6 +20,13 @@ public interface PurchaseRepository extends CrudRepository<Purchase, Long> {
     Optional<Purchase> findById(Long id);
 
     /**
+     * Searches for a {@link Purchase}
+     * @param id of the Purchase to be searched
+     * @return {@link Purchase}
+     */
+    Purchase getById(Long id);
+
+    /**
      * Deletes a {@link Purchase}
      * @param id of the purchase
      */
