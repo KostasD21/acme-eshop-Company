@@ -2,9 +2,12 @@ package com.codehub.acme.eshop.controller;
 
 import com.codehub.acme.eshop.domain.User;
 import com.codehub.acme.eshop.domain.UserLogin;
+import com.codehub.acme.eshop.enumerator.Role;
 import com.codehub.acme.eshop.exception.NotFoundException;
 import com.codehub.acme.eshop.service.UserService;
 import com.codehub.acme.eshop.transformation.UserDto;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +18,9 @@ import java.util.NoSuchElementException;
 
 @RestController
 public class UserController {
+
+    private static final Logger logger = LogManager.getLogger(UserController.class);
+
     /**
      * {@link UserService}
      */
@@ -43,6 +49,7 @@ public class UserController {
         try {
             return userService.getUserById(userId);
         } catch (NoSuchElementException e) {
+            logger.error("The user cannot be found!");
             throw new NotFoundException("The user cannot be found!");
         }
     }
@@ -53,6 +60,7 @@ public class UserController {
      */
     @PostMapping(value = "/users")
     public ResponseEntity<UserDto> addUser(@RequestBody User user){
+        user.setRole(Role.REGISTERED_USER);
         User userNew = userService.addUser(user);
         return ResponseEntity
                 .status(HttpStatus.CREATED)

@@ -10,6 +10,8 @@ import com.codehub.acme.eshop.exception.NotFoundException;
 import com.codehub.acme.eshop.repository.PurchaseRepository;
 import com.codehub.acme.eshop.utils.GeneratorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -20,6 +22,7 @@ import java.util.NoSuchElementException;
  */
 @Service
 public class PurchaseServiceImpl implements PurchaseService {
+    private static final Logger logger = LogManager.getLogger(PurchaseServiceImpl.class);
 
     /**
      * {@link PurchaseRepository}
@@ -90,6 +93,7 @@ public class PurchaseServiceImpl implements PurchaseService {
      */
     @Override
     public void cancelPurchase(Long id) {
+        logger.debug("The method of canceling a purchase is about to start");
 
     }
 

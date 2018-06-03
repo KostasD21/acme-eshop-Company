@@ -5,8 +5,10 @@ import com.codehub.acme.eshop.domain.Product;
 import com.codehub.acme.eshop.domain.ProductItem;
 import com.codehub.acme.eshop.domain.ProductStock;
 import com.codehub.acme.eshop.domain.ShoppingBasket;
-import com.codehub.acme.eshop.enumerator.Availability;
+import com.codehub.acme.eshop.exception.NotFoundException;
 import com.codehub.acme.eshop.repository.ProductItemRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import com.codehub.acme.eshop.repository.ProductStockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.codehub.acme.eshop.repository.ProductRepository;
@@ -14,10 +16,11 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-
 /**
  * This Service contains all the implementations of methods regarding the {@link Product} functionality
  */
@@ -35,12 +38,14 @@ public class ProductServiceImpl implements ProductService  {
 
     @Autowired
     private ProductItemRepository productItemRepository;
+    private static final Logger logger = LogManager.getLogger(ProductItemRepository.class);
 
     /**
      * {@inheritDoc}
      */
     @Override
     public Product addProduct(Product product) {
+        logger.debug("The method of adding a product is about to start");
         return productRepository.save(product);
     }
 
@@ -73,6 +78,7 @@ public class ProductServiceImpl implements ProductService  {
      */
     @Override
     public List<Product> getAllProducts(Long categoryId) {
+        logger.debug("The method of finding all products by category is about to start");
         List<Product> products = new ArrayList<>();
         productRepository.findByCategoryId(categoryId)
                 .forEach(products::add);
@@ -84,11 +90,13 @@ public class ProductServiceImpl implements ProductService  {
      */
     @Override
     public List<ProductItem> addProductItems(List<Product> products, ShoppingBasket shoppingBasket) {
+        logger.debug("The method of adding a product item to a shopping basket is about to start");
         List<ProductItem> productItems = new ArrayList<>();
         for (Product product : products) {
             try {
                 productItems.add(productItemRepository.save(new ProductItem(1, product.getPrice(), shoppingBasket, null, product)));
             } catch (EntityNotFoundException e) {
+                logger.error("The product or shopping basket is invalid");
                 throw new RuntimeException("The product or shopping basket is invalid");
             }
         }
@@ -100,10 +108,12 @@ public class ProductServiceImpl implements ProductService  {
      */
     @Override
     public void removeProductItem(Long productItemId) {
+        logger.debug("The method of removing a product item from a shopping basket is about to start");
         try {
             productItemRepository.deleteById(productItemId);
         } catch (EmptyResultDataAccessException e) {
-            throw new RuntimeException("The product item Id "+productItemId+" does not exist!");
+            logger.error("The product item Id"+productItemId+" not found!");
+            throw new NotFoundException("The product item Id "+productItemId+" not found!");
         }
     }
 

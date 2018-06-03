@@ -8,6 +8,8 @@ import com.codehub.acme.eshop.exception.TokenInvalidException;
 import com.codehub.acme.eshop.exception.UsernameInvalidException;
 import com.codehub.acme.eshop.repository.UserRepository;
 import com.codehub.acme.eshop.utils.GeneratorUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,7 @@ import java.util.List;
  */
 @Service
 public class UserServiceImpl implements UserService {
+    private static final Logger logger = LogManager.getLogger(UserServiceImpl.class);
 
     @Autowired
     private UserRepository userRepository;
@@ -94,8 +97,10 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public User authenticate(String token) {
+        logger.debug("The method of authenticating a user through token validation is about to start");
         User user = userRepository.findByToken(token);
         if (user == null) {
+            logger.error("The token is invalid");
             throw new TokenInvalidException("The token is invalid");
         }
         return user;
@@ -109,10 +114,14 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.getByUsername(userLogin.getUsername());
 
         if (user == null){
+            logger.debug("The method of authenticating a user through the given username validation is about to start");
+            logger.error("The username is invalid");
             throw new UsernameInvalidException("The username is invalid");
         }
 
         if (userLogin.getPassword() == null || !encode(userLogin.getPassword()).equals(user.getPassword())) {
+            logger.debug("The method of authenticating a user through the given password validation is about to start");
+            logger.error("The password is invalid");
             throw new PasswordInvalidException("The password is invalid");
         }
 
@@ -130,6 +139,7 @@ public class UserServiceImpl implements UserService {
      * @return encoded password
      */
     private String encode(final String plainTextPassword) {
+        logger.debug("The method of encoding the given password is about to start");
         return passwordEncoder.encodePassword(plainTextPassword, PASSWORD_SALT);
     }
 }
