@@ -40,7 +40,6 @@ public class Purchase {
     @OneToOne(optional=false)
     @JoinColumn(name = "ORDER_ID")
     @NotNull
-    @JsonIgnore
     private UserOrder order;
     /**
      * Reference id regarding the unique ID that we receive from the provider

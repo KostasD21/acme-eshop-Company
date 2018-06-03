@@ -71,12 +71,9 @@ public class PurchaseServiceImpl implements PurchaseService {
         try {
             userOrder = orderService.findOrderById(purchase.getOrder().getId());
         } catch (NoSuchElementException e) {
+            logger.error("The order with Id "+purchase.getOrder().getId()+" was not found");
             throw new NotFoundException("The order with Id "+ purchase.getOrder().getId() +" not found");
-
         }
-        /*if (userOrder == null) {
-            throw new NotFoundException("The order with Id "+ purchase.getOrder().getId() +" not found");
-        }*/
         /* FIXME: Random Statuses for the purchase */
         purchase = purchaseRepository.save(new Purchase(new Date(), userOrder, GeneratorUtils.generateRandomHexToken(10), purchase.getProvider(), purchase.getAmount(), PurchaseStatus.ERROR));
         userOrder = setOrderStatusFromPurchaseStatus(purchase, userOrder);

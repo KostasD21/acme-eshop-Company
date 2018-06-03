@@ -3,6 +3,7 @@ package com.codehub.acme.eshop.controller;
 import com.codehub.acme.eshop.domain.Purchase;
 import com.codehub.acme.eshop.service.PurchaseService;
 import com.codehub.acme.eshop.service.UserService;
+import com.codehub.acme.eshop.transformation.PurchaseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,8 +34,8 @@ public class PurchaseController {
      * @return the created/updated {@link Purchase}
      */
     @PostMapping("/purchase")
-    public Purchase completePurchase(@Valid @RequestBody Purchase purchase, @RequestHeader String token){
+    public PurchaseDto completePurchase(@Valid @RequestBody Purchase purchase, @RequestHeader String token){
         userService.authenticate(token);
-        return purchaseService.completePurchase(purchase);
+        return new PurchaseDto(purchaseService.completePurchase(purchase));
     }
 }
