@@ -7,6 +7,7 @@ import com.codehub.acme.eshop.exception.PasswordInvalidException;
 import com.codehub.acme.eshop.exception.TokenInvalidException;
 import com.codehub.acme.eshop.exception.UsernameInvalidException;
 import com.codehub.acme.eshop.repository.UserRepository;
+import com.codehub.acme.eshop.utils.GeneratorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -34,7 +35,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public User addUser(User user) {
-        String token = generateRandomHexToken(10);
+        String token = GeneratorUtils.generateRandomHexToken(10);
         user.setToken(token);
         String password = user.getPassword();
         user.setPassword(passwordEncoder.encodePassword(password, PASSWORD_SALT));
@@ -115,7 +116,7 @@ public class UserServiceImpl implements UserService {
             throw new PasswordInvalidException("The password is invalid");
         }
 
-        String token = generateRandomHexToken(10);
+        String token = GeneratorUtils.generateRandomHexToken(10);
         user.setToken(token);
         userRepository.save(user);
 
@@ -130,18 +131,5 @@ public class UserServiceImpl implements UserService {
      */
     private String encode(final String plainTextPassword) {
         return passwordEncoder.encodePassword(plainTextPassword, PASSWORD_SALT);
-    }
-
-    /**
-     * This method generates a random string
-     *
-     * @param byteLength the length of the string
-     * @return the generated random string
-     */
-    private String generateRandomHexToken(int byteLength) {
-        SecureRandom secureRandom = new SecureRandom();
-        byte[] token = new byte[byteLength];
-        secureRandom.nextBytes(token);
-        return new BigInteger(1, token).toString(16); //hex encoding
     }
 }

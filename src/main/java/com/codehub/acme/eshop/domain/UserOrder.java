@@ -62,13 +62,24 @@ public class UserOrder implements Serializable {
     /**
      * the order reference that sent to the customer
      */
-    //private String reference;
+    private String reference;
 
-    public UserOrder(Date orderDate, BillingDetails billingDetails, OrderStatus orderStatus, List<ProductItem> productItems, User user) {
+    /**
+     * Constructor with all the attributes except Id
+     *
+     * @param orderDate the order date
+     * @param billingDetails the billing details
+     * @param orderStatus the order status
+     * @param productItems the product item
+     * @param user the user
+     * @param reference the reference
+     */
+    public UserOrder(Date orderDate, BillingDetails billingDetails, OrderStatus orderStatus, List<ProductItem> productItems, User user, String reference) {
         this.orderDate = orderDate;
         this.billingDetails = billingDetails;
         this.orderStatus = orderStatus;
         this.productItems = productItems;
         this.user = user;
+        this.reference = reference;
     }
 }

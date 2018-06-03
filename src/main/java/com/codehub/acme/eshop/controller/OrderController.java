@@ -53,7 +53,8 @@ public class OrderController {
      */
     // TODO: PROVLIMA ME FOREIGN KEY MALLON THA LITHEI ME DTOS //
     @DeleteMapping(value = "/{orderId}")
-    public void deleteOrderById(@PathVariable Long orderId){
+    public void deleteOrderById(@PathVariable Long orderId, @RequestHeader String token){
+        userService.authenticate(token);
         orderService.deleteOrderById(orderId);
     }
 
@@ -65,7 +66,6 @@ public class OrderController {
      */
     @PostMapping
     public UserOrder submitOrder(@Valid @RequestBody UserOrder order, @RequestHeader String token){
-        /* TODO: Billing details can be null in case that the user is authenticated */
         try {
             /* If the user is registered and the billing details are null from the request,
              * then the address and post code are completed by the user's properties */
