@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import org.apache.logging.log4j.core.appender.rolling.SizeBasedTriggeringPolicy?>
 <?import com.sun.corba.se.impl.oa.poa.Policies?>
-<Configuration status="WARN" monitorInterval="30">
+<Configuration status="ERROR" monitorInterval="30">
     <Properties>
         <Property name="LOG_PATTERN">
             %d{yyyy-MM-dd HH:mm:ss.SSS} %5p ${hostName} --- [%15.15t] %-40.40c{1.} : %m%n%ex
@@ -9,28 +9,28 @@
     </Properties>
     <Appenders>
         <Console name="ConsoleAppender" target="SYSTEM_OUT" follow="true">
+            <level value="DEBUG" />
             <PatternLayout pattern="${LOG_PATTERN}"/>
         </Console>
 
         <!-- Rolling File Appender -->
         <RollingFile name="FileAppender" fileName="logs/log4j-demo.log"
-                     filePattern="logs/log4j-demo-%d{yyyy-MM-dd}-%i.log">
+                     filePattern="logs-%d{yyyy-MM-dd}-%i.log" level="error">
             <PatternLayout>
+                <level value="ERROR" />
                 <Pattern>${LOG_PATTERN}</Pattern>
             </PatternLayout>
-            <Policies>
-                <SizeBasedTriggeringPolicy size="1MB" />
-            </Policies>
-            <DefaultRolloverStrategy max="10"/>
         </RollingFile>
     </Appenders>
+
     <Loggers>
-        <Logger name="com.example.log4jdemo" level="debug" additivity="false">
+        <Logger name="com.example.log4j" level="debug" additivity="false">
             <AppenderRef ref="ConsoleAppender" />
         </Logger>
 
-        <Root level="info">
-            <AppenderRef ref="ConsoleAppender" />
+        <Root level="error">
+            <AppenderRef ref="FileAppender" />
+            <level value="ERROR" />
         </Root>
     </Loggers>
 
