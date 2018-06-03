@@ -8,6 +8,7 @@ import com.codehub.acme.eshop.enumerator.OrderStatus;
 import com.codehub.acme.eshop.enumerator.PurchaseStatus;
 import com.codehub.acme.eshop.exception.NotFoundException;
 import com.codehub.acme.eshop.repository.PurchaseRepository;
+import com.codehub.acme.eshop.transformation.PurchaseDto;
 import com.codehub.acme.eshop.utils.GeneratorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.apache.logging.log4j.LogManager;
@@ -75,7 +76,7 @@ public class PurchaseServiceImpl implements PurchaseService {
             throw new NotFoundException("The order with Id "+ purchase.getOrder().getId() +" not found");
         }
         /* FIXME: Random Statuses for the purchase */
-        purchase = purchaseRepository.save(new Purchase(new Date(), userOrder, GeneratorUtils.generateRandomHexToken(10), purchase.getProvider(), purchase.getAmount(), PurchaseStatus.ERROR));
+        purchase = purchaseRepository.save(new Purchase(new Date(), userOrder, GeneratorUtils.generateRandomHexToken(10), purchase.getProvider(), purchase.getAmount(), PurchaseStatus.ACCEPTED));
         userOrder = setOrderStatusFromPurchaseStatus(purchase, userOrder);
         if (userOrder.getOrderStatus().equals(OrderStatus.ERROR)) {
             revertTheProductStock(userOrder);
@@ -89,7 +90,7 @@ public class PurchaseServiceImpl implements PurchaseService {
      * @param id the {@link Purchase} id
      */
     @Override
-    public void cancelPurchase(Long id) {
+    public Purchase cancelPurchase(Long id) {
         logger.debug("The method of canceling a purchase is about to start");
 
     }

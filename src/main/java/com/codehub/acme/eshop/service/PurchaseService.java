@@ -1,6 +1,7 @@
 package com.codehub.acme.eshop.service;
 
 import com.codehub.acme.eshop.domain.Purchase;
+import com.codehub.acme.eshop.transformation.PurchaseDto;
 
 /**
  * This interface contains the signatures of methods regarding the {@link Purchase} functionality
@@ -34,7 +35,7 @@ public interface PurchaseService {
      *
      * @param id the {@link Purchase} id
      */
-    void cancelPurchase(Long id);
+    Purchase cancelPurchase(Long id);
 
 
 }
