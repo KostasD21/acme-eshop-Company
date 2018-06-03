@@ -1,5 +1,13 @@
 package com.codehub.acme.eshop.domain;
 
+
+import lombok.*;
+
+import javax.persistence.Entity;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserLogin {
 
     /**
@@ -11,13 +19,6 @@ public class UserLogin {
      */
     private String password;
 
-    public UserLogin() {
-    }
-
-    public UserLogin(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
 
     public String getUsername() {
         return username;

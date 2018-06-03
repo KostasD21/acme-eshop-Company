@@ -46,6 +46,7 @@ public class UserController {
      */
     @GetMapping( value = "/users/{userId}")
     public User findById(@PathVariable Long userId){
+        logger.debug("The method of searching a user by id is about to start");
         try {
             return userService.getUserById(userId);
         } catch (NoSuchElementException e) {
@@ -82,9 +83,8 @@ public class UserController {
 
     /**
      * This controllers removes a User {@link User} from the DB regarding a given id
-     * @param userId the user id
-     * @return {@link User}
-     *
+     * @param userId that needs to be deleted
+     * @param token of the user that perform the deletion
      */
     @DeleteMapping(value = "/users/{userId}")
     public void deleteUserById(@PathVariable Long userId, @RequestHeader String token){

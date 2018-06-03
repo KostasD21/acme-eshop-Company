@@ -8,7 +8,9 @@ import com.codehub.acme.eshop.enumerator.OrderStatus;
 import com.codehub.acme.eshop.enumerator.PurchaseStatus;
 import com.codehub.acme.eshop.exception.NotFoundException;
 import com.codehub.acme.eshop.exception.PurchaseException;
+import com.codehub.acme.eshop.repository.OrderRepository;
 import com.codehub.acme.eshop.repository.PurchaseRepository;
+import com.codehub.acme.eshop.transformation.PurchaseDto;
 import com.codehub.acme.eshop.utils.GeneratorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.apache.logging.log4j.LogManager;
@@ -30,6 +32,12 @@ public class PurchaseServiceImpl implements PurchaseService {
      */
     @Autowired
     private PurchaseRepository purchaseRepository;
+
+    /**
+     * {@link OrderRepository}
+     */
+    @Autowired
+    private OrderRepository orderRepository;
 
     /**
      * {@link OrderService}
@@ -92,8 +100,20 @@ public class PurchaseServiceImpl implements PurchaseService {
      * @param id the {@link Purchase} id
      */
     @Override
-    public void cancelPurchase(Long id) {
+    public Purchase cancelPurchase(Long id) {
         logger.debug("The method of canceling a purchase is about to start");
+
+        Purchase purchase = purchaseRepository.getById(id);
+        purchase.setPurchaseStatus(PurchaseStatus.CANCELED);
+        purchaseRepository.save(purchase);
+
+        UserOrder userOrder = orderRepository.getById(purchase.getId());
+        userOrder.setOrderStatus(OrderStatus.CANCELED);
+        orderRepository.save(userOrder);
+
+        revertTheProductStock(userOrder);
+
+        return purchase;
 
     }
 
