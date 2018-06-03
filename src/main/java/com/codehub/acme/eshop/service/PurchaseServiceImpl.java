@@ -7,6 +7,7 @@ import com.codehub.acme.eshop.domain.UserOrder;
 import com.codehub.acme.eshop.enumerator.OrderStatus;
 import com.codehub.acme.eshop.enumerator.PurchaseStatus;
 import com.codehub.acme.eshop.exception.NotFoundException;
+import com.codehub.acme.eshop.repository.OrderRepository;
 import com.codehub.acme.eshop.repository.PurchaseRepository;
 import com.codehub.acme.eshop.transformation.PurchaseDto;
 import com.codehub.acme.eshop.utils.GeneratorUtils;
@@ -30,6 +31,12 @@ public class PurchaseServiceImpl implements PurchaseService {
      */
     @Autowired
     private PurchaseRepository purchaseRepository;
+
+    /**
+     * {@link OrderRepository}
+     */
+    @Autowired
+    private OrderRepository orderRepository;
 
     /**
      * {@link OrderService}
@@ -92,6 +99,18 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Override
     public Purchase cancelPurchase(Long id) {
         logger.debug("The method of canceling a purchase is about to start");
+
+        Purchase purchase = purchaseRepository.getById(id);
+        purchase.setPurchaseStatus(PurchaseStatus.CANCELED);
+        purchaseRepository.save(purchase);
+
+        UserOrder userOrder = orderRepository.getById(purchase.getId());
+        userOrder.setOrderStatus(OrderStatus.CANCELED);
+        orderRepository.save(userOrder);
+
+        revertTheProductStock(userOrder);
+
+        return purchase;
 
     }
 

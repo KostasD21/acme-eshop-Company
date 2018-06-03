@@ -23,6 +23,8 @@ public interface OrderRepository extends CrudRepository<UserOrder, Long> {
      */
     Optional<UserOrder> findById(Long Id);
 
+    UserOrder getById(Long id);
+
     /**
      * Adds a User Order
      * @param order

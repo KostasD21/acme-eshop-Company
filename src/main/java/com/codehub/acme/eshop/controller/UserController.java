@@ -82,9 +82,8 @@ public class UserController {
 
     /**
      * This controllers removes a User {@link User} from the DB regarding a given id
-     * @param userId the user id
-     * @return {@link User}
-     *
+     * @param userId that needs to be deleted
+     * @param token of the user that perform the deletion
      */
     @DeleteMapping(value = "/users/{userId}")
     public void deleteUserById(@PathVariable Long userId, @RequestHeader String token){
