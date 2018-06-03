@@ -64,7 +64,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category getCategoryById(Long id) {
         logger.debug("The method of finding a category by category id is about to start");
-        return categoryRepository.getCategoryById(id);
+        return categoryRepository.getCategoryById(id).get();
     }
 
     /**
@@ -73,7 +73,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category findByName(String name) {
         logger.debug("The method of finding a category by category name is about to start");
-        return categoryRepository.findByName(name);
+        return categoryRepository.findByName(name).get();
     }
 
 
