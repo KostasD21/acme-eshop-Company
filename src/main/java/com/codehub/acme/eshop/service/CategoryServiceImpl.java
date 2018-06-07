@@ -2,9 +2,13 @@ package com.codehub.acme.eshop.service;
 
 import com.codehub.acme.eshop.domain.Category;
 import com.codehub.acme.eshop.domain.Product;
+import com.codehub.acme.eshop.repository.CategoryRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,32 +16,67 @@ import java.util.List;
  */
 @Service
 public class CategoryServiceImpl implements CategoryService {
+    private static final Logger logger = LogManager.getLogger(CategoryServiceImpl.class);
+    /**
+     * {@link CategoryRepository}
+     */
+    @Autowired
+    private CategoryRepository categoryRepository;
+
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Category addCategory(Long id, String name, String description) {
-        return null;
+    public void addCategory(Category category) {
+        logger.debug("The method of adding a new category is about to start");
+        categoryRepository.save(category);
     }
     /**
      * {@inheritDoc}
      */
     @Override
-    public void removeCategory(String name) {}
+    public void removeCategory(String name) {
+        logger.debug("The method of removing a category by category name is about to start");
+        categoryRepository.deleteByName(name);
+    }
+
+    /**
+     *{@inheritDoc}
+     */
+    @Override
+    public void removeCategorybyId(Long id) {
+        logger.debug("The method of removing a category by category id is about to start");
+        categoryRepository.deleteById(id);
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public List<Product> getAllCategories() {
-        return null;
+    public List<Category> getAllCategories() {
+        return categoryRepository.findAll();
     }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public List<Product> productsPerGivenCategory(String categoryName) {
-        //prepei edw na pairnw to onoma tis kathgorias kai apo afto thn lista ths kathgorias poy anoikoyn se aythn! //
-        return category.getProducts();
+    public Category getCategoryById(Long id) {
+        logger.debug("The method of finding a category by category id is about to start");
+        return categoryRepository.getCategoryById(id).get();
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Category findByName(String name) {
+        logger.debug("The method of finding a category by category name is about to start");
+        return categoryRepository.findByName(name).get();
+    }
+
+
+
+
 }

@@ -1,11 +1,10 @@
 package com.codehub.acme.eshop.repository;
-import com.codehub.acme.eshop.domain.Order;
+
 import com.codehub.acme.eshop.domain.Purchase;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-
-import java.util.List;
+import java.util.Optional;
 
 /**
  * This repository contains the signature of the methods that interact with the DB regarding {@link Purchase}
@@ -18,14 +17,14 @@ public interface PurchaseRepository extends CrudRepository<Purchase, Long> {
      * @param id of the Purchase to be searched
      * @return a list of {@link Purchase}
      */
-    List<Purchase> findById(Long id);
+    Optional<Purchase> findById(Long id);
 
     /**
-     * Searches by Order id
-     * @param id of the {@link Order}
+     * Searches for a {@link Purchase}
+     * @param id of the Purchase to be searched
      * @return {@link Purchase}
      */
-    List<Purchase> findByOrderDetailsId(Long id);
+    Purchase getById(Long id);
 
     /**
      * Deletes a {@link Purchase}
@@ -35,14 +34,7 @@ public interface PurchaseRepository extends CrudRepository<Purchase, Long> {
 
     /**
      * Updates a {@link Purchase}
-     * @param id of the purchase
+     * @param purchase the purchase
      */
-    void updateById(Long id);
-
-    /**
-     * Saves a {@link Purchase}
-     * @param id of the purchase
-     */
-    void save(Long id);
-
+    Purchase save(Purchase purchase);
 }

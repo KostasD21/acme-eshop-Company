@@ -1,28 +1,32 @@
 package com.codehub.acme.eshop.domain;
 
-import com.codehub.acme.eshop.enumerator.Availability;
 import lombok.AllArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
- * This domain class represents a shopping basket
+ * This domain class represents a product
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Table (name = "PRODUCT")
 @Entity
 public class Product {
     /**
      * the product id
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "PRODUCT_ID", nullable = false)
-    private Long Id;
+    private Long id;
     /**
      * the title
      */
@@ -40,30 +44,26 @@ public class Product {
      */
     private String productCode;
     /**
-     * the quantity of product
-     */
-    private Long quantity;
-    /**
      * the stock available
      */
-    private Long stock;
-    /**
-     * the {@link Availability}
-     */
-    private Availability availability;
+    @OneToOne(fetch = FetchType.EAGER)
+    private ProductStock productStock;
     /**
      * the {@link Category}
      */
-    @OneToMany
-    @JoinColumn(name="CATEGORY_ID", referencedColumnName="CATEGORY_ID")
-    private Category category;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "CATEGORY_ID", referencedColumnName = "CATEGORY_ID")
+     private Category category;
     /**
      * the price
      */
-    private Double price;
+    @Min(value = 1)
+    private BigDecimal price;
     /**
-     * the {@link List} of {@link Order}
+     * the {@link List} of {@link ProductItem}
      */
-    @ManyToMany(mappedBy="products",fetch=FetchType.LAZY)
-    private List<Order> orders;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+  // @JsonBackReference
+    @JsonIgnore
+    private List<ProductItem> productItems;
 }
