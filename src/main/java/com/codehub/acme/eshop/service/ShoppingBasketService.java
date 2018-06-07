@@ -1,9 +1,12 @@
 package com.codehub.acme.eshop.service;
 
 import com.codehub.acme.eshop.domain.Product;
+import com.codehub.acme.eshop.domain.ProductItem;
 import com.codehub.acme.eshop.domain.ShoppingBasket;
+import com.codehub.acme.eshop.transformation.ShoppingBasketDto;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * This interface contains the signatures of methods regarding the {@link com.codehub.acme.eshop.domain.ShoppingBasket} functionality
@@ -12,35 +15,50 @@ public interface ShoppingBasketService {
     /**
      * This method finds the shopping basket by ID
      *
-     * @param sBasketId        the ID of the shopping basket
+     * @param shoppingBasketId the ID of the shopping basket
      * @return                 the {@link ShoppingBasket}
      */
-    ShoppingBasket findSBasketById(Long sBasketId);
+    ShoppingBasket findById(Long shoppingBasketId);
     /**
      * This method finds the shopping basket by user ID
      *
      * @param userId           the user ID
      * @return                 the {@link ShoppingBasket}
      */
-    ShoppingBasket findSBasketByUserId(Long userId);
+    ShoppingBasket findByUserId(Long userId);
     /**
-     * This method finds the shopping basket by user ID
+     * This method adds a list of products to the shopping basket
      *
-     * @param productList      the {@link List} of {@link Product}
-     * @return                 the {@link ShoppingBasket}
+     * @param products the {@link List} of {@link Product}
+     * @return the {@link ShoppingBasket}
      */
-    void addProductsToSBasket(List<Product> productList);
+    ShoppingBasket addProducts(List<Product> products);
     /**
-     * This method finds the shopping basket by user ID
+     * This method removes a product item from a shopping basket
      *
-     * @param userId           the user ID
-     * @return                 the {@link ShoppingBasket}
+     * @param shoppingBasketId the ID of the shopping basket
+     * @param productItemId    the product to be removed from the basket
      */
-    void removeProductsFromSBasket(Long userId);
+    ShoppingBasket removeProductItem(Long shoppingBasketId, Long productItemId);
     /**
      * This method updates the shopping basket
      *
-     * @param sBasketId the shopping basket ID
+     * @param shoppingBasket the shopping basket {@link ShoppingBasket}
+     * @param productItems the {@link List} of {@link ProductItem}
+     * @return the updated {@link ShoppingBasket}
      */
-    void updateSBasket(Long sBasketId);
+    ShoppingBasket updateShoppingBasket(ShoppingBasket shoppingBasket, List<ProductItem> productItems);
+    /**
+     * This method checks if shopping basket exists
+     *
+     * @param shoppingBasketId the shopping basket id
+     * @return true if shopping basket exist, else false
+     */
+    boolean exists(Long shoppingBasketId);
+    /**
+     * This method removes a shopping basket
+     *
+     * @param shoppingBasket the shopping basket
+     */
+    void delete(ShoppingBasket shoppingBasket);
 }

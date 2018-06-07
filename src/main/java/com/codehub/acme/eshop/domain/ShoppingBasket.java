@@ -1,11 +1,17 @@
 package com.codehub.acme.eshop.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,21 +20,23 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "SHOPPING_BASKET")
 @Entity
 public class ShoppingBasket {
     /**
-     * The shopping id
+     * The shopping basket id
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "SHOPPING_BASKET_ID", nullable = false)
-    private Long Id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "SHOPPING_BASKET_ID",nullable = false)
+    private Long id;
     /**
-     * a {@link List} of {@link Product}
+     * a {@link List} of {@link ProductItem}
      */
-    @ManyToMany
-    @JoinColumn(name="PRODUCT_ID", referencedColumnName="PRODUCT_ID")
-    private List<Product> products;
+    @OneToMany(mappedBy = "shoppingBasket", fetch = FetchType.EAGER)
+    //@JsonManagedReference
+    @JsonIgnore
+    private List<ProductItem> productItems = new ArrayList<>();
     /**
      * the total amount
      */
@@ -36,7 +44,33 @@ public class ShoppingBasket {
     /**
      * the user id
      */
-    @OneToOne(optional=false)
-    @JoinColumn(name = "USER_ID")
-    private Long userId;
+    @OneToOne(fetch = FetchType.LAZY)
+    //@JsonManagedReference
+    private User user;
+
+    /**
+     * Constructor with all attributes except the unique id
+     *
+     * @param productItems a {@link List} of {@link ProductItem}
+     * @param totalAmount the total amount of the basket
+     * @param user the correlated {@link User}
+     */
+    public ShoppingBasket(List<ProductItem> productItems, BigDecimal totalAmount, User user) {
+        this.productItems = productItems;
+        this.totalAmount = totalAmount;
+        this.user = user;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return new StringBuilder("ShoppingBasket{")
+                .append("id=").append(id)
+                .append(", productItems=").append(productItems)
+                .append(", totalAmount=").append(totalAmount)
+                .append(", user=").append(user)
+                .append('}').toString();
+    }
 }
